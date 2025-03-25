@@ -25,3 +25,11 @@ Route::get('/bioskop', function () {
 Route::get('/chooseseat', function () {
     return view('chooseseat');
 })->name('chooseseat');
+// Route untuk invoice
+Route::get('/invoice', function () {
+    return view('invoice');
+})->name('invoice');
+// Route untuk pilih
+Route::get('/pilih', function () {
+    return view('pilih');
+})->name('pilih');
