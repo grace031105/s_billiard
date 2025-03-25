@@ -33,3 +33,15 @@ Route::get('/invoice', function () {
 Route::get('/pilih', function () {
     return view('pilih');
 })->name('pilih');
+// Route untuk carousel
+Route::get('/carousel', function () {
+    return view('carousel');
+})->name('carousel');
+// Route untuk search
+Route::get('/search', function () {
+    return view('search');
+})->name('search');
+// Route untuk editprofile
+Route::get('/editprofile', function () {
+    return view('editprofile');
+})->name('editprofile');
