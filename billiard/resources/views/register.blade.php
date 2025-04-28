@@ -10,7 +10,7 @@
     <link href="https://tailwindcss-3.4.1.js" rel="stylesheet">
     <style>
         body {
-            background: url('gambar1.png') no-repeat center center fixed;
+            background: url('images/gambar1.jpg') no-repeat center center fixed;
             background-size: cover;
         }
         .card-custom {
