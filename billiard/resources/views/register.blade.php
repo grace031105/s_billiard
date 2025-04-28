@@ -1,118 +1,181 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar | Billiard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link href="https://tailwindcss-3.4.1.js" rel="stylesheet">
+    <title>Registrasi - Forcue</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
     <style>
         body {
-            background: url('images/gambar1.jpg') no-repeat center center fixed;
-            background-size: cover;
-        }
-        .card-custom {
-            background-color: #d1d5db;
-            border-radius: 20px;
-            padding: 30px;
-            width: 100%;
-            max-width: 400px;
-        }
-        .input-group-text-custom {
-            background: transparent;
-            border: none;
-            color: white;
-            opacity: 0.7;
-        }
-        .input-custom {
-            background-color: #1f2937;
-            color: white;
-            border: none;
-            border-radius: 50px;
-            padding-left: 20px;
-            padding-right: 50px;
-            height: 45px;
-        }
-        .btn-custom {
-            border-radius: 50px;
-            background-color: black;
-            color: white;
-            font-weight: bold;
-            height: 45px;
-            border: none;
-        }
-        .small-link a {
-            color: black;
-            text-decoration: underline;
-        }
-        label {
-            margin-bottom: 5px;
-            margin-left: 10px;
-            font-weight: bold;
-        }
+      margin: 0;
+      padding: 0;
+      background: url('https://pearsoncues.com/media/wysiwyg/Whats_inside_a_pool_ball.jpg') no-repeat center center/cover;
+      height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .form-container {
+      background: rgba(220, 230, 240, 0.95);
+      padding: 40px 30px;
+      border-radius: 20px;
+      width: 350px;
+      text-align: center;
+      box-shadow: 0px 8px 20px rgba(0,0,0,0.2);
+    }
+
+    .form-container h2 {
+      margin-bottom: 25px;
+      font-size: 28px;
+      color: #111;
+    }
+
+    .input-group {
+      background: #1f2937;
+      border-radius: 30px;
+      padding: 12px 20px;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-group i {
+      color: #fff;
+    }
+
+    .input-group input {
+      background: none;
+      border: none;
+      outline: none;
+      color: #fff;
+      margin-left: 10px;
+      flex: 1;
+      font-size: 15px;
+    }
+
+    button {
+      width: 100%;
+      background: #000;
+      color: #fff;
+      padding: 12px;
+      border: none;
+      border-radius: 30px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #333;
+    }
+
+    .bottom-text {
+      margin-top: 20px;
+      font-size: 14px;
+    }
+
+    .bottom-text a {
+      color: #000;
+      text-decoration: underline;
+      font-weight: bold;
+    }
+
+    /* Style untuk pop-up */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 10%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255, 255, 255, 0.7);
+      color: black;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 8px 15px rgba(0,0,0,0.5);
+      z-index: 1000;
+    }
+
+    .popup button {
+      background:rgb(73, 85, 151);
+      border: none;
+      padding: 10px;
+      color: black;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .popup button:hover {
+      background:rgb(253, 247, 247);
+    }
     </style>
 </head>
-
 <body>
 
-<div class="container d-flex justify-content-center align-items-center vh-100">
-    <div class="card card-custom shadow">
-        <h2 class="text-center mb-4"><b>Registrasi</b></h2>
-
-        <?php
-        if (isset($_SESSION['error'])) {
-            echo "<div class='alert alert-danger'>" . $_SESSION['error'] . "</div>";
-            unset($_SESSION['error']);
-        }
-        if (isset($_SESSION['success'])) {
-            echo "<div class='alert alert-success'>" . $_SESSION['success'] . "</div>";
-            unset($_SESSION['success']);
-        }
-        ?>
-
-        <form method="POST" action="tambah_user.php">
-            <div class="mb-3">
-                <label class="text-dark">Nama Pengguna</label>
-                <div class="position-relative">
-                    <input type="text" name="nama_pengguna" class="form-control input-custom" placeholder="Masukkan nama pengguna" required>
-                    <i class='bx bxs-user position-absolute' style="top: 50%; right: 20px; transform: translateY(-50%); font-size: 22px; color: white; opacity: 0.7;"></i>
-                </div>
-            </div>
-            <div class="mb-3">
-                <label class="text-dark">Email</label>
-                <div class="position-relative">
-                    <input type="email" name="email" class="form-control input-custom" placeholder="Masukkan email" required>
-                    <i class='bx bxl-gmail position-absolute' style="top: 50%; right: 20px; transform: translateY(-50%); font-size: 22px; color: white; opacity: 0.7;"></i>
-                </div>
-            </div>
-            <div class="mb-3">
-                <label class="text-dark">Nomor Telepon</label>
-                <div class="position-relative">
-                    <input type="number" name="nomor_telepon" class="form-control input-custom" placeholder="Masukkan nomor telepon" required>
-                    <i class='bx bxs-phone position-absolute' style="top: 50%; right: 20px; transform: translateY(-50%); font-size: 22px; color: white; opacity: 0.7;"></i>
-                </div>
-            </div>
-            <div class="mb-4">
-                <label class="text-dark">Kata Sandi</label>
-                <div class="position-relative">
-                    <input type="password" name="kata_sandi" class="form-control input-custom" placeholder="Masukkan kata sandi" required>
-                    <i class='bx bxs-lock position-absolute' style="top: 50%; right: 20px; transform: translateY(-50%); font-size: 22px; color: white; opacity: 0.7;"></i>
-                </div>
-            </div>
-
-            <div class="d-grid mb-3">
-                <button type="submit" class="btn btn-custom">Registrasi</button>
-            </div>
-        </form>
-
-        <div class="text-center small-link mt-2">
-            <p>Sudah punya akun? <a href="login.blade.php">Klik di sini</a></p>
+    @if(session('success'))
+        <div class="popup" id="successPopup">
+            <p>{{ session('success') }}</p>
+            <button onclick="document.getElementById('successPopup').style.display='none'">Tutup</button>
         </div>
-    </div>
-</div>
+    @endif
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    @if($errors->any())
+        <div class="popup" id="errorPopup">
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+            <button onclick="document.getElementById('errorPopup').style.display='none'">Tutup</button>
+        </div>
+    @endif
+
+    <form class="form-container" method="POST" action="{{ route('register') }}">
+        @csrf
+
+        <h2>Registrasi</h2>
+
+        <div class="input-group">
+            <input type="text" name="nama_pengguna" placeholder="Nama Pengguna" value="{{ old('nama_pengguna') }}" required>
+            <i class="fa-solid fa-user-circle"></i>
+        </div>
+
+        <div class="input-group">
+            <input type="email" name="email" placeholder="Email" value="{{ old('email') }}" required>
+            <i class="fa-solid fa-envelope"></i>
+        </div>
+
+        <div class="input-group">
+            <input type="text" name="nomor_telepon" placeholder="Nomor Telepon" value="{{ old('nomor_telepon') }}" required>
+            <i class="fa-solid fa-phone"></i>
+        </div>
+
+        <div class="input-group">
+            <input type="password" name="kata_sandi" placeholder="Kata Sandi" required>
+            <i class="fa-solid fa-lock"></i>
+        </div>
+
+        <button type="submit">Registrasi</button>
+
+        <div class="bottom-text">
+            Sudah punya akun? <a href="{{ route('login') }}">Klik Disini</a>
+        </div>
+    </form>
+
+    <script>
+        // Otomatis tampilkan popup
+        if (document.getElementById('errorPopup')) {
+            document.getElementById('errorPopup').style.display = 'block';
+        }
+        if (document.getElementById('successPopup')) {
+            document.getElementById('successPopup').style.display = 'block';
+        }
+    </script>
+
 </body>
 </html>
