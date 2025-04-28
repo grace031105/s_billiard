@@ -1,63 +1,123 @@
+<?php
+session_start();
+include('koneksibilliard.php');
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
+
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register | TICS ID</title>
+    <title>Daftar | Billiard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://tailwindcss-3.4.1.js" rel="stylesheet">
     <style>
+        body {
+            background: url('gambar1.png') no-repeat center center fixed;
+            background-size: cover;
+        }
+        .card-custom {
+            background-color: #d1d5db;
+            border-radius: 20px;
+            padding: 30px;
+            width: 100%;
+            max-width: 400px;
+        }
+        .input-group-text-custom {
+            background: transparent;
+            border: none;
+            color: white;
+            opacity: 0.7;
+        }
+        .input-custom {
+            background-color: #1f2937;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding-left: 20px;
+            padding-right: 50px;
+            height: 45px;
+        }
+        .btn-custom {
+            border-radius: 50px;
+            background-color: black;
+            color: white;
+            font-weight: bold;
+            height: 45px;
+            border: none;
+        }
+        .small-link a {
+            color: black;
+            text-decoration: underline;
+        }
+        label {
+            margin-bottom: 5px;
+            margin-left: 10px;
+            font-weight: bold;
+        }
     </style>
 </head>
-<body style="background-color: gray;">
 
-    <div class="container d-flex justify-content-center align-items-center vh-100">
-        <div class="card p-4 shadow-lg" style="max-width: 400px; width: 100%; border-radius: 30px; background-color: #333; border: solid white 2px;">
-            <h1 class="text-center mb-4 text-light">Register</h1>
+<body>
 
-            <?php
-            if (isset($error)) {
-                echo "<div class='alert alert-danger'>$error</div>";
-            }
-            ?>
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="card card-custom shadow">
+        <h2 class="text-center mb-4"><b>Registrasi</b></h2>
 
-<form action="/register" method="POST">
-@csrf
-                <div class="mb-3">
-                    <label for="nama_lengkap" class="form-label text-light">Full Name</label>
-                    <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" style="border-radius: 20px; background: transparent; color: white;" required>
-                    <i class="bx bxs-user" style="position: absolute; right: 10%; transform: translateY(-160%); opacity: 50%; font-size: 18px; color: white;"></i>
+        <?php
+        if (isset($_SESSION['error'])) {
+            echo "<div class='alert alert-danger'>" . $_SESSION['error'] . "</div>";
+            unset($_SESSION['error']);
+        }
+        if (isset($_SESSION['success'])) {
+            echo "<div class='alert alert-success'>" . $_SESSION['success'] . "</div>";
+            unset($_SESSION['success']);
+        }
+        ?>
+
+        <form method="POST" action="tambah_user.php">
+            <div class="mb-3">
+                <label class="text-dark">Nama Pengguna</label>
+                <div class="position-relative">
+                    <input type="text" name="nama_pengguna" class="form-control input-custom" placeholder="Masukkan nama pengguna" required>
+                    <i class='bx bxs-user position-absolute' style="top: 50%; right: 20px; transform: translateY(-50%); font-size: 22px; color: white; opacity: 0.7;"></i>
                 </div>
-                <div class="mb-3">
-                    <label for="username" class="form-label text-light">Username</label>
-                    <input type="text" class="form-control" id="username" name="username" style="border-radius: 20px; background: transparent; color: white;" required>
-                    <i class="bx bxs-user" style="position: absolute; right: 10%; transform: translateY(-160%); opacity: 50%; font-size: 18px; color: white;"></i>
+            </div>
+            <div class="mb-3">
+                <label class="text-dark">Email</label>
+                <div class="position-relative">
+                    <input type="email" name="email" class="form-control input-custom" placeholder="Masukkan email" required>
+                    <i class='bx bxl-gmail position-absolute' style="top: 50%; right: 20px; transform: translateY(-50%); font-size: 22px; color: white; opacity: 0.7;"></i>
                 </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label text-light">Email</label>
-                    <input type="text" class="form-control" id="email" name="email" style="border-radius: 20px; background: transparent; color: white;" required>
-                    <i class="bx bxl-gmail" style="position: absolute; right: 10%; transform: translateY(-160%); opacity: 50%; font-size: 18px; color: white;"></i>
+            </div>
+            <div class="mb-3">
+                <label class="text-dark">Nomor Telepon</label>
+                <div class="position-relative">
+                    <input type="number" name="nomor_telepon" class="form-control input-custom" placeholder="Masukkan nomor telepon" required>
+                    <i class='bx bxs-phone position-absolute' style="top: 50%; right: 20px; transform: translateY(-50%); font-size: 22px; color: white; opacity: 0.7;"></i>
                 </div>
-                <div class="mb-3">
-                    <label for="no_hp" class="form-label text-light">Phone Number</label>
-                    <input type="number" class="form-control" id="no_hp" name="no_hp" style="border-radius: 20px; background: transparent; color: white;" required>
-                    <i class="bx bxs-phone" style="position: absolute; right: 10%; transform: translateY(-160%); opacity: 50%; font-size: 18px; color: white;"></i>
+            </div>
+            <div class="mb-4">
+                <label class="text-dark">Kata Sandi</label>
+                <div class="position-relative">
+                    <input type="password" name="kata_sandi" class="form-control input-custom" placeholder="Masukkan kata sandi" required>
+                    <i class='bx bxs-lock position-absolute' style="top: 50%; right: 20px; transform: translateY(-50%); font-size: 22px; color: white; opacity: 0.7;"></i>
                 </div>
-                <div class="mb-4">
-                    <label for="password" class="form-label text-light">Password</label>
-                    <input type="password" class="form-control" id="password" name="password" style="border-radius: 20px; background: transparent; color: white;" required>
-                    <i class="bx bxs-lock" style="position: absolute; right: 10%; transform: translateY(-160%); opacity: 50%; font-size: 18px; color: white;"></i>
-                </div>
-                <div class="d-grid gap-2 mb-2">
-                    <button type="submit" class="btn btn-light" style="border-radius: 20px; border: solid 2px; height: 40px;"><b>Register</b></button>
-                </div>
-                <div class="mb-2">
-                    <p class="text-light">Already have an account? <a href="/login" style="color: white;">Login</a></p>
-                </div>
-            </form>
+            </div>
+
+            <div class="d-grid mb-3">
+                <button type="submit" class="btn btn-custom">Registrasi</button>
+            </div>
+        </form>
+
+        <div class="text-center small-link mt-2">
+            <p>Sudah punya akun? <a href="login.blade.php">Klik di sini</a></p>
         </div>
     </div>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
