@@ -1,8 +1,3 @@
-<?php
-session_start();
-include('koneksibilliard.php');
-?>
-
 <!DOCTYPE html>
 <html lang="id">
 
