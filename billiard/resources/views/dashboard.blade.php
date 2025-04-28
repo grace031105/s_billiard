@@ -6,7 +6,6 @@
   <title>FORCUE - Reservasi Billiard</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link href="https://tailwindcss-3.4.1.js" rel="stylesheet">
-    <style>
   <style>
     /* CSS kamu tetap, aku tambahkan sedikit untuk sidebar */
     body {
@@ -15,7 +14,6 @@
       background-color: #e2e8f0;
       color: #1a202c;
     }
-
     .navbar {
       display: flex;
       justify-content: space-between;
@@ -58,7 +56,7 @@
     }
     .hero {
       position: relative;
-      background: url('gambar2.png') center/cover no-repeat;
+      background: url('/images/gambar2.png') center/cover no-repeat;
       height: 400px;
       display: flex;
       align-items: center;
@@ -222,7 +220,7 @@
 <!-- Navbar -->
 <nav class="navbar">
   <div class="logo">
-    <a href="#"><img src="gambar3.png" alt="Logo Forcue"></a>
+    <a href="#"><img src="/images/gambar3.png" alt="Logo Forcue"></a>
   </div>
   <div class="nav-center">
     <input type="text" placeholder="Cari...">
@@ -263,21 +261,21 @@
   <h2>TENTUKAN PILIHANMU</h2>
   <div class="meja-cards">
     <div class="card">
-      <img src="gambar4.png" alt="Meja Reguler">
+      <img src="/images/gambar4.png" alt="Meja Reguler">
       <h3>MEJA REGULER</h3>
       <a href="meja_reguler.php">
         <button>Pilih Meja</button>
       </a>
     </div>
     <div class="card">
-      <img src="vip.png" alt="Meja VIP">
+      <img src="/images/gambar5.png" alt="Meja VIP">
       <h3>MEJA VIP</h3>
       <a href="gambar5.php">
         <button>Pilih Meja</button>
       </a>
     </div>
     <div class="card">
-      <img src="gambar6.png" alt="Meja Platinum">
+      <img src="/images/gambar6.png" alt="Meja Platinum">
       <h3>MEJA PLATINUM</h3>
       <a href="meja_platinum.php">
         <button>Pilih Meja</button>
