@@ -16,9 +16,14 @@ class LoginController extends Controller {
 
         // Contoh login sederhana
         if ($username === 'admin' && $password === '123') {
-            return "Login berhasil!";
+            return redirect('/dashboard');
         } else {
-            return "Username atau password salah!";
+            return redirect()->back()->with('error', 'Username atau password salah!');
         }
+    }
+
+    public function logout() {
+        // Logika untuk logout
+        return redirect('/login');
     }
 }

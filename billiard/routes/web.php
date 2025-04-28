@@ -5,8 +5,10 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ItemController;
 
 Route::get('/login', [LoginController::class, 'index']);
-Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/login', [LoginController::class, 'authenticate']);
+Route::get('/logout', [LoginController::class, 'logout']);
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/items', [ItemController::class, 'index']);
 Route::get('/logout', function () {
     return view('logout');
 });
@@ -45,3 +47,5 @@ Route::get('/search', function () {
 Route::get('/editprofile', function () {
     return view('editprofile');
 })->name('editprofile');
+
+

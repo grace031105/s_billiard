@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link href="https://tailwindcss-3.4.1.js" rel="stylesheet">
+    <link href="https://cdn.tailwindcss.com/3.4.1/tailwind.min.css" rel="stylesheet">
+
 </head>
 <body class="bg-cover bg-center" style="background-image: url('{{ asset('images/gambar1.jpg') }}');">
     <div class="min-h-screen flex items-center justify-center bg-black bg-opacity-50">
