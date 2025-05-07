@@ -5,6 +5,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\ResiController;
 
 // Auth Routes
 Route::get('/login', [LoginController::class, 'index'])->name('login');
@@ -29,3 +30,4 @@ Route::view('/pilih', 'pilih')->name('pilih');
 Route::view('/carousel', 'carousel')->name('carousel');
 Route::view('/search', 'search')->name('search');
 Route::view('/editprofile', 'editprofile')->name('editprofile');
+Route::view('/resipemesanan', 'resipemesanan')->name('resipemesanan');
