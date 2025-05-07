@@ -9,6 +9,7 @@ use App\Http\Controllers\ResiController;
 use App\Http\Controllers\MejaController;
 use App\Http\Controllers\DetailController;
 use App\Http\Controllers\EditController;
+use App\Http\Controllers\RiwayatController;
 
 
 // Auth Routes
@@ -40,3 +41,4 @@ Route::view('/meja_reguler', 'meja_reguler')->name('meja_reguler');
 Route::view('/meja_vip', 'meja_vip')->name('meja_vip');
 Route::view('/detail_penyewaan', 'detail_penyewaan')->name('detail_penyewaan');
 Route::view('/edit_profil', 'edit_profil')->name('edit_profil');
+Route::view('/riwayatpemesanan', 'riwayatpemesanan')->name('riwayatpemesanan');
