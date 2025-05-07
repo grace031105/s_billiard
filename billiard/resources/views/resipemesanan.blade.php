@@ -11,7 +11,7 @@
   <!-- Header -->
   <!-- Header -->
 <header class="bg-[#1F3C5A] p-4 flex items-center justify-between text-white">
-  <img src="logo.png" alt="Logo Forcue" class="h-10">
+  <img src="/images/gambar3.png" alt="Logo Forcue" class="h-10">
   <div class="flex items-center space-x-4">
     <input type="text" placeholder="Cari" class="rounded-full px-4 py-1 text-sm text-black" />
     <nav class="space-x-4 font-semibold hidden sm:block">
@@ -38,7 +38,7 @@
     
     <div class="bg-[#2D506D] text-white rounded-2xl p-8 space-y-4">
       <div class="flex justify-center mb-4">
-        <img src="logo.png" alt="Logo" class="h-14">
+        <img src="/images/gambar3.png" alt="Logo" class="h-14">
       </div>
 
       <div class="space-y-2 text-sm">

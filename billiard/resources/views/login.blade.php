@@ -101,14 +101,14 @@
             </div>
 
             <div class="d-grid mb-3">
-                <button type="submit" class="btn btn-login">Masuk</button>
+                <button type="submit" class="btn btn-login" >Masuk</button>
             </div>
 
             <div class="text-center small-link mb-2">
                 <a href="#">Lupa Kata Sandi?</a>
             </div>
             <div class="text-center small-link">
-                Belum punya akun? <a href="register.php">Klik di sini</a>
+                Belum punya akun? <a href="register">Klik di sini</a>
             </div>
         </form>
     </div>

@@ -27,7 +27,7 @@
       <span>Halo, <?php echo htmlspecialchars($_SESSION['nama_pengguna']); ?></span>
       <a href="logout.php"><i class="fas fa-user"></i></a>
     <?php else: ?>
-      <a href="login.php" class="font-bold">MASUK</a>
+      <a href="login" class="font-bold">MASUK</a>
     <?php endif; ?>
   </div>
 </nav>
@@ -52,9 +52,9 @@
     <!-- Meja Card -->
     <?php
       $meja = [
-        ['src' => '/images/gambar4.jpeg', 'judul' => 'MEJA REGULER', 'link' => 'meja_reguler.blade.php'],
-        ['src' => '/images/gambar5.jpeg', 'judul' => 'MEJA VIP', 'link' => 'meja_vip.blade.php.php'],
-        ['src' => '/images/gambar6.jpeg', 'judul' => 'MEJA PLATINUM', 'link' => 'meja_platinum.blade.php'],
+        ['src' => '/images/gambar4.jpeg', 'judul' => 'MEJA REGULER', 'link' => 'meja_reguler'],
+        ['src' => '/images/gambar5.jpeg', 'judul' => 'MEJA VIP', 'link' => 'meja_vip'],
+        ['src' => '/images/gambar6.jpeg', 'judul' => 'MEJA PLATINUM', 'link' => 'meja_platinum'],
       ];
       foreach ($meja as $m):
     ?>

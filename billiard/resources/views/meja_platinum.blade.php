@@ -227,7 +227,7 @@
 <!-- Navbar -->
 <nav class="navbar">
   <div class="logo">
-    <a href="#"><img src="logo.png" alt="Logo Forcue"></a>
+    <a href="#"><img src="/images/gambar3.png" alt="Logo Forcue"></a>
   </div>
   <div class="nav-center">
     <input type="text" placeholder="Cari...">
@@ -256,7 +256,7 @@
   <a href="#" class="back">&larr; Kembali</a>
 
   <div class="meja-detail">
-    <img src="platinum.jpeg" alt="Meja Biliar">
+    <img src="/images/gambar6.jpeg"alt="Meja Biliar">
     <div class="meja-info">
       <h2>Meja Platinum</h2>
       <p>Meja Platinum merupakan pilihan terbaik dengan ukuran profesional 9ft. Dirancang untuk turnamen atau pemain berpengalaman, dilengkapi area duduk mewah, pencahayaan optimal, dan privasi lebih. Nikmati sensasi bermain kelas atas di lingkungan eksklusif.</p>
@@ -267,19 +267,19 @@
     <h3>Daftar Meja</h3>
 
     <div class="meja-list">
-      <img src="platinum.jpeg" alt="Meja 1">
+      <img src="/images/gambar6.jpeg" alt="Meja 1">
       <div class="info">Meja 1</div>
       <button>Pilih Jadwal</button>
     </div>
 
     <div class="meja-list">
-      <img src="platinum.jpeg" alt="Meja 2">
+      <img src="/images/gambar6.jpeg" alt="Meja 2">
       <div class="info">Meja 2</div>
       <button>Pilih Jadwal</button>
     </div>
 
     <div class="meja-list">
-      <img src="platinum.jpeg" alt="Meja 3">
+      <img src="/images/gambar6.jpeg" alt="Meja 3">
       <div class="info">Meja 3</div>
       <button>Pilih Jadwal</button>
     </div>

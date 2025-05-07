@@ -227,7 +227,7 @@
 <!-- Navbar -->
 <nav class="navbar">
   <div class="logo">
-    <a href="#"><img src="logo.png" alt="Logo Forcue"></a>
+    <a href="#"><img src="/images/gambar3.png" alt="Logo Forcue"></a>
   </div>
   <div class="nav-center">
     <input type="text" placeholder="Cari...">
@@ -256,7 +256,7 @@
   <a href="#" class="back">&larr; Kembali</a>
 
   <div class="meja-detail">
-    <img src="reguler.jpeg" alt="Meja Biliar">
+    <img src="/images/gambar4.jpeg" alt="Meja Biliard">
     <div class="meja-info">
       <h2>Meja Reguler</h2>
       <p>Meja biliar standar berukuran 7ft, cocok untuk permainan santai maupun harian.
@@ -268,19 +268,19 @@
     <h3>Daftar Meja</h3>
 
     <div class="meja-list">
-      <img src="reguler.jpeg" alt="Meja 1">
+      <img src="/images/gambar4.jpeg" alt="Meja 1">
       <div class="info">Meja 1</div>
       <button>Pilih Jadwal</button>
     </div>
 
     <div class="meja-list">
-      <img src="reguler.jpeg" alt="Meja 2">
+      <img src="/images/gambar4.jpeg" alt="Meja 2">
       <div class="info">Meja 2</div>
       <button>Pilih Jadwal</button>
     </div>
 
     <div class="meja-list">
-      <img src="reguler.jpeg" alt="Meja 3">
+      <img src="/images/gambar4.jpeg" alt="Meja 3">
       <div class="info">Meja 3</div>
       <button>Pilih Jadwal</button>
     </div>

@@ -8,6 +8,8 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ResiController;
 use App\Http\Controllers\MejaController;
 use App\Http\Controllers\DetailController;
+use App\Http\Controllers\EditController;
+
 
 // Auth Routes
 Route::get('/login', [LoginController::class, 'index'])->name('login');
@@ -37,3 +39,4 @@ Route::view('/meja_platinum', 'meja_platinum')->name('meja_platinum');
 Route::view('/meja_reguler', 'meja_reguler')->name('meja_reguler');
 Route::view('/meja_vip', 'meja_vip')->name('meja_vip');
 Route::view('/detail_penyewaan', 'detail_penyewaan')->name('detail_penyewaan');
+Route::view('/edit_profil', 'edit_profil')->name('edit_profil');

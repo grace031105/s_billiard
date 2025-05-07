@@ -13,7 +13,7 @@
     <!-- Header -->
     <header class="bg-[#1c2f45] text-white px-8 py-4 flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <img src="logo.png" alt="Logo" class="w-12 h-12" />
+        <img src="/images/gambar3.png" alt="Logo" class="w-12 h-12" />
         <span class="text-base font-semibold">FORCUE</span>
       </div>
       <div class="flex items-center gap-6">
