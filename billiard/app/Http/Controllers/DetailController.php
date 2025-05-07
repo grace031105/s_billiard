@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class detailpenyewaanController extends Controller
+class DetailController extends Controller
 {
     public function index()
     {

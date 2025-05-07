@@ -6,6 +6,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ResiController;
+use App\Http\Controllers\MejaController;
+use App\Http\Controllers\DetailController;
 
 // Auth Routes
 Route::get('/login', [LoginController::class, 'index'])->name('login');
@@ -31,3 +33,7 @@ Route::view('/carousel', 'carousel')->name('carousel');
 Route::view('/search', 'search')->name('search');
 Route::view('/editprofile', 'editprofile')->name('editprofile');
 Route::view('/resipemesanan', 'resipemesanan')->name('resipemesanan');
+Route::view('/meja_platinum', 'meja_platinum')->name('meja_platinum');
+Route::view('/meja_reguler', 'meja_reguler')->name('meja_reguler');
+Route::view('/meja_vip', 'meja_vip')->name('meja_vip');
+Route::view('/detail_penyewaan', 'detail_penyewaan')->name('detail_penyewaan');
