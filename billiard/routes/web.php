@@ -10,6 +10,7 @@ use App\Http\Controllers\MejaController;
 use App\Http\Controllers\DetailController;
 use App\Http\Controllers\EditController;
 use App\Http\Controllers\RiwayatController;
+use App\Http\Controllers\KelolaController;
 
 
 // Auth Routes
@@ -27,6 +28,8 @@ Route::post('/register', [AuthController::class, 'register']);
     Route::get('/items', [ItemController::class, 'index'])->name('items');
 //});
 
+Route::get('/kelola_meja', [KelolaController::class, 'index'])-> name('kelola_meja');
+
 // Static Pages
 Route::view('/bioskop', 'bioskop')->name('bioskop');
 Route::view('/chooseseat', 'chooseseat')->name('chooseseat');
@@ -42,3 +45,5 @@ Route::view('/meja_vip', 'meja_vip')->name('meja_vip');
 Route::view('/detail_penyewaan', 'detail_penyewaan')->name('detail_penyewaan');
 Route::view('/edit_profil', 'edit_profil')->name('edit_profil');
 Route::view('/riwayatpemesanan', 'riwayatpemesanan')->name('riwayatpemesanan');
+//Route::view('/kelola_meja', 'kelola_meja')->name('kelola_meja');
+
