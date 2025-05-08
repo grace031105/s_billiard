@@ -4,15 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Riwayat Penyewaan</title>
-  <script src="https://tailwindcss-3.4.1.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body class="bg-gray-200 min-h-screen font-sans">
   <!-- Header -->
   <header class="bg-[#1B3554] text-white py-4">
     <div class="container mx-auto flex justify-between items-center px-4">
       <div class="flex items-center space-x-2">
-        <img src="logo.png" alt="Logo" class="h-8" />
-        <span class="font-bold text-xl">FORCUE</span>
+        <img src="/images/gambar3.png" alt="Logo" class="h-8" />
+        <span class="font-bold text-xl"></span>
       </div>
       <div class="flex items-center space-x-6">
         <input type="text" placeholder="Cari" class="px-2 py-1 rounded-md text-black" />
@@ -62,9 +63,9 @@
           <?php
           // Simulasi data riwayat penyewaan
           $riwayat = [
-            ['resi' => 'RS001', 'tipe' => 'Meja Kecil', 'tanggal' => '2025-05-01'],
-            ['resi' => 'RS002', 'tipe' => 'Meja Sedang', 'tanggal' => '2025-05-02'],
-            ['resi' => 'RS003', 'tipe' => 'Meja Besar', 'tanggal' => '2025-05-03'],
+            ['resi' => 'R001', 'tipe' => 'Reguler', 'tanggal' => '08-05-2025'],
+            ['resi' => 'R002', 'tipe' => 'Platinum', 'tanggal' => '09-05-2025'],
+            ['resi' => 'R003', 'tipe' => 'VIP', 'tanggal' => '10-05-2025'],
           ];
 
           if (empty($riwayat)) {
