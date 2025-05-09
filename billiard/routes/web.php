@@ -27,8 +27,9 @@ Route::post('/register', [AuthController::class, 'register']);
 
 
 Route::get('/kelola_meja', [KelolaController::class, 'index'])-> name('kelola_meja');
-Route::get('/resipenyewaan', [ResiController::class, 'showResi'])-> name('resipenyewaan');
-Route::post('/resipenyewaan', [AuthController::class, 'resipenyewaan']);
+Route::get('/resi_pemesanan', [ResiController::class, 'index'])-> name('resi_pemesanan');
+Route::get('/riwayat_penyewaan', [RiwayatController::class, 'index'])-> name('riwayat_penyewaan');
+
 // Static Pages
 Route::view('/bioskop', 'bioskop')->name('bioskop');
 Route::view('/chooseseat', 'chooseseat')->name('chooseseat');
@@ -37,12 +38,11 @@ Route::view('/pilih', 'pilih')->name('pilih');
 Route::view('/carousel', 'carousel')->name('carousel');
 Route::view('/search', 'search')->name('search');
 Route::view('/editprofile', 'editprofile')->name('editprofile');
-Route::view('/resipenyewaan', 'resipenyewaan')->name('resipenyewaan');
+//Route::view('/resi_pemesanan', 'resi_pemesanan')->name('resi_pemesanan');
 Route::view('/meja_platinum', 'meja_platinum')->name('meja_platinum');
 Route::view('/meja_reguler', 'meja_reguler')->name('meja_reguler');
 Route::view('/meja_vip', 'meja_vip')->name('meja_vip');
 Route::view('/detail_penyewaan', 'detail_penyewaan')->name('detail_penyewaan');
 Route::view('/edit_profil', 'edit_profil')->name('edit_profil');
-Route::view('/riwayatpemesanan', 'riwayatpemesanan')->name('riwayatpemesanan');
+//Route::view('/riwayat_penyewaan', 'riwayat_penyewaan')->name('riwayat_penyewaan');
 //Route::view('/kelola_meja', 'kelola_meja')->name('kelola_meja');
-

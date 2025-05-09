@@ -1,6 +1,6 @@
 @extends('layouts.resi')
 
-@section('title', 'Resi Penyewaan')
+@section('title', 'Resi Pemesanan')
 
 @section('content')
   <h1 class="text-2xl font-bold text-center mb-6">Resi Penyewaan</h1>
