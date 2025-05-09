@@ -28,7 +28,7 @@ Route::post('/register', [AuthController::class, 'register']);
 
 Route::get('/kelola_meja', [KelolaController::class, 'index'])-> name('kelola_meja');
 Route::get('/resipenyewaan', [ResiController::class, 'showResi'])-> name('resipenyewaan');
-
+Route::post('/resipenyewaan', [AuthController::class, 'resipenyewaan']);
 // Static Pages
 Route::view('/bioskop', 'bioskop')->name('bioskop');
 Route::view('/chooseseat', 'chooseseat')->name('chooseseat');
