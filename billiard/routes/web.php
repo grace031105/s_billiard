@@ -23,7 +23,7 @@ Route::get('/register', [AuthController::class, 'showRegister'])->name('register
 Route::post('/register', [AuthController::class, 'register']);
 
 // Dashboard & Items
-    Route::get('/dash', [DashboardController::class, 'index'])-> name('dash');
+Route::get('/dash', [DashboardController::class, 'index'])-> name('dash');
 
 
 Route::get('/kelola_meja', [KelolaController::class, 'index'])-> name('kelola_meja');

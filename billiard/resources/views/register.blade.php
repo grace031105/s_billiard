@@ -1,181 +1,86 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrasi - Forcue</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registrasi - Forcue</title>
 
-    <style>
-        body {
-      margin: 0;
-      padding: 0;
-      background: url('https://pearsoncues.com/media/wysiwyg/Whats_inside_a_pool_ball.jpg') no-repeat center center/cover;
-      height: 100vh;
-      font-family: 'Poppins', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-    .form-container {
-      background: rgba(220, 230, 240, 0.95);
-      padding: 40px 30px;
-      border-radius: 20px;
-      width: 350px;
-      text-align: center;
-      box-shadow: 0px 8px 20px rgba(0,0,0,0.2);
-    }
+  <!-- Flowbite -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 
-    .form-container h2 {
-      margin-bottom: 25px;
-      font-size: 28px;
-      color: #111;
-    }
-
-    .input-group {
-      background: #1f2937;
-      border-radius: 30px;
-      padding: 12px 20px;
-      margin-bottom: 15px;
-      display: flex;
-      align-items: center;
-    }
-
-    .input-group i {
-      color: #fff;
-    }
-
-    .input-group input {
-      background: none;
-      border: none;
-      outline: none;
-      color: #fff;
-      margin-left: 10px;
-      flex: 1;
-      font-size: 15px;
-    }
-
-    button {
-      width: 100%;
-      background: #000;
-      color: #fff;
-      padding: 12px;
-      border: none;
-      border-radius: 30px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 10px;
-      transition: 0.3s;
-    }
-
-    button:hover {
-      background: #333;
-    }
-
-    .bottom-text {
-      margin-top: 20px;
-      font-size: 14px;
-    }
-
-    .bottom-text a {
-      color: #000;
-      text-decoration: underline;
-      font-weight: bold;
-    }
-
-    /* Style untuk pop-up */
-    .popup {
-      display: none;
-      position: fixed;
-      top: 10%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(255, 255, 255, 0.7);
-      color: black;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0px 8px 15px rgba(0,0,0,0.5);
-      z-index: 1000;
-    }
-
-    .popup button {
-      background:rgb(73, 85, 151);
-      border: none;
-      padding: 10px;
-      color: black;
-      font-size: 16px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .popup button:hover {
-      background:rgb(253, 247, 247);
-    }
-    </style>
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 </head>
-<body>
 
-    @if(session('success'))
-        <div class="popup" id="successPopup">
-            <p>{{ session('success') }}</p>
-            <button onclick="document.getElementById('successPopup').style.display='none'">Tutup</button>
-        </div>
-    @endif
+<body class="min-h-screen bg-cover bg-center flex items-center justify-center" style="background-image: url('https://pearsoncues.com/media/wysiwyg/Whats_inside_a_pool_ball.jpg');">
 
-    @if($errors->any())
-        <div class="popup" id="errorPopup">
-            <ul>
-                @foreach($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-            <button onclick="document.getElementById('errorPopup').style.display='none'">Tutup</button>
-        </div>
-    @endif
+  <!-- Success Popup -->
+  @if(session('success'))
+    <div class="fixed top-10 left-1/2 transform -translate-x-1/2 bg-green-100 text-green-800 px-6 py-4 rounded-lg shadow-lg z-50">
+      <p>{{ session('success') }}</p>
+      <button onclick="this.parentElement.style.display='none'" class="ml-4 text-sm text-green-700 hover:underline">Tutup</button>
+    </div>
+  @endif
 
-    <form class="form-container" method="POST" action="{{ route('register') }}">
-        @csrf
+  <!-- Error Popup -->
+  @if($errors->any())
+    <div class="fixed top-10 left-1/2 transform -translate-x-1/2 bg-red-100 text-red-800 px-6 py-4 rounded-lg shadow-lg z-50">
+      <ul class="list-disc pl-5">
+        @foreach($errors->all() as $error)
+          <li>{{ $error }}</li>
+        @endforeach
+      </ul>
+      <button onclick="this.parentElement.style.display='none'" class="ml-4 text-sm text-red-700 hover:underline">Tutup</button>
+    </div>
+  @endif
 
-        <h2>Registrasi</h2>
+  <!-- Form Registrasi -->
+  <form method="POST" action="{{ route('register') }}" class="bg-white/90 p-8 rounded-2xl shadow-xl w-full max-w-md text-center backdrop-blur-sm">
+    @csrf
+    <h2 class="text-2xl font-bold text-gray-800 mb-6">Registrasi</h2>
 
-        <div class="input-group">
-            <input type="text" name="nama_pengguna" placeholder="Nama Pengguna" value="{{ old('nama_pengguna') }}" required>
-            <i class="fa-solid fa-user-circle"></i>
-        </div>
+    <!-- Nama Pengguna -->
+    <div class="mb-4 relative">
+      <input type="text" name="nama_pengguna" value="{{ old('nama_pengguna') }}" placeholder="Nama Pengguna"
+        class="w-full px-5 py-3 rounded-full bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600">
+      <i class="fa-solid fa-user-circle absolute right-4 top-1/2 transform -translate-y-1/2 text-white"></i>
+    </div>
 
-        <div class="input-group">
-            <input type="email" name="email" placeholder="Email" value="{{ old('email') }}" required>
-            <i class="fa-solid fa-envelope"></i>
-        </div>
+    <!-- Email -->
+    <div class="mb-4 relative">
+      <input type="email" name="email" value="{{ old('email') }}" placeholder="Email"
+        class="w-full px-5 py-3 rounded-full bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600">
+      <i class="fa-solid fa-envelope absolute right-4 top-1/2 transform -translate-y-1/2 text-white"></i>
+    </div>
 
-        <div class="input-group">
-            <input type="text" name="nomor_telepon" placeholder="Nomor Telepon" value="{{ old('nomor_telepon') }}" required>
-            <i class="fa-solid fa-phone"></i>
-        </div>
+    <!-- Nomor Telepon -->
+    <div class="mb-4 relative">
+      <input type="text" name="nomor_telepon" value="{{ old('nomor_telepon') }}" placeholder="Nomor Telepon"
+        class="w-full px-5 py-3 rounded-full bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600">
+      <i class="fa-solid fa-phone absolute right-4 top-1/2 transform -translate-y-1/2 text-white"></i>
+    </div>
 
-        <div class="input-group">
-            <input type="password" name="kata_sandi" placeholder="Kata Sandi" required>
-            <i class="fa-solid fa-lock"></i>
-        </div>
+    <!-- Kata Sandi -->
+    <div class="mb-6 relative">
+      <input type="password" name="kata_sandi" placeholder="Kata Sandi"
+        class="w-full px-5 py-3 rounded-full bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600">
+      <i class="fa-solid fa-lock absolute right-4 top-1/2 transform -translate-y-1/2 text-white"></i>
+    </div>
 
-        <button type="submit">Registrasi</button>
+    <!-- Tombol Registrasi -->
+    <button type="submit"
+      class="w-full bg-black hover:bg-gray-900 text-white font-semibold py-3 rounded-full transition">
+      Registrasi
+    </button>
 
-        <div class="bottom-text">
-            Sudah punya akun? <a href="{{ route('login') }}">Klik Disini</a>
-        </div>
-    </form>
-
-    <script>
-        // Otomatis tampilkan popup
-        if (document.getElementById('errorPopup')) {
-            document.getElementById('errorPopup').style.display = 'block';
-        }
-        if (document.getElementById('successPopup')) {
-            document.getElementById('successPopup').style.display = 'block';
-        }
-    </script>
-
+    <!-- Link ke login -->
+    <div class="mt-4 text-sm text-gray-700">
+      Sudah punya akun? <a href="{{ route('login') }}" class="font-bold hover:underline">Klik Disini</a>
+    </div>
+  </form>
 </body>
 </html>
