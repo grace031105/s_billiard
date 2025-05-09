@@ -27,6 +27,7 @@ Route::post('/register', [AuthController::class, 'register']);
 
 
 Route::get('/kelola_meja', [KelolaController::class, 'index'])-> name('kelola_meja');
+Route::get('/resipenyewaan', [ResiController::class, 'showResi'])-> name('resipenyewaan');
 
 // Static Pages
 Route::view('/bioskop', 'bioskop')->name('bioskop');
@@ -36,7 +37,7 @@ Route::view('/pilih', 'pilih')->name('pilih');
 Route::view('/carousel', 'carousel')->name('carousel');
 Route::view('/search', 'search')->name('search');
 Route::view('/editprofile', 'editprofile')->name('editprofile');
-Route::view('/resipemesanan', 'resipemesanan')->name('resipemesanan');
+Route::view('/resipenyewaan', 'resipenyewaan')->name('resipenyewaan');
 Route::view('/meja_platinum', 'meja_platinum')->name('meja_platinum');
 Route::view('/meja_reguler', 'meja_reguler')->name('meja_reguler');
 Route::view('/meja_vip', 'meja_vip')->name('meja_vip');
