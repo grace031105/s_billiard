@@ -23,10 +23,8 @@ Route::get('/register', [AuthController::class, 'showRegister'])->name('register
 Route::post('/register', [AuthController::class, 'register']);
 
 // Dashboard & Items
-//Route::middleware('dashboard')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/items', [ItemController::class, 'index'])->name('items');
-//});
+    Route::get('/dash', [DashboardController::class, 'index'])-> name('dash');
+
 
 Route::get('/kelola_meja', [KelolaController::class, 'index'])-> name('kelola_meja');
 
