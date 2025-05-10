@@ -6,7 +6,9 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ResiController;
-use App\Http\Controllers\MejaController;
+use App\Http\Controllers\MejaRegulerController;
+use App\Http\Controllers\MejaVipController;
+use App\Http\Controllers\MejaPlatinumController;
 use App\Http\Controllers\DetailController;
 use App\Http\Controllers\EditController;
 use App\Http\Controllers\RiwayatController;
@@ -24,6 +26,10 @@ Route::post('/register', [AuthController::class, 'register']);
 
 // Dashboard & Items
 Route::get('/dash', [DashboardController::class, 'index'])-> name('dash');
+Route::get('/meja_reguler', [MejaRegulerController::class, 'index'])-> name('meja_reguler');
+Route::get('/details', [DetailController::class, 'index'])->name('details');
+Route::get('/meja_vip', [MejaVipController::class, 'index'])-> name('meja_vip');
+Route::get('/meja_platinum', [MejaPlatinumController::class, 'index'])-> name('meja_platinum');
 
 
 Route::get('/kelola_meja', [KelolaController::class, 'index'])-> name('kelola_meja');
@@ -39,9 +45,6 @@ Route::view('/carousel', 'carousel')->name('carousel');
 Route::view('/search', 'search')->name('search');
 Route::view('/editprofile', 'editprofile')->name('editprofile');
 //Route::view('/resi_pemesanan', 'resi_pemesanan')->name('resi_pemesanan');
-Route::view('/meja_platinum', 'meja_platinum')->name('meja_platinum');
-Route::view('/meja_reguler', 'meja_reguler')->name('meja_reguler');
-Route::view('/meja_vip', 'meja_vip')->name('meja_vip');
 Route::view('/detail_penyewaan', 'detail_penyewaan')->name('detail_penyewaan');
 Route::view('/edit_profil', 'edit_profil')->name('edit_profil');
 //Route::view('/riwayat_penyewaan', 'riwayat_penyewaan')->name('riwayat_penyewaan');
