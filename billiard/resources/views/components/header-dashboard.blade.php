@@ -35,7 +35,7 @@
   <div id="userDropdown" class="absolute right-0 mt-2 w-48 bg-white text-black rounded shadow-lg hidden z-50">
     <a href="profil.php" class="block px-4 py-2 hover:bg-slate-100">Profil</a>
     <a href="riwayat.php" class="block px-4 py-2 hover:bg-slate-100">Riwayat Reservasi</a>
-    <a href="logout.php" class="block px-4 py-2 hover:bg-slate-100">Keluar</a>
+    <a href="logout.blade.php" class="block px-4 py-2 hover:bg-slate-100">Keluar</a>
   </div>
 </div>
 </nav>

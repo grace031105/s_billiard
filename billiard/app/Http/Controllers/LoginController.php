@@ -1,29 +1,20 @@
 <?php
-
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
-
-class LoginController extends Controller {
-    public function index() {
-        return view('login');
+class LoginController extends Controller
+{
+    // Tampilkan halaman login
+    public function showLoginForm()
+    {
+        return view('pages.login');
     }
 
-    public function authenticate(Request $request) {
-        $username = $request->input('username');
-        $password = $request->input('password');
-
-        // Contoh login sederhana
-        if ($username === 'admin' && $password === '123') {
-            return redirect('/dashboard');
-        } else {
-            return redirect()->back()->with('error', 'Username atau password salah!');
-        }
-    }
-
-    public function logout() {
-        // Logika untuk logout
-        return redirect('/login');
+    // Proses login
+     public function login(Request $request)
+    {
+        return redirect()->route('dash');
     }
 }

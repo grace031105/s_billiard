@@ -13,6 +13,6 @@
         <button type="submit">Ya, Logout</button>
     </form>
 
-    <a href="/dashboard">Batal</a> <!-- Bisa diganti ke halaman lain -->
+    <a href="/dash">Batal</a> <!-- Bisa diganti ke halaman lain -->
 </body>
 </html>

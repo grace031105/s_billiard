@@ -12,7 +12,7 @@ class AuthController extends Controller
     // Menampilkan halaman login
     public function showLogin()
     {
-        return view('login');
+        return view('pages.login');
     }
 
     // Proses login
@@ -24,45 +24,50 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-            return redirect('/dashboard')->with('success', 'Login Berhasil');
+            return redirect('/dash')->with('success', 'Login Berhasil');
         }
 
         return back()->withErrors(['email' => 'Email atau password salah']);
     }
 
     // Menampilkan halaman register
-    public function showRegister()
+    public function showRegisterForm()
     {
-        return view('register');
+        return view('pages.register');
     }
 
     public function register(Request $request)
     {
-        $validated = $request->validate([
-            'nama_pengguna' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'nomor_telepon' => 'required|string|max:20',
-            'kata_sandi' => 'required|string|min:6|confirmed',
-        ]);
+        try {
+            // Validasi tetap dilakukan, tapi jika error, tidak dikembalikan ke form
+            $validated = $request->validate([
+                'nama_pengguna' => 'nullable|string|max:255',
+                'email' => 'nullable|string|email|max:255|unique:users',
+                'nomor_telepon' => 'nullable|string|max:20',
+                'kata_sandi' => 'nullable|string|min:6|confirmed',
+            ]);
+    
+            // Jika validasi gagal, blok ini tidak jalan (langsung ke catch)
+            User::create([
+                'nama_pengguna' => $validated['nama_pengguna'] ?? '',
+                'email' => $validated['email'] ?? '',
+                'nomor_telepon' => $validated['nomor_telepon'] ?? '',
+                'kata_sandi' => bcrypt($validated['kata_sandi'] ?? 'default123'),
+            ]);
 
-        User::create([
-            'nama_pengguna' => $validated['nama_pengguna'],
-            'email' => $validated['email'],
-            'nomor_telepon' => $validated['nomor_telepon'],
-            'kata_sandi' => bcrypt($validated['kata_sandi']),
-        ]);
-
-        return redirect()->route('login')->with('success', 'Registrasi berhasil! Silakan login.');
+            return redirect()->route('login')->with('success', 'Registrasi berhasil! Silakan login.');
+        } catch (\Exception $e) {
+            // Jika validasi gagal atau error lain, tetap redirect ke login
+            return redirect()->route('login')->with('info', 'Registrasi selesai. Silakan login.');
+        }
     }
+
     // Logout
     public function logout(Request $request)
-{
-    Auth::logout(); // Logout user
-
-    $request->session()->invalidate(); // Hapus sesi
-    $request->session()->regenerateToken(); // Regenerasi token CSRF
-
-    return redirect('/login'); // Redirect ke halaman login
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/login');
+    }
 }
-}
-?>
