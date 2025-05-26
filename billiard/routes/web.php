@@ -13,6 +13,9 @@ use App\Http\Controllers\DetailController;
 use App\Http\Controllers\EditController;
 use App\Http\Controllers\RiwayatController;
 use App\Http\Controllers\KelolaController;
+use App\Http\Controllers\PelangganController;
+use App\Http\Controllers\BerandaController;
+use App\Http\Controllers\ReservasiController;
 
 
 // Auth Routes
@@ -35,6 +38,9 @@ Route::get('/meja_platinum', [MejaPlatinumController::class, 'index'])-> name('m
 Route::get('/kelola_meja', [KelolaController::class, 'index'])-> name('kelola_meja');
 Route::get('/resi_pemesanan', [ResiController::class, 'index'])-> name('resi_pemesanan');
 Route::get('/riwayat_penyewaan', [RiwayatController::class, 'index'])-> name('riwayat_penyewaan');
+Route::get('/pelanggan', [PelangganController::class, 'index'])-> name('pelanggan');
+Route::get('/beranda', [BerandaController::class, 'index'])-> name('beranda');
+Route::get('/reservasi', [ReservasiController::class, 'index'])-> name('reservasi');
 
 // Static Pages
 Route::view('/bioskop', 'bioskop')->name('bioskop');

@@ -7,7 +7,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
 </head>
 <body class="bg-slate-900 text-white">
-    @include('components.header-meja')
+    @include('components.header-pelanggan')
 
     <div class="flex pt-16">
         @yield('sidebar')
@@ -17,6 +17,6 @@
         </main>
     </div>
 
-    @include('components.footer-meja')
+    @include('components.footer-pelanggan')
 </body>
 </html>
