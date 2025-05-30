@@ -16,6 +16,7 @@ use App\Http\Controllers\KelolaController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\ReservasiController;
+use App\Http\Controllers\PasswordUpdateController;
 
 
 // Auth Routes
@@ -26,6 +27,10 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 // Register
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
+
+// Edit password
+Route::get('/ubah-kata-sandi', [PasswordUpdateController::class, 'edit'])->name('password.edit');
+Route::post('/ubah-kata-sandi', [PasswordUpdateController::class, 'update'])->name('password.update');
 
 // Dashboard & Items
 Route::get('/dash', [DashboardController::class, 'index'])-> name('dash');
