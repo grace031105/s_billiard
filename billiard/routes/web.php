@@ -35,12 +35,14 @@ Route::get('/meja_vip', [MejaVipController::class, 'index'])-> name('meja_vip');
 Route::get('/meja_platinum', [MejaPlatinumController::class, 'index'])-> name('meja_platinum');
 
 
-Route::get('/kelola_meja', [KelolaController::class, 'index'])-> name('kelola_meja');
+Route::get('/kelola_meja', [KelolaController::class, 'show']);
 Route::get('/resi_pemesanan', [ResiController::class, 'index'])-> name('resi_pemesanan');
 Route::get('/riwayat_penyewaan', [RiwayatController::class, 'index'])-> name('riwayat_penyewaan');
 Route::get('/pelanggan', [PelangganController::class, 'index'])-> name('pelanggan');
 Route::get('/beranda', [BerandaController::class, 'index'])-> name('beranda');
 Route::get('/reservasi', [ReservasiController::class, 'index'])-> name('reservasi');
+
+Route::post('/meja/simpan', [KelolaController::class, 'simpan'])->name('meja.simpan');
 
 // Static Pages
 Route::view('/bioskop', 'bioskop')->name('bioskop');

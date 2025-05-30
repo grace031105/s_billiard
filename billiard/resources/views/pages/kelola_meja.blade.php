@@ -68,6 +68,7 @@
                 <th class="px-4 py-2">NOMOR MEJA</th>
                 <th class="px-4 py-2">HARGA</th>
                 <th class="px-4 py-2">STATUS</th>
+                <th class="px-4 py-2">FOTO MEJA</th>
                 <th class="px-4 py-2">AKSI</th>
             </tr>
         </thead>
@@ -75,11 +76,16 @@
             @foreach ($mejas as $index => $meja)
                 <tr class="border-b">
                     <td class="px-4 py-2">{{ $index + 1 }}</td>
-                    <td class="px-4 py-2">{{ $meja['id'] }}</td>
-                    <td class="px-4 py-2">{{ $meja['tipe'] }}</td>
-                    <td class="px-4 py-2">{{ $meja['nama'] }}</td>
-                    <td class="px-4 py-2">{{ $meja['harga'] }}</td>
-                    <td class="px-4 py-2">{{ $meja['status'] }}</td>
+                    <td class="px-4 py-2">{{ $meja->id_meja }}</td>
+                    <td class="px-4 py-2">{{ $meja->tipe_meja }}</td>
+                    <td class="px-4 py-2">{{ $meja->nama_meja }}</td>
+                    <td class="px-4 py-2">{{ $meja->harga_perjam }}</td>
+                    <td class="px-4 py-2">
+                        {{ $meja->status_meja == 1 ? 'Tersedia' : 'Tidak Tersedia' }}
+                    </td>
+                    <td class="px-4 py-2">
+                        <img src="{{ asset('images/' . $meja->foto_meja) }}" alt="Foto Meja" width="100">
+                    </td>
                     <td class="px-4 py-2">
                         <button class="bg-green-500 text-white px-2 py-1 rounded">Edit</button>
                         <button class="bg-red-500 text-white px-2 py-1 rounded">Delete</button>
@@ -87,5 +93,55 @@
                 </tr>
             @endforeach
         </tbody>
+
     </table>
-@endsection
+    <div><h1>Input Produk</h1></div>
+
+    <form method="POST" action="{{ route('meja.simpan') }}" enctype="multipart/form-data">
+        @csrf
+            <table class="table">
+                <tr>
+                    <td>Nama Meja:</td>
+                    <td colspan="3">
+                        <input type="text" class="form-control" id="nama_meja" name="nama_meja" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tipe Meja:</td>
+                    <td colspan="3">
+                        <input type="text" class="form-control" id="tipe_meja" name="tipe_meja" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Harga:</td>
+                    <td colspan="3">
+                        <input type="number" class="form-control" id="harga_perjam" name="harga_perjam" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Foto:</td>
+                    <td colspan="3">
+                        <input type="file" class="form-control" id="foto_meja" name="foto_meja" accept="image/*" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Status:</td>
+                    <td colspan="3">
+                        <select class="form-control" id="status_meja" name="status_meja">
+                            <option value="1">Tersedia</option>
+                            <option value="0">Tidak Tersedia</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <button type="submit" class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 mt-4">
+                Simpan
+            </button>
+        </form>
+
+        @if(session('success'))
+            <div class="bg-green-100 text-green-700 p-2 rounded mt-4">
+                {{ session('success') }}
+             </div>
+        @endif
+        @endsection
