@@ -10,4 +10,5 @@ class ReservasiController extends Controller
     {
         return view('pages.reservasi');
     }
+    
 }

@@ -34,7 +34,7 @@
       class="w-full bg-black text-white font-semibold py-3 rounded-full hover:bg-gray-900 transition">Masuk</button>
 
     <div class="text-center mt-4 text-sm text-gray-800">
-      <a href="#" class="hover:underline font-medium">Lupa Kata Sandi?</a>
+      <a href="{{ route('password.reset.form') }}" class="hover:underline font-medium">Lupa Kata Sandi?</a>
     </div>
     <div class="text-center text-sm text-gray-800 mt-2">
       Belum punya akun?

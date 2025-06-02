@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ResiController;
@@ -16,8 +17,6 @@ use App\Http\Controllers\KelolaController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\ReservasiController;
-use App\Http\Controllers\PasswordUpdateController;
-
 
 // Auth Routes
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -29,8 +28,11 @@ Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('regi
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 
 // Edit password
-Route::get('/ubah-kata-sandi', [PasswordUpdateController::class, 'edit'])->name('password.edit');
-Route::post('/ubah-kata-sandi', [PasswordUpdateController::class, 'update'])->name('password.update');
+Route::get('/reset-password', function () {
+    return view('pages.reset_password');
+})->name('password.reset.form');
+
+Route::post('/reset-password', [PasswordResetController::class, 'prosesReset'])->name('password.reset');
 
 // Dashboard & Items
 Route::get('/dash', [DashboardController::class, 'index'])-> name('dash');
