@@ -12,3 +12,4 @@ class PelangganController extends Controller
     }
 
 }
+

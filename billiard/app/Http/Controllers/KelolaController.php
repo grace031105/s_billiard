@@ -23,8 +23,8 @@ class KelolaController extends Controller
         $meja = new Meja;
         $meja->nama_meja = $request->input('nama_meja');
         $meja->tipe_meja = $request->input('tipe_meja');
+        $meja->harga_per_jam = $request->input('harga_per_jam');
         $meja->foto_meja = $fileName;
-        $meja->harga_perjam = $request->input('harga_perjam');
         $meja->status_meja = (int) $request->input('status_meja');
         $meja->save();
         
