@@ -45,9 +45,9 @@ Route::get('/meja_platinum', [MejaPlatinumController::class, 'index'])-> name('m
 Route::get('/kelola_meja', [KelolaController::class, 'show']);
 Route::get('/resi_pemesanan', [ResiController::class, 'index'])-> name('resi_pemesanan');
 Route::get('/riwayat_penyewaan', [RiwayatController::class, 'index'])-> name('riwayat_penyewaan');
-Route::get('/pelanggan', [PelangganController::class, 'index'])-> name('pelanggan');
+Route::get('/pelanggan', [PelangganController::class, 'show']);
 Route::get('/beranda', [BerandaController::class, 'index'])-> name('beranda');
-Route::get('/reservasi', [ReservasiController::class, 'index'])-> name('reservasi');
+Route::get('/reservasi', [ReservasiController::class, 'show']);
 
 Route::post('/meja/simpan', [KelolaController::class, 'simpan'])->name('meja.simpan');
 

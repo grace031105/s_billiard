@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Reservasi;
 use Illuminate\Http\Request;
 
 class ReservasiController extends Controller
 {
-    public function index()
+    public function show()
     {
-        return view('pages.reservasi');
+        $reservasih = Reservasi::all(); // Ambil semua data dari tabel 'meja'
+        return view('pages.reservasi', compact('reservasih')); // Kirim satu variabel array
     }
     
 }

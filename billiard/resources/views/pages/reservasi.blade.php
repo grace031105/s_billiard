@@ -51,22 +51,23 @@
             </tr>
         </thead>
         <tbody>
-           
+                @foreach ($reservasih as $index => $reservasi)
                 <tr class="border-b">
-                    <td class="px-4 py-2"></td>
-                    <td class="px-4 py-2"></td>
-                    <td class="px-4 py-2"></td>
-                    <td class="px-4 py-2"></td>
-                    <td class="px-4 py-2"></td>
-                    <td class="px-4 py-2"></td>
-                    <td class="px-4 py-2"></td>
-                    <td class="px-4 py-2"></td>
-                    <td class="px-4 py-2"></td>
+                    <td class="px-4 py-2">{{ $index + 1 }}</td>
+                    <td class="px-4 py-2">{{ $reservasi->id_reservasi }}</td>
+                    <td class="px-4 py-2">{{ $reservasi->id_pelanggan }}</td>
+                    <td class="px-4 py-2">{{ $reservasi->id_meja }}</td>
+                    <td class="px-4 py-2">{{ $reservasi->tanggal_reservasi }}</td>
+                    <td class="px-4 py-2">{{ $reservasi->id_waktu }}</td>
+                    <td class="px-4 py-2">{{ $reservasi->durasi_sewa }}</td>
+                    <td class="px-4 py-2">{{ $reservasi->total_harga }}</td>
+                    <td class="px-4 py-2">{{ $reservasi->status }}</td>
                     <td class="px-4 py-2">
-                        <button class="bg-green-500 text-white px-2 py-1 rounded">Edit</button>
-                        <button class="bg-red-500 text-white px-2 py-1 rounded">Delete</button>
+                        <button class="bg-green-500 text-white px-2 py-1 rounded">dikonfirmasi</button>
+                        <button class="bg-red-500 text-white px-2 py-1 rounded">dibatalkan</button>   
                     </td>
                 </tr>
+                @endforeach
             
         </tbody>
     </table>

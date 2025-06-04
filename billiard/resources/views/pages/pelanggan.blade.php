@@ -43,15 +43,15 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Dummy data -->
-                <tr class="bg-white border-b hover:bg-gray-50">
-                    <td class="py-4 px-6">1</td>
-                    <td class="py-4 px-6">PL001</td>
-                    <td class="py-4 px-6">zahra123</td>
-                    <td class="py-4 px-6">zahra@example.com</td>
-                    <td class="py-4 px-6">08123456789</td>
-                    <td class="py-4 px-6">********</td>
+                 @foreach ($pelanggans as $index => $pelanggan)
+                <tr class="border-b">
+                    <td class="px-4 py-2">{{ $index + 1 }}</td>
+                    <td class="px-4 py-2">{{ $pelanggan->id_pelanggan }}</td>
+                    <td class="px-4 py-2">{{ $pelanggan->nama_pengguna }}</td>
+                    <td class="px-4 py-2">{{ $pelanggan->email }}</td>
+                    <td class="px-4 py-2">{{ $pelanggan->kata_sandi }}</td>
                 </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

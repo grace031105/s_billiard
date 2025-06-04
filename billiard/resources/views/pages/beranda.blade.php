@@ -30,7 +30,7 @@
 @endsection
 
 @section('content')
-<h2 class="text-2xl font-semibold mb-6">Dashboard</h2>
+<h2 class="text-2xl font-semibold mb-6">BERANDA</h2>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
     <a href="#" class="bg-slate-800 p-6 rounded-lg shadow hover:bg-slate-700">
         <h3 class="text-lg font-bold flex items-center">
