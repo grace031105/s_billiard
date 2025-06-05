@@ -3,45 +3,66 @@
 @section('title', 'Resi Pemesanan')
 
 @section('content')
-<h1 style="text-align: center; font-size: 24px; font-weight: bold; margin-bottom: 20px;">Resi Pemesanan</h1>
+<h1 style="text-align: center; font-size: 28px; font-weight: 700; margin-bottom: 30px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+    Resi Pemesanan
+</h1>
 
-<div style="background-color: #2D506D; color: white; border-radius: 16px; padding: 30px; max-width: 600px; margin: 0 auto; font-family: Arial, sans-serif;">
-    <div style="text-align: center; margin-bottom: 20px;">
-        
-    </div>
-
-    <table style="width: 100%; color: white;">
-        <tr>
-            <td style="width: 30%; text-align: right; padding-right: 10px;"><strong>Kode Resi:</strong></td>
-                <td>{{ $data->id_resi }}</td>
-        </tr>
-        <tr>
-            <td style="text-align: right; padding-right: 10px;"><strong>Nama Pelanggan:</strong></td>
-                <td>{{ $data->nama_pelanggan }}</td>
-        </tr>
-        <tr>
-            <td style="text-align: right; padding-right: 10px;"><strong>Tipe Meja:</strong></td>
-            <td>{{ $data->tipe_meja }}</td>
-        </tr>
-        <tr>
-            <td style="text-align: right; padding-right: 10px;"><strong>No Meja:</strong></td>
-            <td>{{ $data->no_meja }}</td>
-        </tr>
-        <tr>
-            <td style="text-align: right; padding-right: 10px;"><strong>Tanggal:</strong></td>
-            <td>{{ \Carbon\Carbon::parse($data->tanggal)->translatedFormat('l, d F Y') }}</td>
-        </tr>
-        <tr>
-            <td style="text-align: right; padding-right: 10px;"><strong>Waktu:</strong></td>
-            <td>{{ $data->waktu }}</td>
-        </tr>
-        <tr>
-            <td style="text-align: right; padding-right: 10px;"><strong>Total Harga:</strong></td>
-            <td>{{ $data->total_harga }}</td>
-        </tr>
+<div style="background-color: #2D506D; color: white; border-radius: 16px; padding: 40px 35px; max-width: 600px; margin: 0 auto; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
+    
+    <table style="width: 100%; color: white; border-collapse: separate; border-spacing: 0 12px; font-size: 16px;">
+        <tbody>
+            <tr>
+                <td style="width: 35%; text-align: right; padding-right: 15px; font-weight: 600; vertical-align: top;">
+                    Kode Resi:
+                </td>
+                <td style="vertical-align: top; text-align: left;">{{ $data->id_resi }}</td>
+            </tr>
+            <tr>
+                <td style="text-align: right; padding-right: 15px; font-weight: 600; vertical-align: top;">
+                    Nama Pelanggan:
+                </td>
+                <td style="vertical-align: top; text-align: left;">{{ $data->nama_pelanggan }}</td>
+            </tr>
+            <tr>
+                <td style="text-align: right; padding-right: 15px; font-weight: 600; vertical-align: top;">
+                    Tipe Meja:
+                </td>
+                <td style="vertical-align: top; text-align: left;">{{ $data->tipe_meja }}</td>
+            </tr>
+            <tr>
+                <td style="text-align: right; padding-right: 15px; font-weight: 600; vertical-align: top;">
+                    No Meja:
+                </td>
+                <td style="vertical-align: top; text-align: left;">{{ $data->no_meja }}</td>
+            </tr>
+            <tr>
+                <td style="text-align: right; padding-right: 15px; font-weight: 600; vertical-align: top;">
+                    Tanggal:
+                </td>
+<td style="vertical-align: top; text-align: left;">
+        {{ \Carbon\Carbon::parse($data->tanggal)->locale('id')->translatedFormat('l, d F Y') }}
+    </td>
+            </tr>
+            <tr>
+                <td style="text-align: right; padding-right: 15px; font-weight: 600; vertical-align: top;">
+                    Waktu:
+                </td>
+                <td style="vertical-align: top; text-align: left;">{{ $data->waktu }}</td>
+            </tr>
+            <tr>
+                <td style="text-align: right; padding-right: 15px; font-weight: 600; vertical-align: top;">
+                    Total Harga:
+                </td>
+                <td style="vertical-align: top; font-weight: 700; text-align: left;">
+                    {{ number_format($data->total_harga, 0, ',', '.') }}
+                </td>
+            </tr>
+        </tbody>
     </table>
 
 </div>
 
-<p style="text-align: center; margin-top: 30px; font-size: 12px;">&copy; 2025 Forcue. All rights reserved.</p>
+<p style="text-align: center; margin-top: 40px; font-size: 12px; color: #ccc; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+    &copy; 2025 Forcue. All rights reserved.
+</p>
 @endsection
