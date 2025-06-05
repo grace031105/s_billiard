@@ -8,6 +8,6 @@ class ResiPenyewaan extends Model
 {
     protected $table = 'resi_penyewaan';
     protected $primaryKey = 'id_resi'; // GANTI dengan nama kolom primary key di database
-    public $incrementing = true; // false kalau bukan auto-increment
+    public $incrementing = false; // false kalau bukan auto-increment
     protected $keyType = 'int';  // string kalau kolomnya VARCHAR
 }

@@ -43,7 +43,7 @@ Route::get('/meja_platinum', [MejaPlatinumController::class, 'index'])-> name('m
 
 
 Route::get('/kelola_meja', [KelolaController::class, 'show']);
-Route::get('/resi_pemesanan', [ResiController::class, 'index'])-> name('resi_pemesanan');
+Route::get('/resi_pemesanan', [ResiController::class, 'index'])->name('resi_pemesanan');
 Route::get('/resi-pdf/{id}', [ResiController::class, 'downloadPDF'])->name('resi.pdf');
 Route::get('/riwayat_penyewaan', [RiwayatController::class, 'index'])-> name('riwayat_penyewaan');
 Route::get('/pelanggan', [PelangganController::class, 'show']);
