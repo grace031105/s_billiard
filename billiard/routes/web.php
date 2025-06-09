@@ -24,8 +24,10 @@ Route::post('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Register
-Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
+Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register.form');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
+
+
 
 // Edit password
 Route::get('/reset-password', function () {
@@ -46,7 +48,7 @@ Route::get('/kelola_meja', [KelolaController::class, 'show']);
 Route::get('/resi_pemesanan', [ResiController::class, 'index'])->name('resi_pemesanan');
 Route::get('/resi-pdf/{id}', [ResiController::class, 'downloadPDF'])->name('resi.pdf');
 Route::get('/riwayat_penyewaan', [RiwayatController::class, 'index'])-> name('riwayat_penyewaan');
-Route::get('/pelanggan', [PelangganController::class, 'show']);
+Route::get('/pelanggan', [PelangganController::class, 'show'])-> name('pelanggan');
 Route::get('/beranda', [BerandaController::class, 'index'])-> name('beranda');
 Route::get('/reservasi', [ReservasiController::class, 'show']);
 

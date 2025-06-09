@@ -6,9 +6,13 @@
 <div class="bg-gray-300/90 p-8 rounded-2xl shadow-lg w-full max-w-md">
   <h2 class="text-2xl font-bold text-center mb-6 text-gray-800">Masuk</h2>
 
-  @if(session('error'))
-    <div class="bg-red-100 text-red-700 p-3 rounded mb-4 text-sm">{{ session('error') }}</div>
-  @endif
+  @if(session('success'))
+  <div class="fixed top-10 left-1/2 transform -translate-x-1/2 bg-green-100 text-green-800 px-6 py-4 rounded-lg shadow-lg z-50">
+    <p>{{ session('success') }}</p>
+    <button onclick="this.parentElement.style.display='none'" class="ml-4 text-sm text-green-700 hover:underline">Tutup</button>
+  </div>
+@endif
+
 
   <form method="POST" action="{{ route('login') }}">
     @csrf

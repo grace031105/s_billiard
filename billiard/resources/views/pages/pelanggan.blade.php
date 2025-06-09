@@ -39,7 +39,7 @@
                     <th class="py-3 px-6">ID Pelanggan</th>
                     <th class="py-3 px-6">Nama Pengguna</th>
                     <th class="py-3 px-6">Email</th>
-                    <th class="py-3 px-6">Nomor HP</th>
+                    <th class="py-3 px-6">Nomor Hp</th>
                     <th class="py-3 px-6">Kata Sandi</th>
                 </tr>
             </thead>
@@ -51,7 +51,7 @@
                     <td class="px-4 py-2">{{ $pelanggan->nama_pengguna }}</td>
                     <td class="px-4 py-2">{{ $pelanggan->email }}</td>
                     <td class="px-4 py-2">{{ $pelanggan->nomor_hp }}</td>
-                    <td class="px-4 py-2">{{ $pelanggan->kata_sandi }}</td>
+                    <td class="px-4 py-2">******</td>
                 </tr>
                 @endforeach
             </tbody>

@@ -12,19 +12,18 @@
 @endif
 
 <!-- Error Popup -->
-@if($errors->any())
-  <div class="fixed top-10 left-1/2 transform -translate-x-1/2 bg-red-100 text-red-800 px-6 py-4 rounded-lg shadow-lg z-50">
-    <ul class="list-disc pl-5">
-      @foreach($errors->all() as $error)
-        <li>{{ $error }}</li>
-      @endforeach
-    </ul>
-    <button onclick="this.parentElement.style.display='none'" class="ml-4 text-sm text-red-700 hover:underline">Tutup</button>
-  </div>
+@if ($errors->any())
+    <div class="bg-red-200 text-red-800 p-2 mb-4 rounded">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>- {{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
 @endif
 
 <!-- Form Registrasi -->
-<form method="POST" action="{{ route('register') }}" class="bg-white/90 p-8 rounded-2xl shadow-xl w-full max-w-md text-center backdrop-blur-sm">
+<form action="{{ route('register') }}" method="POST" class="bg-white/90 p-8 rounded-2xl shadow-xl w-full max-w-md text-center backdrop-blur-sm">
   @csrf
   <h2 class="text-2xl font-bold text-gray-800 mb-6">Registrasi</h2>
 
@@ -44,7 +43,7 @@
 
   <!-- Nomor Telepon -->
   <div class="mb-4 relative">
-    <input type="text" name="nomor_telepon" value="{{ old('nomor_telepon') }}" placeholder="Nomor Telepon"
+    <input type="text" name="nomor_hp" value="{{ old('nomor_hp') }}" placeholder="Nomor Hp"
       class="w-full px-5 py-3 rounded-full bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600">
     <i class="fa-solid fa-phone absolute right-4 top-1/2 transform -translate-y-1/2 text-white"></i>
   </div>
@@ -55,6 +54,13 @@
       class="w-full px-5 py-3 rounded-full bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600">
     <i class="fa-solid fa-lock absolute right-4 top-1/2 transform -translate-y-1/2 text-white"></i>
   </div>
+
+  <!-- Konfirmasi Kata Sandi -->
+<div class="mb-6 relative">
+  <input type="password" name="kata_sandi_confirmation" placeholder="Konfirmasi Kata Sandi"
+    class="w-full px-5 py-3 rounded-full bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600">
+  <i class="fa-solid fa-lock absolute right-4 top-1/2 transform -translate-y-1/2 text-white"></i>
+</div>
 
   <!-- Tombol Registrasi -->
   <button type="submit"

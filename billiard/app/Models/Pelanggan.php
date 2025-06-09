@@ -1,13 +1,22 @@
 <?php
 
 namespace App\Models;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class Pelanggan extends Model
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+
+class Pelanggan extends Authenticatable
 {
-    use HasFactory;
+    use Notifiable;
+
     protected $table = 'pelanggan';
     public $timestamps = false;
+
+    protected $fillable = ['nama_pengguna', 'email', 'nomor_hp', 'kata_sandi'];
+
+    // Laravel secara default pakai kolom 'password', tapi kamu pakai 'kata_sandi'
+    public function getAuthPassword()
+    {
+        return $this->kata_sandi;
+    }
 }
-?>
