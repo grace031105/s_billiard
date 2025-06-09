@@ -11,23 +11,24 @@
             </a>
         </li>
         <li>
-            <a href="reservasi" class="flex items-center p-2 rounded hover:bg-slate-600">
+            <a href="reservasi" class="flex items-center p-2 rounded bg-slate-800 hover:bg-slate-600">
                 <i class="fas fa-chart-bar mr-3"></i> Data Reservasi
             </a>
         </li>
         <li>
-            <a href="kelola_meja" class="flex items-center p-2 rounded hover:bg-slate-600">
+            <a href="kelola_meja" class="flex items-center p-2 rounded bg-slate-800 hover:bg-slate-600">
                 <i class="fas fa-table mr-3"></i> Kelola Meja
             </a>
         </li>
         <li>
-            <a href="pelanggan" class="flex items-center p-2 rounded hover:bg-slate-600">
+            <a href="pelanggan" class="flex items-center p-2 rounded bg-slate-800 hover:bg-slate-600">
                 <i class="fas fa-users mr-3"></i> Pelanggan
             </a>
         </li>
     </ul>
 </aside>
 @endsection
+
 
 @section('content')
     <h3 class="text-2xl font-bold mb-2">Data Reservasi Meja Billiard</h3>
