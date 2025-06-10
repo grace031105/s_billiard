@@ -1,25 +1,34 @@
-@php
+@php 
   use Illuminate\Support\Facades\Auth;
 @endphp
 
-<nav class="flex items-center justify-between px-6 py-4 bg-slate-900 text-white">
+<!-- Navbar -->
+<header class="bg-[#1D2939] text-white py-4 px-6 flex items-center justify-between">
   <!-- Logo -->
-  <a href="/">
-    <img src="/images/gambar3.png" alt="Logo Forcue" class="h-10" />
-  </a>
-
-  <!-- Menu Navigasi -->
-  <div class="flex items-center space-x-6">
-    <input type="text" placeholder="Cari..." class="rounded px-3 py-1 text-sm text-black" />
-    <a href="/" class="font-bold hover:underline">BERANDA</a>
-    <a href="#tentang" class="font-bold hover:underline">TENTANG</a>
-    <a href="#lokasi" class="font-bold hover:underline">LOKASI</a>
-    <a href="#kontak" class="font-bold hover:underline">KONTAK</a>
+  <div class="flex items-center gap-4">
+    <img src="images/gambar3.png" alt="Logo Forcue" class="h-10">
   </div>
 
-  <!-- Aksi (Keranjang & Login/User) -->
+  <!-- Search Bar -->
+  <div class="flex-1 max-w-md mx-6 hidden md:block">
+    <div class="relative">
+      <input type="text" placeholder="Cari meja billiard..."
+        class="w-full rounded-full py-2 pl-4 pr-10 bg-[#3A5A75] text-white placeholder-gray-300 border border-[#9EB0C2] focus:outline-none focus:ring-2 focus:ring-blue-500">
+      <i class="fas fa-search absolute right-3 top-1/2 transform -translate-y-1/2 text-white"></i>
+    </div>
+  </div>
+
+  <!-- Navigation Links -->
+  <nav class="hidden md:flex gap-6 text-sm font-medium">
+    <a href="dash.php" class="hover:text-lime-400">Beranda</a>
+    <a href="#tentang" class="hover:text-lime-400">Tentang</a>
+    <a href="#lokasi" class="hover:text-lime-400">Lokasi</a>
+    <a href="#kontak" class="hover:text-lime-400">Kontak</a>
+  </nav>
+
+  <!-- Right Actions -->
   <div class="flex items-center space-x-4">
-    <!-- Ikon Keranjang -->
+    <!-- Keranjang -->
     <button id="openCart" onclick="toggleSchedulePopup()" class="text-white hover:text-gray-300">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -27,46 +36,42 @@
       </svg>
     </button>
 
-    <!-- Dropdown User -->
-    @auth
-    <div class="relative">
-      <button id="userBtn" onclick="toggleUserPopup()" class="flex items-center space-x-2 text-white hover:text-gray-300">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M5.121 17.804A11.956 11.956 0 0112 15c2.903 0 5.55 1.034 7.879 2.804M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-        </svg>
-        <span class="font-semibold">{{ Auth::user()->nama_pengguna }}</span>
-      </button>
-      <div id="userDropdown" class="absolute right-0 mt-2 w-48 bg-white text-black rounded shadow-lg hidden z-50">
-        <a href="/edit_profil" class="block px-4 py-2 hover:bg-slate-100">Profil</a>
-        <a href="/riwayat" class="block px-4 py-2 hover:bg-slate-100">Riwayat Reservasi</a>
-        <a href="/logout" class="block px-4 py-2 hover:bg-slate-100">Keluar</a>
-      </div>
+    <!-- User Auth -->
+@auth
+    <!-- Profil Dropdown -->
+    <div class="relative group inline-block">
+        <button class="focus:outline-none">
+            <img src="{{ asset('uploads/' . (Auth::user()->foto ?? 'default.png')) }}" alt="Profil"
+                class="w-10 h-10 rounded-full object-cover border border-white">
+        </button>
+        <div class="absolute right-0 mt-2 w-40 bg-white text-black rounded shadow-lg hidden group-hover:block z-50">
+            <a href="{{ route('profil.show') }}" class="block px-4 py-2 hover:bg-gray-100">Profil</a>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="w-full text-left px-4 py-2 hover:bg-gray-100">Keluar</button>
+            </form>
+        </div>
     </div>
-    @endauth
-
-    <!-- Tombol Masuk untuk Guest -->
-    @guest
-    <a href="/login" class="bg-white text-slate-900 px-4 py-2 rounded hover:bg-slate-200 font-semibold">
-      Masuk
+@else
+    <!-- Tombol Masuk -->
+    <a href="{{ route('login') }}" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-full text-sm font-semibold">
+        Masuk
     </a>
-    @endguest
-  </div>
-</nav>
+@endauth
 
+
+</header>
 <!-- Popup Jadwal -->
 <div id="schedulePopup" class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
   <div class="bg-white p-6 w-96 rounded-lg shadow-lg">
     <h2 class="text-xl font-bold mb-4">Pilih Jadwal</h2>
-    <!-- Konten jadwal -->
+    <!-- Konten jadwal bisa ditambahkan di sini -->
     <button onclick="closeSchedulePopup()" class="mt-4 px-6 py-2 bg-red-500 text-white rounded">Tutup</button>
   </div>
 </div>
-
-<!-- Script Toggle -->
 <script>
-  function toggleUserPopup() {
-    document.getElementById('userDropdown').classList.toggle('hidden');
+  function toggleDropdown() {
+    document.getElementById('dropdownMenu').classList.toggle('hidden');
   }
 
   function toggleSchedulePopup() {
@@ -77,11 +82,11 @@
     document.getElementById('schedulePopup').classList.add('hidden');
   }
 
-  // Menutup dropdown user saat klik di luar
+  // Tutup dropdown jika klik di luar
   document.addEventListener('click', function(event) {
-    const userBtn = document.getElementById('userBtn');
-    const dropdown = document.getElementById('userDropdown');
-    if (userBtn && dropdown && !userBtn.contains(event.target) && !dropdown.contains(event.target)) {
+    const dropdown = document.getElementById('dropdownMenu');
+    const btn = document.getElementById('userBtn');
+    if (dropdown && btn && !dropdown.contains(event.target) && !btn.contains(event.target)) {
       dropdown.classList.add('hidden');
     }
   });

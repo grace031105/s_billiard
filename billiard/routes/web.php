@@ -5,6 +5,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ResiController;
 use App\Http\Controllers\MejaRegulerController;
@@ -27,7 +28,10 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register.form');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 
-
+Route::middleware('auth')->group(function () {
+    Route::get('/editprofil', [ProfilController::class, 'show'])->name('profil.show');
+    Route::post('/profil/update', [ProfilController::class, 'update'])->name('profil.update');
+});
 
 // Edit password
 Route::get('/reset-password', function () {
@@ -37,7 +41,7 @@ Route::get('/reset-password', function () {
 Route::post('/reset-password', [PasswordResetController::class, 'prosesReset'])->name('password.reset');
 
 // Dashboard & Items
-Route::get('/dash', [DashboardController::class, 'index'])-> name('dash');
+Route::get('/dash', [DashboardController::class, 'index'])->middleware('auth')->name('dash');
 Route::get('/meja_reguler', [MejaRegulerController::class, 'index'])-> name('meja_reguler');
 Route::get('/details', [DetailController::class, 'index'])->name('details');
 Route::get('/meja_vip', [MejaVipController::class, 'index'])-> name('meja_vip');
