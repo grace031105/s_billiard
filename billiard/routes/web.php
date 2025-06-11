@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PemilikController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\DashboardController;
@@ -23,6 +24,13 @@ use App\Http\Controllers\ReservasiController;
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+// Login pemilik
+Route::get('/pemilik', [PemilikController::class, 'showLoginForm'])->name('pemilik');
+Route::post('/pemilik', [PemilikController::class, 'login'])->name('pemilik.login');
+Route::post('/pemilik/logout', [PemilikController::class, 'logout'])->name('pemilik.logout');
+
+
 
 // Register
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register.form');

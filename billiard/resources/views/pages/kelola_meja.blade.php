@@ -122,7 +122,7 @@
     <thead class="bg-blue-300 text-black">
         <tr>
             <th class="px-4 py-2">NO</th>
-            <th class="px-4 py-2">ID MEJA</th>
+            <th class="px-4 py-2">KODE MEJA</th>
             <th class="px-4 py-2">TIPE MEJA</th>
             <th class="px-4 py-2">NOMOR MEJA</th>
             <th class="px-4 py-2">HARGA</th>
@@ -135,7 +135,7 @@
         @foreach ($mejas as $index => $meja)
         <tr class="border-b">
             <td class="px-4 py-2">{{ $index + 1 }}</td>
-            <td class="px-4 py-2">{{ $meja->id_meja }}</td>
+            <td class="px-4 py-2">{{ $meja->kode_meja }}</td>
             <td class="px-4 py-2">{{ $meja->tipe_meja }}</td>
             <td class="px-4 py-2">{{ $meja->nama_meja }}</td>
             <td class="px-4 py-2">{{ $meja->harga_per_jam }}</td>
