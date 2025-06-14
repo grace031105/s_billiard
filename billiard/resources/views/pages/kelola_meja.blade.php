@@ -29,7 +29,7 @@
             <th class="px-4 py-2">NO</th>
             <th class="px-4 py-2">KODE</th>
             <th class="px-4 py-2">TIPE</th>
-            <th class="px-4 py-2">NOMOR</th>
+            <th class="px-4 py-2">NAMA</th>
             <th class="px-4 py-2">HARGA</th>
             <th class="px-4 py-2">STATUS</th>
             <th class="px-4 py-2">FOTO</th>
@@ -53,7 +53,7 @@
                     class="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded">EDIT</button>
 
                 <form action="{{ route('mejas.delete', $meja->id_meja) }}" method="POST"
-                    onsubmit="return confirm('Yakin hapus meja ini?')">
+                    onsubmit="return confirm('Apakah Anda ingin menghapus data meja ini?')">
                     @csrf @method('DELETE')
                     <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded">HAPUS</button>
                 </form>
