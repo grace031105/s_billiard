@@ -41,12 +41,13 @@
             <tr>
                 <th class="px-4 py-2">NO</th>
                 <th class="px-4 py-2">KODE RESERVASI</th>
-                <th class="px-4 py-2">ID PELANGGAN</th>
-                <th class="px-4 py-2">KODE MEJA</th>
+                <th class="px-4 py-2">NAMA PELANGGAN</th>
                 <th class="px-4 py-2">NAMA MEJA</th>
+                <th class="px-4 py-2">TIPE MEJA</th>
                 <th class="px-4 py-2">WAKTU MULAI</th>
                 <th class="px-4 py-2">WAKTU SELESAI</th>
                 <th class="px-4 py-2">TOTAL BIAYA</th>
+                <th class="px-4 py-2">BUKTI BAYAR</th>
                 <th class="px-4 py-2">STATUS</th>
                 <th class="px-4 py-2">AKSI</th>
             </tr>
@@ -55,17 +56,32 @@
                 @foreach ($reservasih as $index => $reservasi)
                 <tr class="border-b">
                     <td class="px-4 py-2">{{ $index + 1 }}</td>
-                    <td class="px-4 py-2">{{ $reservasi->id_reservasi }}</td>
-                    <td class="px-4 py-2">{{ $reservasi->id_pelanggan }}</td>
-                    <td class="px-4 py-2">{{ $reservasi->id_meja }}</td>
-                    <td class="px-4 py-2">{{ $reservasi->tanggal_reservasi }}</td>
-                    <td class="px-4 py-2">{{ $reservasi->id_waktu }}</td>
-                    <td class="px-4 py-2">{{ $reservasi->durasi_sewa }}</td>
+                    <td class="px-4 py-2">{{ $reservasi->kode_reservasi }}</td>
+                    <td class="px-4 py-2">{{ $reservasi->pelanggan->nama_pengguna }}</td>
+                    <td class="px-4 py-2">{{ $reservasi->meja->nama_meja }}</td>
+                    <td class="px-4 py-2">{{ $reservasi->meja->tipe_meja }}</td>
+                    <!--<td class="px-4 py-2">{{ $reservasi->tanggal_reservasi }}</td>-->
+                    <td class="px-4 py-2">{{ $reservasi->waktu->jam_mulai }}</td>
+                    <td class="px-4 py-2">{{ $reservasi->waktu->jam_selesai }}</td>
+                    <!--<td class="px-4 py-2">{{ $reservasi->durasi_sewa }}</td>-->
                     <td class="px-4 py-2">{{ $reservasi->total_harga }}</td>
+                    <td>
+                        @if ($reservasi->transaksi)
+                            {{ $reservasi->transaksi->bukti_pembayaran }}
+                        @else
+                            Belum Upload
+                        @endif </td>
                     <td class="px-4 py-2">{{ $reservasi->status }}</td>
                     <td class="px-4 py-2">
-                        <button class="bg-green-500 text-white px-2 py-1 rounded">dikonfirmasi</button>
-                        <button class="bg-red-500 text-white px-2 py-1 rounded">dibatalkan</button>   
+                        <form action="{{ route('reservasi.konfirmasi', $reservasi->id_reservasi) }}" method="POST" style="display:inline;">
+                            @csrf
+                            <button type="submit" class="bg-green-500 text-white px-2 py-1 rounded">Konfirmasi</button>
+                        </form>
+
+                        <form action="{{ route('reservasi.batal', $reservasi->id_reservasi) }}" method="POST" style="display:inline;">
+                            @csrf
+                            <button type="submit" class="bg-red-500 text-white px-2 py-1 rounded">Batal</button>
+                        </form>
                     </td>
                 </tr>
                 @endforeach

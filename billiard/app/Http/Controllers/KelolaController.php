@@ -38,4 +38,38 @@ class KelolaController extends Controller
 
         return redirect()->back()->with('success', 'Data berhasil disimpan!');
     }
+    public function delete($id){
+        $meja = Meja::where('id_meja', $id_meja, $id)->first();
+        if ($meja) {
+            $meja->delete();
+            return redirect()->back()->with('success', 'meja berhasil dihapus');
+            }else{
+                return redirect()->back()->with('error', 'meja tidak ditemukan');
+            
+        }
+    }
+    public function edit($id_meja)
+    {
+        $mejas = Meja::all();
+        $meja = Meja::findOrFail($id_meja);
+        return view('pages.kelola_meja', compact('mejas', 'meja'));
+    }
+
+    public function update(Request $request, $id_meja)
+    {
+        $request->validate([
+
+            'nama_meja' => 'required',
+            'tipe_meja' => 'required',
+            'harga_per_jam' => 'required|numeric',
+            'foto_meja' => 'required',
+            
+        ]);
+
+        $mejas = Meja::findOrFail($id_meja);
+        $mejas->update($request->all());
+
+        return redirect()->route('kelola_meja')->with('success', 'Produk berhasil diupdate!');
+    }
+
 }

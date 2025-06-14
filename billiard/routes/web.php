@@ -57,14 +57,22 @@ Route::get('/meja_platinum', [MejaPlatinumController::class, 'index'])-> name('m
 
 
 Route::get('/kelola_meja', [KelolaController::class, 'show']);
+Route::post('/meja/simpan', [KelolaController::class, 'simpan'])->name('meja.simpan');
+Route::delete('/kelola_meja/{id_meja}', [KelolaController::class, 'delete'])->name('mejas.delete');
+Route::get('/mejas/{id_meja}/edit', [KelolaController::class, 'edit'])->name('mejas.edit');
+Route::put('/mejas/{id_meja}', [KelolaController::class, 'update'])->name('mejas.update');
+
 Route::get('/resi_pemesanan', [ResiController::class, 'index'])->name('resi_pemesanan');
 Route::get('/resi-pdf/{id}', [ResiController::class, 'downloadPDF'])->name('resi.pdf');
 Route::get('/riwayat_penyewaan', [RiwayatController::class, 'index'])-> name('riwayat_penyewaan');
 Route::get('/pelanggan', [PelangganController::class, 'show'])-> name('pelanggan');
 Route::get('/beranda', [BerandaController::class, 'index'])-> name('beranda');
-Route::get('/reservasi', [ReservasiController::class, 'show']);
 
-Route::post('/meja/simpan', [KelolaController::class, 'simpan'])->name('meja.simpan');
+Route::get('/reservasi', [ReservasiController::class, 'show']);
+Route::post('/reservasi/{id}/konfirmasi', [ReservasiController::class, 'konfirmasi'])->name('reservasi.konfirmasi');
+Route::post('/reservasi/{id}/batal', [ReservasiController::class, 'batal'])->name('reservasi.batal');
+
+
 
 // Static Pages
 Route::view('/bioskop', 'bioskop')->name('bioskop');
