@@ -76,13 +76,13 @@
             <form method="POST" action="{{ route('meja.simpan') }}" enctype="multipart/form-data"
                 class="p-6 grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-900 dark:text-white">
                 @csrf
-                <div><label>Kode Meja</label><input type="text" name="kode_meja" class="w-full p-2 border rounded" required></div>
-                <div><label>Nama Meja</label><input type="text" name="nama_meja" class="w-full p-2 border rounded" required></div>
-                <div><label>Tipe Meja</label><input type="text" name="tipe_meja" class="w-full p-2 border rounded" required></div>
-                <div><label>Harga per Jam</label><input type="number" name="harga_per_jam" class="w-full p-2 border rounded" required></div>
+                <!--<div><label>Kode Meja</label><input type="text" name="kode_meja" class="w-full p-2 border rounded text-gray-900 dark:text-white bg-white dark:bg-gray-800" required></div>-->
+                <div><label>Nama Meja</label><input type="text" name="nama_meja" class="w-full p-2 border rounded text-gray-900 dark:text-white bg-white dark:bg-gray-800" required></div>
+                <div><label>Tipe Meja</label><input type="text" name="tipe_meja" class="w-full p-2 border rounded text-gray-900 dark:text-white bg-white dark:bg-gray-800" required></div>
+                <div><label>Harga per Jam</label><input type="number" name="harga_per_jam" class="w-full p-2 border rounded text-gray-900 dark:text-white bg-white dark:bg-gray-800" required></div>
                 <div>
                     <label>Status</label>
-                    <select name="status_meja" class="w-full p-2 border rounded">
+                    <select name="status_meja" class="w-full p-2 border rounded text-gray-900 dark:text-white bg-white dark:bg-gray-800">
                         <option value="tersedia">Tersedia</option>
                         <option value="disewakan">Disewakan</option>
                     </select>
@@ -111,18 +111,18 @@
                 class="p-6 grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-900 dark:text-white">
                 @csrf
                 @method('PUT')
-                <div><label>Kode Meja</label><input type="text" id="edit_kode_meja" name="kode_meja" class="w-full p-2 border rounded" required></div>
-                <div><label>Nama Meja</label><input type="text" id="edit_nama_meja" name="nama_meja" class="w-full p-2 border rounded" required></div>
-                <div><label>Tipe Meja</label><input type="text" id="edit_tipe_meja" name="tipe_meja" class="w-full p-2 border rounded" required></div>
-                <div><label>Harga per Jam</label><input type="number" id="edit_harga_per_jam" name="harga_per_jam" class="w-full p-2 border rounded" required></div>
+                <div><label>Kode Meja</label><input type="text" id="edit_kode_meja" name="kode_meja" class="w-full p-2 border rounded text-gray-900 dark:text-white bg-white dark:bg-gray-800" required></div>
+                <div><label>Nama Meja</label><input type="text" id="edit_nama_meja" name="nama_meja" class="w-full p-2 border rounded text-gray-900 dark:text-white bg-white dark:bg-gray-800" required></div>
+                <div><label>Tipe Meja</label><input type="text" id="edit_tipe_meja" name="tipe_meja" class="w-full p-2 border rounded text-gray-900 dark:text-white bg-white dark:bg-gray-800" required></div>
+                <div><label>Harga per Jam</label><input type="number" id="edit_harga_per_jam" name="harga_per_jam" class="w-full p-2 border rounded text-gray-900 dark:text-white bg-white dark:bg-gray-800" required></div>
                 <div>
                     <label>Status</label>
-                    <select id="edit_status_meja" name="status_meja" class="w-full p-2 border rounded">
+                    <select id="edit_status_meja" name="status_meja" class="w-full p-2 border rounded text-gray-900 dark:text-white bg-white dark:bg-gray-800">
                         <option value="tersedia">Tersedia</option>
                         <option value="disewakan">Disewakan</option>
                     </select>
                 </div>
-                <div class="md:col-span-2"><label>Ganti Foto</label><input type="file" name="foto_meja" accept="image/*" class="w-full p-2 border rounded"></div>
+                <div class="md:col-span-2"><label>Ganti Foto</label><input type="file" name="foto_meja" accept="image/*" class="w-full p-2 border rounded text-gray-900 dark:text-white bg-white dark:bg-gray-800"></div>
                 <div class="md:col-span-2 flex justify-end gap-3 mt-4">
                     <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded">Update</button>
                     <button type="button" data-modal-hide="modalEdit" class="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded">Batal</button>

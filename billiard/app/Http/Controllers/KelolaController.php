@@ -29,7 +29,7 @@ class KelolaController extends Controller
         $meja->tipe_meja = $request->input('tipe_meja');
         $meja->harga_per_jam = $request->input('harga_per_jam');
         $meja->foto_meja = $fileName;
-        $meja->status_meja = (int) $request->input('status_meja');
+        $meja->status_meja = $request->input('status_meja');
 
        
         $meja->id_pemilik = Auth::guard('pemilik')->user()->id_pemilik;
@@ -39,7 +39,7 @@ class KelolaController extends Controller
         return redirect()->back()->with('success', 'Data berhasil disimpan!');
     }
     public function delete($id){
-        $meja = Meja::where('id_meja', $id_meja, $id)->first();
+        $meja = Meja::where('id_meja', $id)->first();
         if ($meja) {
             $meja->delete();
             return redirect()->back()->with('success', 'meja berhasil dihapus');
@@ -69,7 +69,7 @@ class KelolaController extends Controller
         $mejas = Meja::findOrFail($id_meja);
         $mejas->update($request->all());
 
-        return redirect()->route('kelola_meja')->with('success', 'Produk berhasil diupdate!');
+        return redirect()->route('kelola_meja')->with('success', 'Data berhasil diupdate!');
     }
 
 }

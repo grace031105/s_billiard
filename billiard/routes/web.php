@@ -56,7 +56,7 @@ Route::get('/meja_vip', [MejaVipController::class, 'index'])-> name('meja_vip');
 Route::get('/meja_platinum', [MejaPlatinumController::class, 'index'])-> name('meja_platinum');
 
 
-Route::get('/kelola_meja', [KelolaController::class, 'show']);
+Route::get('/kelola_meja', [KelolaController::class, 'show'])->name('kelola_meja');
 Route::post('/meja/simpan', [KelolaController::class, 'simpan'])->name('meja.simpan');
 Route::delete('/kelola_meja/{id_meja}', [KelolaController::class, 'delete'])->name('mejas.delete');
 Route::get('/mejas/{id_meja}/edit', [KelolaController::class, 'edit'])->name('mejas.edit');
