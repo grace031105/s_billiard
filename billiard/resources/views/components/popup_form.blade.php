@@ -30,9 +30,7 @@
       </div>
     </div>
 
-    <button onclick="lanjutKeDetail()" class="mt-auto w-full bg-slate-900 text-white font-bold py-3 rounded">
-  Reservasi Sekarang
-</button>
+    <button onclick="lanjutKeDetailDanKirim()" class="...">Reservasi Sekarang</button>
     <button onclick="tambahKeKeranjang()" class="w-full bg-[#d3d8df] text-black py-3 rounded font-bold">Tambah ke Keranjang</button>
   </div>
 </div>
@@ -50,3 +48,28 @@
     <button onclick="prosesPembelian()" class="w-full bg-[#1f3754] text-white py-3 rounded font-bold mb-3">Proses Pembelian</button>
   </div>
 </div>
+<script>
+function lanjutKeDetailDanKirim() {
+   const tipeMeja = document.querySelector('#popup strong').parentElement.innerText.replace('Tipe Meja :', '').trim();
+    const tanggal = document.getElementById('date').value;
+    const jam = selectedTime; // sudah diset waktu klik tombol jam
+    const noMeja = document.getElementById('noMeja').innerText;
+
+    if (!tanggal || !jam) {
+        alert("Silakan pilih tanggal dan waktu terlebih dahulu.");
+        return;
+    }
+
+    let subtotal = 150000;
+    if (tipeMeja.toLowerCase().includes('vip')) subtotal = 250000;
+
+    const totalAkhir = subtotal + 20000;
+
+    // Panggil fungsi isi data
+    isiDataPemesanan(tipeMeja, tanggal, jam, noMeja, subtotal, totalAkhir);
+
+    // Submit form
+    document.querySelector('#formSchedule')?.submit();
+}
+
+</script>

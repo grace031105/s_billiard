@@ -29,5 +29,8 @@
   {{-- Footer --}}
   @include('components.footer-register')
 
+  {{-- Script tambahan dari halaman --}}
+  @yield('scripts')
+
 </body>
 </html>

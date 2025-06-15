@@ -5,10 +5,16 @@
 @section('content')
 <!-- Success Popup -->
 @if(session('success'))
-  <div class="fixed top-10 left-1/2 transform -translate-x-1/2 bg-green-100 text-green-800 px-6 py-4 rounded-lg shadow-lg z-50">
-    <p>{{ session('success') }}</p>
-    <button onclick="this.parentElement.style.display='none'" class="ml-4 text-sm text-green-700 hover:underline">Tutup</button>
-  </div>
+<!-- Modal Popup -->
+<div id="popupSuccess" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+    <div class="bg-white rounded-xl p-6 shadow-lg w-96 text-center">
+        <h2 class="text-xl font-semibold text-gray-800 mb-2">Registrasi Berhasil!</h2>
+        <p class="text-gray-600 mb-4">{{ session('success') }}</p>
+        <button onclick="document.getElementById('popupSuccess').remove()" class="px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700">
+            Tutup
+        </button>
+    </div>
+</div>
 @endif
 
 <!-- Error Popup -->
@@ -73,4 +79,13 @@
     Sudah punya akun? <a href="{{ route('login') }}" class="font-bold hover:underline">Klik Disini</a>
   </div>
 </form>
+@endsection
+
+@section('scripts')
+<script>
+    setTimeout(() => {
+        const popup = document.getElementById('popupSuccess');
+        if (popup) popup.remove();
+    }, 3000); // 3 detik
+</script>
 @endsection

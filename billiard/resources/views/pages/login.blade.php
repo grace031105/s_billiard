@@ -6,15 +6,40 @@
 <div class="bg-gray-300/90 p-8 rounded-2xl shadow-lg w-full max-w-md">
   <h2 class="text-2xl font-bold text-center mb-6 text-gray-800">Masuk</h2>
 
-  @if(session('success'))
-  <div class="fixed top-10 left-1/2 transform -translate-x-1/2 bg-green-100 text-green-800 px-6 py-4 rounded-lg shadow-lg z-50">
-    <p>{{ session('success') }}</p>
-    <button onclick="this.parentElement.style.display='none'" class="ml-4 text-sm text-green-700 hover:underline">Tutup</button>
+  @if($errors->any())
+  <div class="mb-4 bg-red-100 text-red-700 px-4 py-3 rounded-lg">
+    <ul class="text-sm list-disc list-inside">
+      @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+      @endforeach
+    </ul>
   </div>
 @endif
 
+@if(session('success'))
+<div id="popupSuccess" class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50">
+  <div class="bg-white text-gray-800 px-6 py-4 rounded-full shadow-lg flex items-center gap-3 animate-fadeIn border border-gray-200">
+    <i class="fa-solid fa-circle-check text-green-600 text-lg"></i>
+    <span class="text-sm">{{ session('success') }}</span>
+    <button onclick="document.getElementById('popupSuccess').remove()" 
+      class="ml-3 text-gray-500 hover:text-gray-800 text-sm">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+</div>
+@endif
 
-  <form method="POST" action="{{ route('login') }}">
+@if($errors->any())
+  <div class="mb-4 bg-red-100 text-red-700 px-4 py-3 rounded-lg">
+    <ul class="text-sm list-disc list-inside">
+      @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+      @endforeach
+    </ul>
+  </div>
+@endif
+
+  <form method="POST" action="{{ route('login.submit') }}">
     @csrf
     <div class="mb-4">
       <label for="nama_pengguna" class="block font-semibold text-gray-700 mb-1 ml-2">Nama Pengguna</label>
@@ -47,3 +72,22 @@
   </form>
 </div>
 @endsection
+@section('scripts')
+<style>
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out;
+}
+</style>
+<script>
+  setTimeout(() => {
+    const popup = document.getElementById('popupSuccess');
+    if (popup) popup.remove();
+  }, 3000); // Auto close setelah 3 detik
+</script>
+@endsection
+
+

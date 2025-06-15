@@ -8,11 +8,11 @@
 <body style="background-color: gray;">
     <h2>Apakah Anda yakin ingin logout?</h2>
     
-    <form action="{{ route('logout') }}" method="POST">
-        @csrf
-        <button type="submit">Ya, Logout</button>
-    </form>
+    <form method="POST" action="{{ route('logout') }}">
+    @csrf
+    <button type="submit">Ya, Logout</button>
+</form>
 
-    <a href="/dash">Batal</a> <!-- Bisa diganti ke halaman lain -->
+    <a href="/dash-public">Batal</a> <!-- Bisa diganti ke halaman lain -->
 </body>
 </html>

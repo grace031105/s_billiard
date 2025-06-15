@@ -36,15 +36,20 @@ return [
     */
 
     'guards' => [
-        'web' => [
-            'driver' => 'session',
-            'provider' => 'users',
-        ],
-        'pemilik' => [
-            'driver' => 'session',
-            'provider' => 'pemilik',
-        ],
+    'web' => [
+        'driver' => 'session',
+        'provider' => 'users',
     ],
+    'pemilik' => [
+        'driver' => 'session',
+        'provider' => 'pemilik',
+    ],
+    'pelanggan' => [
+        'driver' => 'session',
+        'provider' => 'pelanggans',
+    ],
+],
+
 
     /*
     |--------------------------------------------------------------------------
@@ -64,21 +69,28 @@ return [
     */
 
     'providers' => [
-        'users' => [
-            'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\User::class),
-        ],
+    'users' => [
+        'driver' => 'eloquent',
+        'model' => env('AUTH_MODEL', App\Models\User::class),
+    ],
 
-        'pemilik' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Pemilik::class,
-        ],
+    'pemilik' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\Pemilik::class,
+    ],
+
+    'pelanggans' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\Pelanggan::class,
+    ],
+],
+
 
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
-    ],
+    
 
     /*
     |--------------------------------------------------------------------------

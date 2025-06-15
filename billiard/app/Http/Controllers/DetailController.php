@@ -3,23 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DetailController extends Controller
 {
-    public function index()
-    {
-        // Data dummy untuk testing
-        $data = [
-            'nama' => 'Joko Susilo',
-            'email' => 'joko@example.com',
-            'tipe_meja' => 'Meja VIP',
-            'tanggal' => '2025-05-12',
-            'jam' => '19:00',
-            'no_meja' => 'A12',
-            'subtotal' => 150000,
-            'total_akhir' => 170000,
-        ];
-
-        return view('pages.details', $data);
-    }
+   public function store(Request $request)
+{
+    return view('pages.details', [
+        'nama' => auth()->guard('pelanggan')->check() ? auth()->guard('pelanggan')->user()->nama_pengguna : 'Guest',
+        'email' => auth()->guard('pelanggan')->check() ? auth()->guard('pelanggan')->user()->email : 'guest@example.com',
+        'tipe_meja' => $request->tipe_meja,
+        'tanggal' => $request->tanggal,
+        'jam' => $request->jam,
+        'no_meja' => $request->no_meja,
+        'subtotal' => $request->subtotal,
+        'total_akhir' => $request->total_akhir,
+    ]);
 }
+
+
+    }

@@ -20,10 +20,10 @@
             </a>
         </li>
         <li>
-            <a href="pelanggan" class="flex items-center p-2 rounded bg-slate-800 hover:bg-slate-600">
-                <i class="fas fa-users mr-3"></i> Pelanggan
-            </a>
-        </li>
+    <a href="{{ route('pelanggan') }}" class="flex items-center p-2 rounded bg-slate-800 hover:bg-slate-600">
+        <i class="fas fa-users mr-3"></i> Pelanggan
+    </a>
+</li>
     </ul>
 </aside>
 @endsection

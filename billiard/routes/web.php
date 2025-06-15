@@ -6,6 +6,7 @@ use App\Http\Controllers\PemilikController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DashboardPublicController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ResiController;
@@ -21,16 +22,14 @@ use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\ReservasiController;
 
 // Auth Routes
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [LoginController::class, 'login'])->name('login');
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Login pemilik
 Route::get('/pemilik', [PemilikController::class, 'showLoginForm'])->name('pemilik');
 Route::post('/pemilik', [PemilikController::class, 'login'])->name('pemilik.login');
 Route::post('/pemilik/logout', [PemilikController::class, 'logout'])->name('pemilik.logout');
-
-
 
 // Register
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register.form');
@@ -49,9 +48,10 @@ Route::get('/reset-password', function () {
 Route::post('/reset-password', [PasswordResetController::class, 'prosesReset'])->name('password.reset');
 
 // Dashboard & Items
-Route::get('/dash', [DashboardController::class, 'index'])->middleware('auth')->name('dash');
+Route::get('/dash-public', [DashboardPublicController::class, 'index'])->name('dash-public');
+Route::get('/dash', [DashboardController::class, 'index'])->middleware('auth:pelanggan')->name('dash');
 Route::get('/meja_reguler', [MejaRegulerController::class, 'index'])-> name('meja_reguler');
-Route::get('/details', [DetailController::class, 'index'])->name('details');
+Route::post('/details', [DetailController::class, 'store'])->name('details');
 Route::get('/meja_vip', [MejaVipController::class, 'index'])-> name('meja_vip');
 Route::get('/meja_platinum', [MejaPlatinumController::class, 'index'])-> name('meja_platinum');
 
@@ -71,6 +71,7 @@ Route::get('/beranda', [BerandaController::class, 'index'])-> name('beranda');
 Route::get('/reservasi', [ReservasiController::class, 'show']);
 Route::post('/reservasi/{id}/konfirmasi', [ReservasiController::class, 'konfirmasi'])->name('reservasi.konfirmasi');
 Route::post('/reservasi/{id}/batal', [ReservasiController::class, 'batal'])->name('reservasi.batal');
+Route::post('/reservasi/simpan', [ReservasiController::class, 'store'])->name('reservasi.store');
 
 
 

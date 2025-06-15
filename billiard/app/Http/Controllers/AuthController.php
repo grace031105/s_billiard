@@ -10,38 +10,48 @@ use Illuminate\Support\Facades\Hash;
 class AuthController extends Controller
 {
     // Menampilkan halaman login
-    public function showLogin()
+    public function showLoginForm()
     {
+        if (Auth::guard('pelanggan')->check()) {
+            return redirect()->route('dash');
+        }
         return view('pages.login');
     }
 
     // Proses login
-public function login(Request $request)
-{
-    $request->validate([
-        'email' => 'required|email',
-        'password' => 'required'
-    ]);
+    public function login(Request $request)
+    {
+        $request->validate([
+            'nama_pengguna' => 'required|string',
+            'kata_sandi' => 'required|string'
+        ]);
 
-    $pelanggan = Pelanggan::where('email', $request->email)->first();
+        $pelanggan = Pelanggan::where('nama_pengguna', $request->nama_pengguna)->first();
 
-    if ($pelanggan && \Hash::check($request->password, $pelanggan->kata_sandi)) {
-        \Auth::login($pelanggan); // PAKAI INI agar middleware auth() jalan
-        $request->session()->regenerate(); // regenerate session Laravel
-        return redirect()->route('dash')->with('success', 'Login Berhasil');
+        if (!$pelanggan) {
+            return back()->withErrors(['nama_pengguna' => 'Nama pengguna tidak ditemukan.']);
+        }
+
+        if (!Hash::check($request->kata_sandi, $pelanggan->kata_sandi)) {
+            return back()->withErrors(['kata_sandi' => 'Kata sandi salah.']);
+        }
+
+        // Gunakan guard pelanggan untuk login
+        Auth::guard('pelanggan')->login($pelanggan);
+        $request->session()->regenerate();
+
+        return redirect()->route('dash')->with('success', 'Login berhasil!');
     }
-
-    return back()->withErrors(['email' => 'Email atau password salah']);
-}
 
     // Menampilkan halaman register
     public function showRegisterForm()
     {
         return view('pages.register');
     }
-public function register(Request $request)
-{
-    try {
+
+    // Proses register
+    public function register(Request $request)
+    {
         $validated = $request->validate([
             'nama_pengguna' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:pelanggan',
@@ -49,7 +59,7 @@ public function register(Request $request)
             'kata_sandi' => 'required|string|min:6|confirmed',
         ]);
 
-        \App\Models\Pelanggan::create([
+        Pelanggan::create([
             'nama_pengguna' => $validated['nama_pengguna'],
             'email' => $validated['email'],
             'nomor_hp' => $validated['nomor_hp'],
@@ -57,16 +67,15 @@ public function register(Request $request)
         ]);
 
         return redirect()->route('login')->with('success', 'Registrasi berhasil! Silakan login.');
-    } catch (\Exception $e) {
-        return redirect()->route('login')->with('error', 'Terjadi kesalahan saat registrasi.');
     }
-}
+
     // Logout
-    public function logout(Request $request)
-    {
-        Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        return redirect('/login');
-    }
+   public function logout(Request $request)
+{
+    Auth::guard('pelanggan')->logout(); // Guard pelanggan!
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+
+    return redirect()->route('dash-public');
+}
 }

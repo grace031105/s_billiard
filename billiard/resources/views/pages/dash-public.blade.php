@@ -1,5 +1,7 @@
-@extends('layouts.dashboard')
+@extends('layouts.dashboard') 
+
 @section('title', 'Reservasi Meja')
+
 @section('content')
 <section class="relative bg-cover bg-center h-[700px]" style="background-image: url('/images/gambar2.png');">
   <div class="absolute inset-0 bg-black bg-opacity-60 flex items-start justify-start px-6 md:px-20 pt-32">
@@ -12,21 +14,32 @@
     </div>
   </div>
 </section>
+
 @include('components.schedule_popup')
 
 <section id="pilih-meja" class="py-20 text-center bg-[#9EB0C2]">
   <h2 class="text-2xl font-bold mb-10">TENTUKAN PILIHANMU</h2>
   <div class="slider-container mx-auto">
     <div class="slider-track">
-      @foreach($meja as $m)
-       <div class="slider-item bg-slate-700 text-white rounded-lg overflow-hidden shadow-md">
-        <img src="<?= $m['src']; ?>" alt="<?= $m['judul']; ?>" class="h-48 w-full object-cover" />
-        <div class="p-4 space-y-2">
-          <h3 class="text-lg font-bold"><?= $m['judul']; ?></h3>
-          <a href="<?= $m['link']; ?>" class="block bg-slate-300 text-black font-bold py-2 rounded">Pilih Meja</a>
-        </div>
-      </div>
-      @endforeach
+     @foreach($meja as $m)
+  <div class="slider-item bg-slate-700 text-white rounded-lg overflow-hidden shadow-md">
+    <img src="{{ $m['src'] }}" alt="{{ $m['judul'] }}" class="h-48 w-full object-cover" />
+    <div class="p-4 space-y-2">
+      <h3 class="text-lg font-bold">{{ $m['judul'] }}</h3>
+
+      @guest('pelanggan')
+        <a href="{{ route('login') }}" class="block bg-slate-300 text-black font-bold py-2 rounded">
+          Pilih Meja
+        </a>
+      @else
+        <a href="{{ url($m['link']) }}" class="block bg-slate-300 text-black font-bold py-2 rounded">
+          Pilih Meja
+        </a>
+      @endguest
+
+    </div>
+  </div>
+@endforeach
     </div>
   </div>
 </section>
