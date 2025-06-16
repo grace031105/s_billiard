@@ -50,6 +50,14 @@ return [
     ],
 ],
 
+'providers' => [
+    'pelanggan' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\Pelanggan::class,
+    ],
+    // ...
+],
+
 
     /*
     |--------------------------------------------------------------------------

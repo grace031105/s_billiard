@@ -10,6 +10,7 @@ use App\Http\Controllers\DashboardPublicController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ResiController;
+use App\Http\Controllers\MejaController;
 use App\Http\Controllers\MejaRegulerController;
 use App\Http\Controllers\MejaVipController;
 use App\Http\Controllers\MejaPlatinumController;
@@ -35,8 +36,9 @@ Route::post('/pemilik/logout', [PemilikController::class, 'logout'])->name('pemi
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register.form');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/editprofil', [ProfilController::class, 'show'])->name('profil.show');
+Route::middleware('auth:pelanggan')->group(function () {
+    Route::get('/profil', [ProfilController::class, 'show'])->name('profil.show');
+    Route::get('/profil/edit', [ProfilController::class, 'edit'])->name('profil.edit');
     Route::post('/profil/update', [ProfilController::class, 'update'])->name('profil.update');
 });
 
@@ -46,6 +48,10 @@ Route::get('/reset-password', function () {
 })->name('password.reset.form');
 
 Route::post('/reset-password', [PasswordResetController::class, 'prosesReset'])->name('password.reset');
+
+// Pencarian
+Route::get('/cari-meja', [MejaController::class, 'cari'])->name('cari.meja');
+
 
 // Dashboard & Items
 Route::get('/dash-public', [DashboardPublicController::class, 'index'])->name('dash-public');
@@ -82,9 +88,7 @@ Route::view('/invoice', 'invoice')->name('invoice');
 Route::view('/pilih', 'pilih')->name('pilih');
 Route::view('/carousel', 'carousel')->name('carousel');
 Route::view('/search', 'search')->name('search');
-Route::view('/editprofile', 'editprofile')->name('editprofile');
 //Route::view('/resi_pemesanan', 'resi_pemesanan')->name('resi_pemesanan');
 Route::view('/detail_penyewaan', 'detail_penyewaan')->name('detail_penyewaan');
-Route::view('/edit_profil', 'edit_profil')->name('edit_profil');
 //Route::view('/riwayat_penyewaan', 'riwayat_penyewaan')->name('riwayat_penyewaan');
 //Route::view('/kelola_meja', 'kelola_meja')->name('kelola_meja');

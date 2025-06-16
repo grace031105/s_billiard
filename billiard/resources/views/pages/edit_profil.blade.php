@@ -1,58 +1,68 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="max-w-md mx-auto mt-10 bg-white p-6 rounded-xl shadow-md">
-    <a href="{{ route('dashboard') }}" class="inline-block mb-4 text-blue-600 hover:underline">
-        ← Kembali ke Dashboard
-    </a>
+<div class="min-h-screen bg-gray-300 flex items-center justify-center relative">
 
-    <h2 class="text-2xl font-bold text-center mb-6 text-gray-800">Edit Profil</h2>
+  <div class="w-full max-w-md bg-gray-300 px-6 py-10 pt-16">
 
-    @if (session('success'))
-        <div class="mb-4 bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded">
-            {{ session('success') }}
-        </div>
-    @endif
+    <!-- Judul -->
+    <h1 class="text-center text-2xl font-bold text-blue-900 mb-8">Edit Profil</h1>
 
-    @if ($errors->any())
-        <div class="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded">
-            <ul class="list-disc list-inside">
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+    <form action="{{ route('profil.update') }}" method="POST" class="space-y-6">
+      @csrf
 
-    <form action="{{ route('profil.update') }}" method="POST">
-        @csrf
+      <!-- Nama Pengguna -->
+      <div>
+        <label for="nama_pengguna" class="block mb-2 font-semibold text-gray-800">Nama Pengguna</label>
+        <input type="text" id="nama_pengguna" name="nama_pengguna"
+               value="{{ old('nama_pengguna', $user->nama_pengguna) }}"
+               class="w-full px-5 py-3 bg-blue-900 text-white rounded-full focus:outline-none focus:ring-2 focus:ring-blue-700"
+               required>
+      </div>
 
-        <div class="mb-4">
-            <label class="block text-gray-700 font-medium mb-1">Nama Pengguna</label>
-            <input type="text" value="{{ $user->nama_pengguna }}" class="w-full p-3 rounded bg-gray-100 text-gray-800" disabled>
-        </div>
+      <!-- Nomor Telepon -->
+      <div>
+        <label for="no_telepon" class="block mb-2 font-semibold text-gray-800">Nomor Telepon</label>
+        <input type="text" id="nomor_hp" name="nomor_hp"
+               value="{{ old('nomor_hp', $user->nomor_hp) }}"
+               placeholder="Masukkan Nomor Telepon Baru"
+               class="w-full px-5 py-3 bg-blue-900 text-white placeholder-white rounded-full focus:outline-none focus:ring-2 focus:ring-blue-700"
+               required>
+      </div>
 
-        <div class="mb-4">
-            <label class="block text-gray-700 font-medium mb-1">Email</label>
-            <input type="email" name="email" value="{{ old('email', $user->email) }}"
-                   class="w-full p-3 border rounded focus:outline-none focus:ring focus:border-blue-300" required>
-        </div>
+      <!-- Email -->
+      <div>
+        <label for="email" class="block mb-2 font-semibold text-gray-800">Email</label>
+        <input type="email" id="email" name="email"
+               value="{{ old('email', $user->email) }}"
+               placeholder="Masukkan Email Baru"
+               class="w-full px-5 py-3 bg-blue-900 text-white placeholder-white rounded-full focus:outline-none focus:ring-2 focus:ring-blue-700"
+               required>
+      </div>
 
-        <div class="mb-4">
-            <label class="block text-gray-700 font-medium mb-1">Nomor Telepon</label>
-            <input type="text" name="no_telepon" value="{{ old('no_telepon', $user->no_telepon) }}"
-                   class="w-full p-3 border rounded focus:outline-none focus:ring focus:border-blue-300" required>
-        </div>
+      <!-- Kata Sandi Baru -->
+      <div>
+        <label for="kata_sandi_baru" class="block mb-2 font-semibold text-gray-800">Kata Sandi</label>
+        <input type="password" id="kata_sandi_baru" name="kata_sandi_baru"
+               placeholder="Masukkan Kata Sandi Baru"
+               class="w-full px-5 py-3 bg-blue-900 text-white placeholder-white rounded-full focus:outline-none focus:ring-2 focus:ring-blue-700">
+      </div>
 
-        <div class="mb-6">
-            <label class="block text-gray-700 font-medium mb-1">Kata Sandi Baru</label>
-            <input type="password" name="kata_sandi_baru" placeholder="Kosongkan jika tidak ingin mengganti"
-                   class="w-full p-3 border rounded focus:outline-none focus:ring focus:border-blue-300">
-        </div>
-
-        <button type="submit" class="w-full bg-blue-700 text-white py-3 rounded hover:bg-blue-800 transition">
-            Simpan Perubahan
+      <!-- Tombol Simpan -->
+      <div class="pt-2 space-y-4">
+        <button type="submit"
+                class="w-full bg-gray-900 text-white font-semibold py-3 rounded-md hover:bg-gray-800">
+          Simpan Perubahan
         </button>
+
+        <!-- Tombol Batal -->
+        <a href="{{ route('profil.show') }}"
+           class="w-full border border-gray-800 text-gray-800 text-center font-semibold py-3 rounded-md hover:bg-gray-200 block">
+          Batal
+        </a>
+      </div>
     </form>
+
+  </div>
 </div>
 @endsection
