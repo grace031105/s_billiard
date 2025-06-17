@@ -71,6 +71,8 @@ Route::put('/mejas/{id_meja}', [KelolaController::class, 'update'])->name('mejas
 Route::get('/resi_pemesanan', [ResiController::class, 'index'])->name('resi_pemesanan');
 Route::get('/resi-pdf/{id}', [ResiController::class, 'downloadPDF'])->name('resi.pdf');
 Route::get('/riwayat_penyewaan', [RiwayatController::class, 'index'])-> name('riwayat_penyewaan');
+Route::get('/riwayat_penyewaan/{id}', [RiwayatController::class, 'show'])->name('riwayat.detail');
+
 Route::get('/pelanggan', [PelangganController::class, 'show'])-> name('pelanggan');
 Route::get('/beranda', [BerandaController::class, 'index'])-> name('beranda');
 

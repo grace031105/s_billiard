@@ -48,7 +48,8 @@
             <td class="px-4 py-2"><img src="{{ asset('images/' . $meja->foto_meja) }}" alt="Foto Meja" width="100"></td>
             <td class="flex gap-2">
                 <button
-                    onclick="isiFormEdit('{{ $meja->id_meja }}', '{{ $meja->kode_meja }}', '{{ $meja->nama_meja }}', '{{ $meja->tipe_meja }}', '{{ $meja->harga_per_jam }}', '{{ $meja->status_meja }}')"
+                    onclick="isiFormEdit('{{ $meja->id_meja }}', '{{ $meja->kode_meja }}', '{{ $meja->nama_meja }}', '{{ $meja->tipe_meja }}', 
+                    '{{ $meja->harga_per_jam }}', '{{ $meja->status_meja }}')"
                     data-modal-target="modalEdit" data-modal-toggle="modalEdit"
                     class="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded">EDIT</button>
 
