@@ -39,6 +39,7 @@ class PemilikController extends Controller
         Auth::guard('pemilik')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/pemilik');
+        return redirect('/pemilik'); // kembali ke halaman login pemilik
     }
+
 }

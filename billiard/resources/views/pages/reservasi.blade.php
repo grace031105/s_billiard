@@ -31,7 +31,7 @@
 
 
 @section('content')
-    <h3 class="text-2xl font-bold mb-2">Data Reservasi Meja Billiard</h3>
+    <h3 class="text-2xl font-bold mb-2"><i class="fas fa-chart-bar mr-3"></i>Data Reservasi Meja Billiard</h3>
     <hr class="border-white mb-4">
 
 

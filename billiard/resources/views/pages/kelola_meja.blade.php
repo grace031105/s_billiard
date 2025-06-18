@@ -5,18 +5,35 @@
 @section('sidebar')
 <aside class="w-64 h-screen bg-slate-700 text-white pt-4">
     <ul class="space-y-2 px-4">
-        <li><a href="/beranda" class="flex items-center p-2 rounded bg-slate-800 hover:bg-slate-600"><i class="fas fa-home mr-3"></i> Beranda</a></li>
-        <li><a href="/reservasi" class="flex items-center p-2 rounded bg-slate-800 hover:bg-slate-600"><i class="fas fa-chart-bar mr-3"></i> Data Reservasi</a></li>
-        <li><a href="/kelola_meja" class="flex items-center p-2 rounded bg-slate-800 hover:bg-slate-600"><i class="fas fa-table mr-3"></i> Kelola Meja</a></li>
-        <li><a href="/pelanggan" class="flex items-center p-2 rounded bg-slate-800 hover:bg-slate-600"><i class="fas fa-users mr-3"></i> Pelanggan</a></li>
+        <li>
+            <a href="beranda" class="flex items-center p-2 rounded bg-slate-800 hover:bg-slate-600">
+                <i class="fas fa-home mr-3"></i> Beranda
+            </a>
+        </li>
+        <li>
+            <a href="reservasi" class="flex items-center p-2 rounded bg-slate-800 hover:bg-slate-600">
+                <i class="fas fa-chart-bar mr-3"></i> Data Reservasi
+            </a>
+        </li>
+        <li>
+            <a href="kelola_meja" class="flex items-center p-2 rounded bg-slate-800 hover:bg-slate-600">
+                <i class="fas fa-table mr-3"></i> Kelola Meja
+            </a>
+        </li>
+        <li>
+            <a href="pelanggan" class="flex items-center p-2 rounded bg-slate-800 hover:bg-slate-600">
+                <i class="fas fa-users mr-3"></i> Pelanggan
+            </a>
+        </li>
     </ul>
 </aside>
 @endsection
 
 @section('content')
+    <h3 class="text-2xl font-bold mb-2"><i class="fas fa-table mr-3"></i>Data  Meja Billiard</h3>
+    <hr class="border-white mb-4">
 
 <!-- Judul + Tombol Tambah -->
-<h3 class="text-2xl font-bold mb-4">Kelola Meja</h3>
 <button data-modal-target="modalTambah" data-modal-toggle="modalTambah"
     class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow mb-4">
     Tambah Data Meja

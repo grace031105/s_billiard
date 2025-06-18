@@ -20,17 +20,18 @@
             </a>
         </li>
         <li>
-    <a href="{{ route('pelanggan') }}" class="flex items-center p-2 rounded bg-slate-800 hover:bg-slate-600">
-        <i class="fas fa-users mr-3"></i> Pelanggan
-    </a>
-</li>
+            <a href="pelanggan" class="flex items-center p-2 rounded bg-slate-800 hover:bg-slate-600">
+                <i class="fas fa-users mr-3"></i> Pelanggan
+            </a>
+        </li>
     </ul>
 </aside>
 @endsection
 
+    @section('content')
+    <h3 class="text-2xl font-bold mb-4 flex items-center"><i class="fas fa-users mr-2"></i>Data Pelanggan</h2>
+    <hr class="border-white mb-4">
 
-@section('content')
-    <h2 class="text-2xl font-bold mb-4 flex items-center"><i class="fas fa-users mr-2"></i> Data Pelanggan</h2>
     <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
         <table class="w-full text-sm text-left text-gray-700 bg-white rounded">
             <thead class="text-xs text-gray-700 uppercase bg-blue-200">

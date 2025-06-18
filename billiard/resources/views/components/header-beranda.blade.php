@@ -8,17 +8,15 @@
             </button>
             <div id="dropdownUser"
                  class="hidden z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow">
-                <div class="px-4 py-3">
-                    <span class="block text-sm text-gray-900">Hello, Pemilik</span>
+                <div class="px-4 py-2 text-black text-center">
+                    <p class="mb-2">Hello, Pemilik</p>
+                    <form method="POST" action="{{ route('pemilik.logout') }}">
+                        @csrf
+                        <button type="submit"class="text-red-600 border border-red-500 px-4 py-2 rounded hover:bg-red-500 hover:text-white transition">
+                            Keluar
+                        </button>
+                    </form>
                 </div>
-                <ul class="py-1">
-                    <li>
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                            <i class="fas fa-sign-out-alt mr-2"></i>Logout
-                        </a>
-                    </li>
-                </ul>
-            </div>
         </div>
     </div>
 </nav>

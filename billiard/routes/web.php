@@ -32,6 +32,23 @@ Route::get('/pemilik', [PemilikController::class, 'showLoginForm'])->name('pemil
 Route::post('/pemilik', [PemilikController::class, 'login'])->name('pemilik.login');
 Route::post('/pemilik/logout', [PemilikController::class, 'logout'])->name('pemilik.logout');
 
+//Route::middleware(['auth.pemilik'])->group(function () {
+    Route::get('/beranda', [BerandaController::class, 'index'])->name('beranda');
+        // Kelola Meja
+    Route::get('/kelola_meja', [KelolaController::class, 'show'])->name('kelola_meja');
+    Route::post('/meja/simpan', [KelolaController::class, 'simpan'])->name('meja.simpan');
+    Route::delete('/kelola_meja/{id_meja}', [KelolaController::class, 'delete'])->name('mejas.delete');
+    Route::get('/mejas/{id_meja}/edit', [KelolaController::class, 'edit'])->name('mejas.edit');
+    Route::put('/mejas/{id_meja}', [KelolaController::class, 'update'])->name('mejas.update');
+    // Data Pelanggan
+    Route::get('/pelanggan', [PelangganController::class, 'show'])->name('pelanggan');
+    // Data Reservasi
+    Route::get('/reservasi', [ReservasiController::class, 'show']);
+    Route::post('/reservasi/{id}/konfirmasi', [ReservasiController::class, 'konfirmasi'])->name('reservasi.konfirmasi');
+    Route::post('/reservasi/{id}/batal', [ReservasiController::class, 'batal'])->name('reservasi.batal');
+
+//});
+
 // Register
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register.form');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
@@ -62,23 +79,15 @@ Route::get('/meja_vip', [MejaVipController::class, 'index'])-> name('meja_vip');
 Route::get('/meja_platinum', [MejaPlatinumController::class, 'index'])-> name('meja_platinum');
 
 
-Route::get('/kelola_meja', [KelolaController::class, 'show'])->name('kelola_meja');
-Route::post('/meja/simpan', [KelolaController::class, 'simpan'])->name('meja.simpan');
-Route::delete('/kelola_meja/{id_meja}', [KelolaController::class, 'delete'])->name('mejas.delete');
-Route::get('/mejas/{id_meja}/edit', [KelolaController::class, 'edit'])->name('mejas.edit');
-Route::put('/mejas/{id_meja}', [KelolaController::class, 'update'])->name('mejas.update');
+
 
 Route::get('/resi_pemesanan', [ResiController::class, 'index'])->name('resi_pemesanan');
 Route::get('/resi-pdf/{id}', [ResiController::class, 'downloadPDF'])->name('resi.pdf');
 Route::get('/riwayat_penyewaan', [RiwayatController::class, 'index'])-> name('riwayat_penyewaan');
 Route::get('/riwayat_penyewaan/{id}', [RiwayatController::class, 'show'])->name('riwayat.detail');
 
-Route::get('/pelanggan', [PelangganController::class, 'show'])-> name('pelanggan');
-Route::get('/beranda', [BerandaController::class, 'index'])-> name('beranda');
 
-Route::get('/reservasi', [ReservasiController::class, 'show']);
-Route::post('/reservasi/{id}/konfirmasi', [ReservasiController::class, 'konfirmasi'])->name('reservasi.konfirmasi');
-Route::post('/reservasi/{id}/batal', [ReservasiController::class, 'batal'])->name('reservasi.batal');
+
 Route::post('/reservasi/simpan', [ReservasiController::class, 'store'])->name('reservasi.store');
 
 
