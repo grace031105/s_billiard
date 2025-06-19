@@ -29,9 +29,9 @@
 </section>
 
 <div class="text-center mb-10">
-    <button class="bg-[#1c2f45] text-white px-8 py-3 rounded-full font-semibold text-lg shadow-md hover:bg-[#163047]">
+    < <a href="{{ route('resi_pemesanan') }}" class="block bg-slate-300 text-black font-bold py-2 rounded"><button class="bg-[#1c2f45] text-white px-8 py-3 rounded-full font-semibold text-lg shadow-md hover:bg-[#163047]">
         ↓ Pembayaran ↓
-    </button>
+    </button></a>
 </div>
 
 @include('components.form_pembayaran', ['total_akhir' => $total_akhir])

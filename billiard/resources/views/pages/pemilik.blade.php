@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="bg-gray-300/90 p-8 rounded-2xl shadow-lg w-full max-w-md">
-  <h2 class="text-2xl font-bold text-center mb-6 text-gray-800">Login Pemilik</h2>
+  <h2 class="text-2xl font-bold text-center mb-6 text-gray-800">PEMILIK</h2>
 
   @if ($errors->any())
     <div class="text-red-600 mb-3 text-sm">
