@@ -21,6 +21,7 @@ use App\Http\Controllers\KelolaController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\ReservasiController;
+use App\Http\Controllers\PembayaranController;
 
 // Auth Routes
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
@@ -73,8 +74,15 @@ Route::get('/cari-meja', [MejaController::class, 'cari'])->name('cari.meja');
 // Dashboard & Items
 Route::get('/dash-public', [DashboardPublicController::class, 'index'])->name('dash-public');
 Route::get('/dash', [DashboardController::class, 'index'])->middleware('auth:pelanggan')->name('dash');
-Route::get('/meja_reguler', [MejaRegulerController::class, 'index'])-> name('meja_reguler');
+
+// Tampilkan form reservasi
+Route::get('/meja_reguler', [MejaRegulerController::class, 'index'])->name('meja_reguler');
+// Proses reservasi (INSERT)
 Route::post('/details', [DetailController::class, 'store'])->name('details');
+//Route::get('/details/{id}', [DetailController::class, 'show'])->name('details.show');
+Route::post('/pembayaran/konfirmasi', [PembayaranController::class, 'konfirmasi'])->name('pembayaran.konfirmasi');
+
+
 Route::get('/meja_vip', [MejaVipController::class, 'index'])-> name('meja_vip');
 Route::get('/meja_platinum', [MejaPlatinumController::class, 'index'])-> name('meja_platinum');
 

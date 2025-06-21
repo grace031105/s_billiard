@@ -34,9 +34,12 @@
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
     <a href="#" class="bg-slate-800 p-6 rounded-lg shadow hover:bg-slate-700">
         <h3 class="text-lg font-bold flex items-center">
-            <i class="fas fa-user mr-3"></i> Data Pengguna
+            <i class="fas fa-user mr-3"></i> Meja Billiard
         </h3>
     </a>
+
+    
+    
     <a href="#" class="bg-yellow-400 text-black p-6 rounded-lg shadow hover:bg-yellow-300">
         <h3 class="text-lg font-bold flex items-center">
             <i class="fas fa-table mr-3"></i> Meja

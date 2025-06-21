@@ -1,3 +1,3 @@
-<footer class="bg-[#14143b] text-white text-center py-3 text-sm tracking-wide mt-auto">
-    © 2025 <span class="font-semibold">FORCUE.</span> All Rights Reserved.
+<footer class="bg-slate-800 text-center text-sm py-4 mt-10">
+    © 2025 Aplikasi Reservasi Billiard - semua hak cipta dilindungi undang-undang
 </footer>

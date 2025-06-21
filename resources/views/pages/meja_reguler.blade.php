@@ -4,207 +4,115 @@
 
 @section('content')
 <div class="container mx-auto px-4 py-6">
-  <a href="#" class="text-blue-900 font-semibold">&larr; Kembali</a>
+  <a href="{{ url()->previous() }}" class="text-blue-900 font-semibold">&larr; Kembali</a>
 
   <div class="meja-detail flex flex-wrap gap-6 my-6">
     <img src="{{ asset('/images/gambar4.jpeg') }}" alt="Meja Biliar" class="max-w-md rounded-xl">
     <div class="flex-1">
       <h2 class="text-3xl font-bold text-[#1c2a41] mb-2">Meja Reguler</h2>
-      <p class="text-[#333] leading-relaxed">Meja biliar standar berukuran 7ft, cocok untuk permainan santai maupun harian.</p>
+      <p class="text-[#333] leading-relaxed">
+        Meja biliar standar berukuran 7ft, cocok untuk permainan santai maupun harian. Menawarkan pengalaman bermain yang nyaman dengan perawatan rutin dan fasilitas memadai.
+      </p>
     </div>
   </div>
 
-  <div class="daftar-meja">
-    <h2 class="text-2xl font-bold text-[#1c2a41] mb-4">Daftar Meja</h2>
-    <div class="space-y-4">
-      @foreach(['Meja 1', 'Meja 2', 'Meja 3'] as $meja)
-      <div class="flex items-center gap-4 p-4 bg-[#0e0e3e] rounded-xl text-white">
-        <img src="{{ asset('/images/gambar4.jpeg') }}" alt="{{ $meja }}" class="w-24 rounded-md" />
-        <div class="font-semibold text-xl">{{ $meja }}</div>
-        <button class="ml-auto px-4 py-2 bg-white text-black rounded-full font-semibold" onclick="openPopup('{{ $meja }}')">Pilih Jadwal</button>
-      </div>
+  <h2 class="text-2xl font-bold text-[#1c2a41] mb-4">Daftar Meja</h2>
+  <div class="space-y-4">
+    @foreach ($meja_reguler as $meja)
+      <div class="bg-[#1c2a41] text-white rounded-lg p-4">
+        <div class="flex items-center justify-between gap-4">
+          <div class="flex items-center gap-4">
+            <!-- FOTO MEJA -->
+            <img src="{{ asset('images/' . $meja->foto_meja) }}" alt="Foto Meja" class="w-20 h-20 object-cover rounded">
+            <!-- NAMA MEJA -->
+            <h2 class="text-lg font-semibold">{{ $meja->nama_meja }}</h2>
+          </div>
+          <!-- TOMBOL PILIH JADWAL (membuka modal) -->
+          <button 
+            type="button"
+            onclick="openModal('modal-{{ $meja->id_meja }}')"
+            class="bg-white text-[#1c2a41] px-4 py-2 rounded font-semibold">
+            Pilih Jadwal
+          </button>
+        </div>
+
+        <!-- MODAL -->
+        <div id="modal-{{ $meja->id_meja }}" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+          <div class="bg-[#b0c4de] rounded-2xl w-full max-w-xl p-6 relative">
+            <button onclick="closeModal('modal-{{ $meja->id_meja }}')" class="absolute top-2 right-4 text-2xl font-bold text-gray-700 hover:text-black">&times;</button>
+    
+            <h2 class="text-2xl font-bold text-center text-[#1c2a41] mb-6">Formulir Reservasi</h2>
+
+            <form method="POST" action="{{ route('details') }}">
+              @csrf
+              <input type="hidden" name="id_meja" value="{{ $meja->id_meja }}">
+              <input type="hidden" name="nama_meja" value="{{ $meja->nama_meja }}">
+              <input type="hidden" name="harga" value="{{ $meja->harga_per_jam ?? 0 }}">
+
+              <div class="mb-4">
+                <label class="block mb-1">Tanggal</label>
+                <input type="date" name="tanggal" required class="w-full rounded p-2 text-black">
+              </div>
+              <!--waktu grid-->
+              
+              <label class="block mb-2">Waktu</label>
+                <div class="grid grid-cols-3 gap-2 mb-4">
+                  @foreach ($waktu_sewas as $waktu)
+                    <label class="cursor-pointer">
+                      <input type="radio" name="id_waktu" value="{{ $waktu->id_waktu }}" class="hidden peer" required>
+                      <div class="peer-checked:bg-white peer-checked:text-[#1c2a41] bg-[#1c2a41] text-white rounded p-2 text-center">
+                        {{ $waktu->jam_mulai }} - {{ $waktu->jam_selesai }}
+                      </div>
+                    </label>
+                  @endforeach
+                </div>
+
+                <div class="bg-white text-[#1c2a41] rounded p-2 mb-4 text-sm">
+                  <p><strong>Tipe Meja:</strong> Meja Reguler</p>
+                  <p><strong>No Meja:</strong> {{ $meja->nama_meja }}</p>
+                </div>
+
+                <button type="submit" class="w-full bg-[#1c2a41] text-white px-4 py-2 rounded font-semibold">Tambah ke Keranjang</button>
+              </form>
+            </div>
+          </div>
+
+        </div>
       @endforeach
     </div>
   </div>
-</div>
-@include('components.schedule_popup')
-@include('components.popup_form')
-@endsection
-
-@push('scripts')
-<script>
-   // Array untuk menyimpan item keranjang
-let cart = [];
-
-// Menyimpan data yang dipilih oleh pengguna (meja dan waktu)
-let selectedTime = null;
-let selectedDate = null;
-let meja = "Meja 1";  // Bisa diganti dinamis sesuai pilihan
-
-// Fungsi untuk membuka pop-up (Reservasi)
-function openPopup(mejaSelected) {
-  meja = mejaSelected;
-  document.getElementById('noMeja').innerText = meja;
-  const popup = document.getElementById('popup');
-  popup.classList.remove('hidden');
-  popup.classList.add('flex');
-}
-
-// Fungsi untuk menutup pop-up (Reservasi)
-function closePopup() {
-  const popup = document.getElementById('popup');
-  popup.classList.remove('flex');
-  popup.classList.add('hidden');
-}
-
-// Fungsi untuk memilih waktu
-function selectTime(button) {
-  selectedTime = button.textContent;
-  document.querySelectorAll('.time-buttons button').forEach(btn => {
-    btn.classList.remove('bg-blue-500', 'text-white', 'selected');
-  });
-  button.classList.add('bg-blue-500', 'text-white', 'selected');
-}
-
-// Fungsi untuk menambah item ke keranjang (Schedule Panel)
-function tambahKeKeranjang() {
-  if (!selectedTime || !selectedDate) {
-    alert('Harap pilih waktu dan tanggal terlebih dahulu.');
-    return;
+  @endsection
+  <script>
+  function openModal(id) {
+    document.getElementById(id).classList.remove('hidden');
   }
 
-  cart.push({
-    meja: meja,
-    waktu: selectedTime,
-    tanggal: selectedDate
-  });
-
-  alert('Item berhasil ditambahkan ke keranjang!');
-  displayCartItemsInSchedulePanel();
-  closePopup();
-}
-
-// Fungsi untuk menampilkan item keranjang di schedulePanel
-function displayCartItemsInSchedulePanel() {
-  const cartItemsContainer = document.querySelector('#schedulePanel .space-y-4');
-  cartItemsContainer.innerHTML = '';
-
-  cart.forEach(item => {
-    const cartItemDiv = document.createElement('div');
-    cartItemDiv.classList.add('bg-slate-200', 'p-4', 'rounded-lg', 'text-left', 'mb-4');
-    cartItemDiv.innerHTML = `
-      <div class="flex justify-between items-center">
-        <div><strong>Tipe Meja:</strong> ${item.meja}</div>
-        <div><strong>No Meja:</strong> ${item.meja}</div>
-      </div>
-      <div class="mt-2">
-        <strong>Tanggal:</strong> ${item.tanggal} <br>
-        <strong>Waktu:</strong> ${item.waktu}
-      </div>
-    `;
-    cartItemsContainer.appendChild(cartItemDiv);
-  });
-
-  if (cart.length > 0) {
-    document.getElementById('schedulePanel').classList.remove('translate-x-full');
-    document.getElementById('overlay').classList.remove('hidden');
-  }
-}
-
-// Fungsi untuk memproses pembelian
-function prosesPembelian() {
-  alert("Proses Pembelian Diperlukan");
-}
-
-// Ambil tanggal dari input
-document.getElementById('date').addEventListener('change', function () {
-  selectedDate = this.value;
-});
-
-// Event listener setelah DOM siap
-document.addEventListener('DOMContentLoaded', () => {
-  const openCart = document.getElementById('openCart');
-  const closeCart = document.getElementById('closeCart');
-  const schedulePanel = document.getElementById('schedulePanel');
-  const overlay = document.getElementById('overlay');
-  const userBtn = document.getElementById('userBtn');
-  const userDropdown = document.getElementById('userDropdown');
-
-  if (openCart) {
-    openCart.addEventListener('click', () => {
-      if (cart.length > 0) {
-        schedulePanel.classList.remove('translate-x-full');
-        overlay.classList.remove('hidden');
-      } else {
-        alert('Keranjang kosong!');
-      }
-    });
+  function closeModal(id) {
+    document.getElementById(id).classList.add('hidden');
   }
 
-  closeCart?.addEventListener('click', () => {
-    schedulePanel.classList.add('translate-x-full');
-    overlay.classList.add('hidden');
-  });
+  function updateDisabledTimes(idMeja, tanggal, bookedData) {
+    // Loop semua slot yang ada
+    for (const idWaktu in bookedData) {
+      const waktuArray = bookedData[tanggal] || [];
 
-  overlay?.addEventListener('click', () => {
-    schedulePanel.classList.add('translate-x-full');
-    overlay.classList.add('hidden');
-  });
+      @foreach ($waktu_sewas as $waktu)
+        const waktuId = {{ $waktu->id_waktu }};
+        const radio = document.getElementById('slot-' + idMeja + '-' + waktuId);
+        const label = document.getElementById('slot-' + idMeja + '-' + waktuId + '-label');
 
-  userBtn?.addEventListener('click', () => {
-    userDropdown.classList.toggle('hidden');
-  });
-});
-function displayCartItemsInSchedulePanel() {
-  const cartItemsContainer = document.querySelector('#schedulePanel .space-y-4');
-  cartItemsContainer.innerHTML = ''; // Clear previous items
-
-  cart.forEach((item, index) => {
-    const cartItemDiv = document.createElement('div');
-    cartItemDiv.classList.add('bg-slate-200', 'p-4', 'rounded-lg', 'text-left', 'mb-4');
-    cartItemDiv.innerHTML = `
-      <div class="flex justify-between items-center">
-        <div>
-          <strong>Tipe Meja:</strong> ${item.meja}<br>
-          <strong>No Meja:</strong> ${item.meja}<br>
-          <strong>Tanggal:</strong> ${item.tanggal}<br>
-          <strong>Waktu:</strong> ${item.waktu}
-        </div>
-        <button onclick="hapusItemDariKeranjang(${index})" class="text-slate-900 text-xl ml-4 hover:text-red-600">&times;</button>
-      </div>
-    `;
-    cartItemsContainer.appendChild(cartItemDiv);
-  });
-
-  if (cart.length > 0) {
-    document.getElementById('schedulePanel').classList.remove('translate-x-full');
-    document.getElementById('overlay').classList.remove('hidden');
-  } else {
-    // Jika sudah kosong, otomatis tutup panel
-    document.getElementById('schedulePanel').classList.add('translate-x-full');
-    document.getElementById('overlay').classList.add('hidden');
+        if (radio && label) {
+          if (waktuArray.includes(waktuId)) {
+            radio.disabled = true;
+            label.classList.add('opacity-50', 'cursor-not-allowed', 'bg-gray-400');
+          } else {
+            radio.disabled = false;
+            label.classList.remove('opacity-50', 'cursor-not-allowed', 'bg-gray-400');
+          }
+        }
+      @endforeach
+    }
   }
-}
-
-// Fungsi untuk menghapus item dari keranjang
-function hapusItemDariKeranjang(index) {
-  cart.splice(index, 1); // Hapus berdasarkan index
-  displayCartItemsInSchedulePanel(); // Refresh tampilan
-}
-function lanjutKeDetail() {
-  // Ambil data yang dibutuhkan, bisa langsung dari variabel yang ada seperti meja, waktu, tanggal
-  const reservasiData = {
-    meja: meja,            // Meja yang dipilih
-    waktu: selectedTime,   // Waktu yang dipilih
-    tanggal: selectedDate  // Tanggal yang dipilih
-  };
-
-  // Simpan data ke localStorage (atau bisa ke sessionStorage jika hanya sementara)
-  localStorage.setItem('reservasiData', JSON.stringify(reservasiData));
-
-  // Arahkan ke halaman detail
-  window.location.href = "/details"; // Ganti URL sesuai rute halaman detail yang diinginkan
-}
-
 </script>
-@endpush
+
+

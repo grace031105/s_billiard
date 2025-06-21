@@ -53,7 +53,7 @@
         <div class="px-4 py-2 text-sm font-semibold border-b border-gray-200">
             {{ Auth::guard('pelanggan')->user()->nama_pengguna }}
         </div>
-        <a href="{{ route('edit_profil') }}" class="block px-4 py-2 hover:bg-gray-100">Profil</a>
+        <a href="{{ route('profil.edit') }}" class="block px-4 py-2 hover:bg-gray-100">Profil</a>
         <a href="{{ route('riwayat_penyewaan') }}" class="block px-4 py-2 hover:bg-gray-100">Riwayat Penyewaan</a>
         <form method="POST" action="{{ route('logout') }}">
             @csrf

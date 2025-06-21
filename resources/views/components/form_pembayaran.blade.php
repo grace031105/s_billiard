@@ -5,24 +5,37 @@
         Rp. {{ number_format($total_akhir ?? 0, 0, ',', '.') }}
     </p>
     
-        <p class="text-center text-sm mb-2">
-          Setelah melakukan pembayaran, silahkan upload pembayaran untuk mengkonfirmasi pesanan anda
-        </p>
-        <p class="text-center text-sm mb-6">
-          Ketika pesanan sudah dikonfirmasi, maka pesanan anda akan terjadwal
-        </p>
+    <p class="text-center text-sm mb-2">
+      Setelah melakukan pembayaran, silakan upload bukti pembayaran untuk mengkonfirmasi pesanan Anda.
+    </p>
+    <p class="text-center text-sm mb-6">
+      Jika pesanan sudah dikonfirmasi, maka pesanan Anda akan terjadwal.
+    </p>
+
+    <!--  FORM PEMBAYARAN -->
+    <form 
+        method="POST" 
+        action="{{ route('pembayaran.konfirmasi') }}" 
+        enctype="multipart/form-data" 
+        class="space-y-6"
+    >
+        @csrf
+
+        <!-- Hidden: id_reservasi atau id_meja -->
+        <input type="hidden" name="id_reservasi" value="{{ $reservasi->id ?? '' }}">
+        <input type="hidden" name="total_akhir" value="{{ $total_akhir ?? 0 }}">
 
         <!-- Metode Pembayaran -->
-        <form method="POST" enctype="multipart/form-data" class="space-y-6">
-          <select name="metode" class="w-full p-3 rounded bg-gray-300 text-black">
-            <option>Metode Pembayaran</option>
-            <option value="transfer">BNI</option>
-          </select>
+        <select name="metode" class="w-full p-3 rounded bg-gray-300 text-black">
+            <option disabled selected>Pilih Metode Pembayaran</option>
+            <option value="bni">BNI</option>
+        </select>
 
-          <div id="bni-form" class="hidden bg-gray-400 p-6 rounded-lg mt-6 text-center max-w-md mx-auto">
+        <!-- Info Rekening & Timer -->
+        <div id="bni-form" class="hidden bg-gray-400 p-6 rounded-lg mt-6 text-center max-w-md mx-auto">
             <div class="flex justify-between mb-4">
-              <span class="bg-[#1c2f45] text-white px-4 py-2 rounded-full">No. Rek : 123456</span>
-              <span class="bg-[#1c2f45] text-white px-4 py-2 rounded-full">Nama : acejezah</span>
+              <span class="bg-[#1c2f45] text-white px-4 py-2 rounded-full">No. Rek: 123456</span>
+              <span class="bg-[#1c2f45] text-white px-4 py-2 rounded-full">Nama: acejezah</span>
             </div>
 
             <div class="bg-gray-300 border border-gray-600 rounded-lg py-4 px-2 mb-4">
@@ -31,12 +44,13 @@
               <p class="text-sm">Batas Waktu: <span id="deadline-text">--</span></p>
             </div>
 
-            <button type="submit" class="w-full bg-[#1c2f45] text-white py-3 font-semibold rounded hover:bg-[#163047]">
+            <button type="button" class="w-full bg-[#1c2f45] text-white py-3 font-semibold rounded hover:bg-[#163047]">
               Selanjutnya
             </button>
-          </div>
+        </div>
 
-          <script>
+        <!-- Script Show/Hide & Timer -->
+        <script>
             document.querySelector('select[name="metode"]').addEventListener('change', function () {
               const bniForm = document.getElementById('bni-form');
               if (this.value === 'bni') {
@@ -68,16 +82,17 @@
                 }
               }, 1000);
             }
-          </script>
+        </script>
 
-          <div class="flex items-center justify-between bg-gray-400 text-white rounded px-4 py-3">
+        <!-- Upload Bukti Pembayaran -->
+        <div class="flex items-center justify-between bg-gray-400 text-white rounded px-4 py-3">
             <label for="file" class="font-bold">Pilih File</label>
-            <input type="file" name="bukti" id="file" class="text-sm text-white" />
-          </div>
+            <input type="file" name="bukti" id="file" class="text-sm text-white" required />
+        </div>
 
-          <button type="submit" name="konfirmasi" class="w-full bg-green-700 text-white py-3 font-bold rounded hover:bg-green-800">
+        <!-- Tombol Submit -->
+        <button type="submit" name="konfirmasi" class="w-full bg-green-700 text-white py-3 font-bold rounded hover:bg-green-800">
             *Unggah & Konfirmasi Pembayaran*
-          </button>
-        </form>
-<!-- Lanjutkan dengan isi form seperti sebelumnya -->
+        </button>
+    </form>
 </section>
