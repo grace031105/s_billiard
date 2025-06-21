@@ -55,9 +55,6 @@
         </div>
 
         <a href="{{ route('profil.edit') }}" class="block px-4 py-2 hover:bg-gray-100">Profil</a>
-
-        <a href="{{ route('profil.show') }}" class="block px-4 py-2 hover:bg-gray-100">Profil</a>
-
         <a href="{{ route('riwayat_penyewaan') }}" class="block px-4 py-2 hover:bg-gray-100">Riwayat Penyewaan</a>
         <form method="POST" action="{{ route('logout') }}">
             @csrf
