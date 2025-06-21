@@ -17,8 +17,6 @@
 </head>
 <body class="min-h-screen flex flex-col bg-cover bg-center" style="background-image: url('{{ asset('images/gambar1.jpg') }}');">
 
-  
-
   <main class="flex-grow flex items-center justify-center py-12">
     @yield('content')
   </main>
