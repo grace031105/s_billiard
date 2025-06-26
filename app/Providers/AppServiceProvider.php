@@ -21,13 +21,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Kirim data notifikasi ke komponen header-meja
-        View::composer('components.header-meja', function ($view) {
-            $notifikasi = Reservasi::with('pelanggan')
-                ->where('status', 'menunggu_konfirmasi')
-                ->get();
-
-            $view->with('notifikasiReservasi', $notifikasi);
+        View::composer('*', function ($view) {
+            $notifikasiReservasi = Reservasi::where('status', 'menunggu_konfirmasi')
+                                    ->orderBy('id_reservasi', 'desc')
+                                    ->limit(7)
+                                    ->get();
+            $view->with('notifikasiReservasi', $notifikasiReservasi);
         });
     }
+    
 }

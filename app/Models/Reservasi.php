@@ -48,6 +48,6 @@ class Reservasi extends Model
     // Relasi ke tabel transaksi pembayaran
     public function transaksi()
     {
-        return $this->hasOne(TransaksiPembayaran::class, 'id_reservasi');
+        return $this->hasOne(TransaksiPembayaran::class, 'id_reservasi', 'id_reservasi');
     }
 }

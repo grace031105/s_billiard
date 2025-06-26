@@ -52,6 +52,10 @@ Route::middleware(['auth:pemilik'])->group(function () {
     Route::post('/reservasi/{id}/batal', [ReservasiController::class, 'batal'])->name('reservasi.batal');
 });
 
+Route::middleware(['auth:pemilik'])->group(function () {
+    Route::get('/pelanggan', [PelangganController::class, 'show'])->name('pelanggan');
+});
+
 
 //});
 
@@ -83,10 +87,13 @@ Route::get('/dash', [DashboardController::class, 'index'])->middleware('auth:pel
 // Tampilkan form reservasi
 Route::get('/meja_reguler', [MejaRegulerController::class, 'index'])->name('meja_reguler');
 // Proses reservasi (INSERT)
+
+
 Route::post('/details', [DetailController::class, 'store'])
     ->middleware('auth:pelanggan')
     ->name('details');
 Route::post('/pembayaran/konfirmasi/{id_reservasi}', [PembayaranController::class, 'uploadBuktiPembayaran'])->name('pembayaran.konfirmasi');
+
 
 Route::get('/meja_vip', [MejaVipController::class, 'index'])-> name('meja_vip');
 Route::get('/meja_platinum', [MejaPlatinumController::class, 'index'])-> name('meja_platinum');
@@ -103,14 +110,3 @@ Route::post('/reservasi/simpan', [ReservasiController::class, 'store'])->name('r
 
 
 
-// Static Pages
-Route::view('/bioskop', 'bioskop')->name('bioskop');
-Route::view('/chooseseat', 'chooseseat')->name('chooseseat');
-Route::view('/invoice', 'invoice')->name('invoice');
-Route::view('/pilih', 'pilih')->name('pilih');
-Route::view('/carousel', 'carousel')->name('carousel');
-Route::view('/search', 'search')->name('search');
-//Route::view('/resi_pemesanan', 'resi_pemesanan')->name('resi_pemesanan');
-Route::view('/detail_penyewaan', 'detail_penyewaan')->name('detail_penyewaan');
-//Route::view('/riwayat_penyewaan', 'riwayat_penyewaan')->name('riwayat_penyewaan');
-//Route::view('/kelola_meja', 'kelola_meja')->name('kelola_meja');

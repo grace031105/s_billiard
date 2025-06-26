@@ -36,7 +36,7 @@ class PembayaranController extends Controller
         $transaksi->save();
 
         // Update status reservasi
-        $reservasi->status = 'menunggu_verifikasi';
+        $reservasi->status = 'menunggu_konfirmasi';
         $reservasi->save();
 
         // Balik ke halaman sebelumnya dengan notif

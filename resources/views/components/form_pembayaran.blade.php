@@ -102,8 +102,14 @@
         </div>
 
         <!-- Tombol Submit -->
-        <button type="submit" name="konfirmasi" class="w-full bg-green-700 text-white py-3 font-bold rounded hover:bg-green-800">
+        <!--<button type="submit" name="konfirmasi" class="w-full bg-green-700 text-white py-3 font-bold rounded hover:bg-green-800">
             *Unggah & Konfirmasi Pembayaran*
-        </button>
+        </button>-->
+          @csrf
+          <button type="submit" class="btn btn-success" onclick="return confirm('Yakin ingin konfirmasi?')">
+           Konfirmasi
+          </button>
+        </form>
+
     </form>
 </section>
