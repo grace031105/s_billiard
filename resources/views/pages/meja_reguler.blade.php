@@ -1,118 +1,153 @@
-@extends('layouts.meja1')
 
-@section('title', 'Meja Reguler - Forcue')
+  @extends('layouts.meja1')
+
+@section('title', 'Meja Reguler- Forcue')
 
 @section('content')
 <div class="container mx-auto px-4 py-6">
-  <a href="{{ url()->previous() }}" class="text-blue-900 font-semibold">&larr; Kembali</a>
+  <a href="#" class="text-blue-900 font-semibold">&larr; Kembali</a>
 
+  <!-- Detail Meja -->
   <div class="meja-detail flex flex-wrap gap-6 my-6">
     <img src="{{ asset('/images/gambar4.jpeg') }}" alt="Meja Biliar" class="max-w-md rounded-xl">
     <div class="flex-1">
       <h2 class="text-3xl font-bold text-[#1c2a41] mb-2">Meja Reguler</h2>
       <p class="text-[#333] leading-relaxed">
-        Meja biliar standar berukuran 7ft, cocok untuk permainan santai maupun harian. Menawarkan pengalaman bermain yang nyaman dengan perawatan rutin dan fasilitas memadai.
-      </p>
+        Meja biliar standar berukuran 7ft, cocok untuk permainan santai maupun harian. Menawarkan pengalaman bermain yang nyaman dengan perawatan rutin dan fasilitas memadai.</p>
     </div>
   </div>
 
-  <h2 class="text-2xl font-bold text-[#1c2a41] mb-4">Daftar Meja</h2>
-  <div class="space-y-4">
-    @foreach ($meja_reguler as $meja)
-      <div class="bg-[#1c2a41] text-white rounded-lg p-4">
-        <div class="flex items-center justify-between gap-4">
-          <div class="flex items-center gap-4">
-            <!-- FOTO MEJA -->
-            <img src="{{ asset('images/' . $meja->foto_meja) }}" alt="Foto Meja" class="w-20 h-20 object-cover rounded">
-            <!-- NAMA MEJA -->
-            <h2 class="text-lg font-semibold">{{ $meja->nama_meja }}</h2>
-          </div>
-          <!-- TOMBOL PILIH JADWAL (membuka modal) -->
-          <button 
-            type="button"
-            onclick="openModal('modal-{{ $meja->id_meja }}')"
-            class="bg-white text-[#1c2a41] px-4 py-2 rounded font-semibold">
-            Pilih Jadwal
-          </button>
-        </div>
-
-        <!-- MODAL -->
-        <div id="modal-{{ $meja->id_meja }}" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
-          <div class="bg-[#b0c4de] rounded-2xl w-full max-w-xl p-6 relative">
-            <button onclick="closeModal('modal-{{ $meja->id_meja }}')" class="absolute top-2 right-4 text-2xl font-bold text-gray-700 hover:text-black">&times;</button>
-    
-            <h2 class="text-2xl font-bold text-center text-[#1c2a41] mb-6">Formulir Reservasi</h2>
-
-            <form method="POST" action="{{ route('details') }}">
-              @csrf
-              <input type="hidden" name="id_meja" value="{{ $meja->id_meja }}">
-              <input type="hidden" name="nama_meja" value="{{ $meja->nama_meja }}">
-              <input type="hidden" name="harga" value="{{ $meja->harga_per_jam ?? 0 }}">
-
-              <div class="mb-4">
-                <label class="block mb-1">Tanggal</label>
-                <input type="date" name="tanggal" required class="w-full rounded p-2 text-black">
-              </div>
-              <!--waktu grid-->
-              
-              <label class="block mb-2">Waktu</label>
-                <div class="grid grid-cols-3 gap-2 mb-4">
-                  @foreach ($waktu_sewas as $waktu)
-                    <label class="cursor-pointer">
-                      <input type="radio" name="id_waktu" value="{{ $waktu->id_waktu }}" class="hidden peer" required>
-                      <div class="peer-checked:bg-white peer-checked:text-[#1c2a41] bg-[#1c2a41] text-white rounded p-2 text-center">
-                        {{ $waktu->jam_mulai }} - {{ $waktu->jam_selesai }}
-                      </div>
-                    </label>
-                  @endforeach
-                </div>
-
-                <div class="bg-white text-[#1c2a41] rounded p-2 mb-4 text-sm">
-                  <p><strong>Tipe Meja:</strong> Meja Reguler</p>
-                  <p><strong>No Meja:</strong> {{ $meja->nama_meja }}</p>
-                </div>
-
-                <button type="submit" class="w-full bg-[#1c2a41] text-white px-4 py-2 rounded font-semibold">Tambah ke Keranjang</button>
-              </form>
-            </div>
-          </div>
-
-        </div>
-      @endforeach
+  <!-- Daftar Meja -->
+  <div class="daftar-meja">
+    <h2 class="text-2xl font-bold text-[#1c2a41] mb-4">Daftar Meja</h2>
+    <div class="space-y-4">
+      @foreach($mejaList as $meja)
+<div class="flex items-center gap-4 p-4 bg-[#0e0e3e] rounded-xl text-white">
+  <img src="{{ asset($meja->gambar ?? 'images/gambar4.jpeg') }}" alt="{{ $meja->nama_meja }}" class="w-24 h-24 object-cover rounded-md" />
+    <div class="flex flex-col">
+    <div class="font-semibold text-xl">{{ $meja->nama_meja }}</div>
+    <div class="text-sm mt-1">
+      Status:
+      @if($meja->status_meja == 'disewakan')
+        <span class="text-red-400 font-medium">Disewakan</span>
+      @elseif($meja->status_meja == 'tersedia')
+        <span class="text-green-400 font-medium">Tersedia</span>
+      @else
+        <span class="text-yellow-400 font-medium">{{ ucfirst($meja->status_meja) }}</span>
+      @endif
     </div>
   </div>
-  @endsection
-  <script>
-  function openModal(id) {
-    document.getElementById(id).classList.remove('hidden');
+
+  {{-- Tombol Pilih Jadwal --}}
+  @if($meja->status_meja == 'tersedia')
+    <button class="ml-auto px-4 py-2 bg-white text-black rounded-full font-semibold"
+      onclick="openPopup('Reguler', '{{ $meja->nama_meja }}', 1)">Pilih Jadwal</button>
+  @else
+    <button class="ml-auto px-4 py-2 bg-gray-400 text-white rounded-full font-semibold cursor-not-allowed"
+      onclick="alert('Meja ini sedang disewakan.')" title="Meja sedang disewakan">Tidak Tersedia</button>
+  @endif
+</div>
+@endforeach
+    </div>
+  </div>
+</div>
+
+<!-- Popup Form -->
+@include('components.popup_form')
+@endsection
+
+
+@push('scripts')
+<script>
+  let selectedTimes = [];
+  let tipeMejaAktif = "Reguler";
+  let noMeja = "Meja 1";
+  let jumlahOrang = 1;
+
+  const hargaMeja = {
+    "Reguler": 30000,
+    "VIP": 60000,
+    "Platinum": 90000
+  };
+
+  function openPopup(tipe, meja, orang = 1) {
+    tipeMejaAktif = tipe;
+    noMeja = meja;
+    jumlahOrang = orang;
+
+    document.getElementById("tipeMejaTampil").innerText = tipe;
+    document.getElementById("noMeja").innerText = meja;
+    document.getElementById("jumlahOrangInput").value = jumlahOrang;
+    document.getElementById("hargaPerJamTampil").innerText = "-";
+    document.getElementById("subtotalTampil").innerText = "-";
+
+    // Reset jam
+    selectedTimes = [];
+    document.querySelectorAll('.time-buttons button').forEach(btn => {
+      btn.classList.remove("bg-blue-500", "text-white");
+      btn.classList.add("bg-white", "text-[#1c2a41]");
+    });
+
+    document.getElementById("popup").classList.remove("hidden");
+    document.getElementById("popup").classList.add("flex");
+
+    // 🧠 Penting! Update harga langsung!
+    updateSubtotal();
   }
 
-  function closeModal(id) {
-    document.getElementById(id).classList.add('hidden');
+  function closePopup() {
+    document.getElementById("popup").classList.add("hidden");
+    document.getElementById("popup").classList.remove("flex");
   }
 
-  function updateDisabledTimes(idMeja, tanggal, bookedData) {
-    // Loop semua slot yang ada
-    for (const idWaktu in bookedData) {
-      const waktuArray = bookedData[tanggal] || [];
+  function selectTime(button) {
+    const time = button.getAttribute('data-value');
 
-      @foreach ($waktu_sewas as $waktu)
-        const waktuId = {{ $waktu->id_waktu }};
-        const radio = document.getElementById('slot-' + idMeja + '-' + waktuId);
-        const label = document.getElementById('slot-' + idMeja + '-' + waktuId + '-label');
-
-        if (radio && label) {
-          if (waktuArray.includes(waktuId)) {
-            radio.disabled = true;
-            label.classList.add('opacity-50', 'cursor-not-allowed', 'bg-gray-400');
-          } else {
-            radio.disabled = false;
-            label.classList.remove('opacity-50', 'cursor-not-allowed', 'bg-gray-400');
-          }
-        }
-      @endforeach
+    if (selectedTimes.includes(time)) {
+      selectedTimes = selectedTimes.filter(t => t !== time);
+      button.classList.remove("bg-blue-500", "text-white");
+      button.classList.add("bg-white", "text-[#1c2a41]");
+    } else {
+      selectedTimes.push(time);
+      button.classList.remove("bg-white", "text-[#1c2a41]");
+      button.classList.add("bg-blue-500", "text-white");
     }
+
+    updateSubtotal();
+  }
+
+  function updateSubtotal() {
+    const harga = hargaMeja[tipeMejaAktif] ?? 0;
+    const total = harga * selectedTimes.length;
+
+    document.getElementById("hargaPerJamTampil").innerText = selectedTimes.length > 0 ? "Rp " + harga.toLocaleString("id-ID") : "-";
+    document.getElementById("subtotalTampil").innerText = total > 0 ? "Rp " + total.toLocaleString("id-ID") : "-";
+    document.getElementById("formSubtotal").value = total;
+  }
+
+  function updateJumlahOrang() {
+    jumlahOrang = parseInt(document.getElementById("jumlahOrangInput").value) || 1;
+  }
+
+  function lanjutKeDetailDanKirim() {
+    const tanggal = document.getElementById("date").value;
+
+    if (!tanggal || selectedTimes.length === 0) {
+      alert("Harap pilih tanggal dan minimal satu jam.");
+      return;
+    }
+
+    document.getElementById("formTipeMeja").value = tipeMejaAktif;
+    document.getElementById("formTanggal").value = tanggal;
+    document.getElementById("formJam").value = selectedTimes.join(", ");
+    document.getElementById("formNoMeja").value = noMeja;
+    document.getElementById("formJumlahOrang").value = jumlahOrang;
+
+    document.getElementById("formReservasi").submit();
+  }
+
+  function tambahKeKeranjang() {
+    alert("Fitur belum tersedia.");
   }
 </script>
-
-
+@endpush

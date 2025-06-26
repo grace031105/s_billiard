@@ -1,4 +1,5 @@
 <?php
+// app/Models/Reservasi.php
 
 namespace App\Models;
 
@@ -12,6 +13,19 @@ class Reservasi extends Model
     protected $table = 'reservasi';
     protected $primaryKey = 'id_reservasi';
     public $timestamps = false;
+
+    // Kolom yang boleh diisi massal (mass assignable)
+    protected $fillable = [
+        'id_pelanggan',
+        'id_meja',
+        'tanggal_reservasi',
+        'id_waktu',
+        'durasi_sewa',
+        'total_harga',
+        'status',
+        'kode_reservasi',
+        'id_pemilik',
+    ];
 
     // Relasi ke tabel pelanggan
     public function pelanggan()
@@ -30,6 +44,8 @@ class Reservasi extends Model
     {
         return $this->belongsTo(WaktuSewa::class, 'id_waktu');
     }
+
+    // Relasi ke tabel transaksi pembayaran
     public function transaksi()
     {
         return $this->hasOne(TransaksiPembayaran::class, 'id_reservasi');

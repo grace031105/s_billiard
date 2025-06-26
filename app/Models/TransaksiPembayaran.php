@@ -9,7 +9,19 @@ class TransaksiPembayaran extends Model
 {
     use HasFactory;
 
-    protected $table = 'transaksi_pembayaran';   // Nama tabel di DB
-    protected $primaryKey = 'id_transaksi';      // PK di tabelmu
-    public $timestamps = false;                   // Kalau tidak ada created_at / updated_at
+    protected $table = 'transaksi_pembayaran';
+    protected $primaryKey = 'id_transaksi';
+    public $timestamps = false;
+
+    protected $fillable = [
+        'id_reservasi',
+        'bukti_pembayaran',
+        'metode',
+        'id_pemilik'
+    ];
+
+    public function reservasi()
+    {
+        return $this->belongsTo(Reservasi::class, 'id_reservasi', 'id_reservasi');
+    }
 }

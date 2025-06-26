@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -9,7 +8,10 @@ class BerandaController extends Controller
 {
     public function index()
     {   
-        
-        return view('pages.beranda');
+        $notifikasiReservasi = Reservasi::with('pelanggan')
+            ->where('status', 'menunggu_konfirmasi')
+            ->get();
+
+        return view('pages.beranda', compact('notifikasiReservasi'));
     }
 }

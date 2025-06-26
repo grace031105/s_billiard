@@ -3,16 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Meja; // ✅ Ini yang benar
 
 class MejaPlatinumController extends Controller
 {
     public function index()
     {
-        $mejaList = [
-            ['no' => 1, 'gambar' => '/images/gambar6.jpeg'],
-            ['no' => 2, 'gambar' => '/images/gambar6.jpeg'],
-            ['no' => 3, 'gambar' => '/images/gambar6.jpeg'],
-        ];
+        $mejaList = Meja::where('tipe_meja', 'Platinum')->get(); // Ambil dari DB
 
         return view('pages.meja_platinum', compact('mejaList'));
     }

@@ -5,28 +5,41 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Reservasi;
+use App\Models\TransaksiPembayaran;
 
 class PembayaranController extends Controller
 {
-    public function konfirmasi(Request $request)
+    public function uploadBuktiPembayaran(Request $request, $id_reservasi)
     {
-        // Validasi input
         $request->validate([
-            'id_reservasi' => 'required|exists:reservasi,id_reservasi',
-            'bukti' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'bukti_pembayaran' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+            'metode' => 'required|string'
         ]);
 
-        // Cari reservasi yang dimaksud
-        $reservasi = Reservasi::findOrFail($request->id_reservasi);
+        $reservasi = Reservasi::findOrFail($id_reservasi);
 
-        // Upload bukti pembayaran
-        $path = $request->file('bukti')->store('bukti_pembayaran', 'public');
+        // Simpan file bukti pembayaran
+        $file = $request->file('bukti_pembayaran');
+        $namaFile = time() . '_' . $file->getClientOriginalName();
+        $path = $file->storeAs('bukti_pembayaran', $namaFile, 'public');
 
-        // Simpan nama file ke kolom reservasi (pastikan kamu punya kolom bukti di tabel reservasi)
-        $reservasi->bukti_pembayaran = $path;
-        $reservasi->status = 'menunggu_verifikasi'; // Atau status sesuai logika kamu
+        // Simpan data ke transaksi_pembayaran
+        $transaksi = $reservasi->transaksi;
+        if (!$transaksi) {
+    $transaksi = new TransaksiPembayaran();
+    $transaksi->id_reservasi = $reservasi->id_reservasi;
+    $transaksi->id_pemilik = 1; // ✅ Tambahkan ini
+}
+
+        $transaksi->metode_pembayaran = $request->metode;
+        $transaksi->bukti_pembayaran = $path;
+        $transaksi->save();
+
+        // Update status reservasi
+        $reservasi->status = 'menunggu_verifikasi';
         $reservasi->save();
 
-        return redirect()->route('dash')->with('success', 'Bukti pembayaran berhasil diunggah! Tunggu konfirmasi dari pemilik.');
+        // Balik ke halaman sebelumnya dengan notif
+        return redirect()->back()->with('status', 'Bukti pembayaran berhasil diunggah. Pembayaran sedang diproses.');
     }
 }

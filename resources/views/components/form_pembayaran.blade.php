@@ -1,3 +1,7 @@
+@php
+  $id_reservasi = $reservasi->id_reservasi ?? null;
+@endphp
+
 <section class="bg-[#1c2f45] text-white p-6 rounded-lg mb-12">
     <h2 class="text-2xl font-bold mb-6">Selesaikan Pembayaran</h2>
     <p class="text-center mb-2 text-lg">Lakukan pembayaran sebesar</p>
@@ -13,41 +17,48 @@
     </p>
 
     <!--  FORM PEMBAYARAN -->
-    <form 
-        method="POST" 
-        action="{{ route('pembayaran.konfirmasi') }}" 
-        enctype="multipart/form-data" 
-        class="space-y-6"
-    >
+       @if (session('status'))
+      <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-4 rounded">
+        {{ session('status') }}
+      </div>
+    @endif
+
+    <!-- Form upload bukti pembayaran -->
+    <form method="POST" action="{{ route('pembayaran.konfirmasi', ['id_reservasi' => $id_reservasi]) }}" enctype="multipart/form-data" class="space-y-6">
         @csrf
 
         <!-- Hidden: id_reservasi atau id_meja -->
-        <input type="hidden" name="id_reservasi" value="{{ $reservasi->id ?? '' }}">
+        <input type="hidden" name="id_reservasi" value="{{ $id_reservasi }}">
         <input type="hidden" name="total_akhir" value="{{ $total_akhir ?? 0 }}">
 
         <!-- Metode Pembayaran -->
-        <select name="metode" class="w-full p-3 rounded bg-gray-300 text-black">
-            <option disabled selected>Pilih Metode Pembayaran</option>
-            <option value="bni">BNI</option>
-        </select>
+        <select name="metode" required class="w-full p-3 rounded bg-gray-300 text-black">
+  <option disabled selected>Pilih Metode Pembayaran</option>
+  <option value="bni">BNI</option>
+</select>
 
         <!-- Info Rekening & Timer -->
-        <div id="bni-form" class="hidden bg-gray-400 p-6 rounded-lg mt-6 text-center max-w-md mx-auto">
-            <div class="flex justify-between mb-4">
-              <span class="bg-[#1c2f45] text-white px-4 py-2 rounded-full">No. Rek: 123456</span>
-              <span class="bg-[#1c2f45] text-white px-4 py-2 rounded-full">Nama: acejezah</span>
-            </div>
+<div id="bni-form" class="hidden bg-[#2e3b55] p-6 rounded-xl mt-6 text-white max-w-md mx-auto shadow-lg space-y-6">
+  
+  <!-- Info Rekening -->
+  <div class="flex justify-between items-center bg-[#1c2f45] px-4 py-3 rounded-lg text-sm font-medium">
+    <div>No. Rekening: <span class="font-bold text-yellow-400">123456</span></div>
+    <div>Nama: <span class="font-bold text-yellow-400">acejezah</span></div>
+  </div>
 
-            <div class="bg-gray-300 border border-gray-600 rounded-lg py-4 px-2 mb-4">
-              <p class="text-sm mb-2">Selesaikan pembayaran sebelum</p>
-              <div id="countdown" class="text-lg font-bold bg-[#1c2f45] text-white inline-block px-4 py-2 rounded mb-2">00 : 15 : 00</div>
-              <p class="text-sm">Batas Waktu: <span id="deadline-text">--</span></p>
-            </div>
+  <!-- Countdown -->
+  <div class="bg-[#3e4c68] p-4 rounded-lg text-center space-y-2 shadow-inner">
+    <p class="text-sm text-gray-300">Selesaikan pembayaran sebelum</p>
+    <div id="countdown" class="text-2xl font-bold text-yellow-300 tracking-wide">00 : 15 : 00</div>
+    <p class="text-sm text-gray-400">Batas Waktu: <span id="deadline-text" class="italic">--</span></p>
+  </div>
 
-            <button type="button" class="w-full bg-[#1c2f45] text-white py-3 font-semibold rounded hover:bg-[#163047]">
-              Selanjutnya
-            </button>
-        </div>
+  <!-- Tombol Selanjutnya -->
+  <button type="button" class="w-full bg-yellow-400 text-[#1c2f45] font-bold py-2 rounded hover:bg-yellow-300 transition">
+    Selanjutnya
+  </button>
+</div>
+
 
         <!-- Script Show/Hide & Timer -->
         <script>
@@ -87,7 +98,7 @@
         <!-- Upload Bukti Pembayaran -->
         <div class="flex items-center justify-between bg-gray-400 text-white rounded px-4 py-3">
             <label for="file" class="font-bold">Pilih File</label>
-            <input type="file" name="bukti" id="file" class="text-sm text-white" required />
+            <input type="file" name="bukti_pembayaran" id="file" class="text-sm text-white" required />
         </div>
 
         <!-- Tombol Submit -->

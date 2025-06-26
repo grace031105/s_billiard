@@ -11,7 +11,8 @@
                     <path d="M12.133 10.632v-1.8A5.406 5.406 0 0 0 7.979 3.57.946.946 0 0 0 8 3.464V1.1a1 1 0 0 0-2 0v2.364a.946.946 0 0 0 .021.106 5.406 5.406 0 0 0-4.154 5.262v1.8C1.867 13.018 0 13.614 0 14.807 0 15.4 0 16 .538 16h12.924C14 16 14 15.4 14 14.807c0-1.193-1.867-1.789-1.867-4.175ZM3.823 17a3.453 3.453 0 0 0 6.354 0H3.823Z"/>
                 </svg>
                 <!-- Badge -->
-                @if(count($notifikasiReservasi) > 0)
+                @if(!empty($notifikasiReservasi) && count($notifikasiReservasi) > 0)
+
                     <span class="absolute top-0 right-0 block w-2.5 h-2.5 bg-red-600 border-2 border-white rounded-full"></span>
                 @endif
             </button>

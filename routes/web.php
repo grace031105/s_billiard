@@ -42,11 +42,16 @@ Route::post('/pemilik/logout', [PemilikController::class, 'logout'])->name('pemi
     Route::get('/mejas/{id_meja}/edit', [KelolaController::class, 'edit'])->name('mejas.edit');
     Route::put('/mejas/{id_meja}', [KelolaController::class, 'update'])->name('mejas.update');
     // Data Pelanggan
-    Route::get('/pelanggan', [PelangganController::class, 'show'])->name('pelanggan');
-    // Data Reservasi
-    Route::get('/reservasi', [ReservasiController::class, 'show']);
+    // Untuk pemilik
+Route::middleware(['auth:pelanggan'])->group(function () {
+    Route::post('/reservasi/simpan', [ReservasiController::class, 'store'])->name('reservasi.store');
+});
+Route::middleware(['auth:pemilik'])->group(function () {
+    Route::get('/reservasi', [ReservasiController::class, 'show'])->name('reservasi.index');
     Route::post('/reservasi/{id}/konfirmasi', [ReservasiController::class, 'konfirmasi'])->name('reservasi.konfirmasi');
     Route::post('/reservasi/{id}/batal', [ReservasiController::class, 'batal'])->name('reservasi.batal');
+});
+
 
 //});
 
@@ -78,15 +83,13 @@ Route::get('/dash', [DashboardController::class, 'index'])->middleware('auth:pel
 // Tampilkan form reservasi
 Route::get('/meja_reguler', [MejaRegulerController::class, 'index'])->name('meja_reguler');
 // Proses reservasi (INSERT)
-Route::post('/details', [DetailController::class, 'store'])->name('details');
-//Route::get('/details/{id}', [DetailController::class, 'show'])->name('details.show');
-Route::post('/pembayaran/konfirmasi', [PembayaranController::class, 'konfirmasi'])->name('pembayaran.konfirmasi');
-
+Route::post('/details', [DetailController::class, 'store'])
+    ->middleware('auth:pelanggan')
+    ->name('details');
+Route::post('/pembayaran/konfirmasi/{id_reservasi}', [PembayaranController::class, 'uploadBuktiPembayaran'])->name('pembayaran.konfirmasi');
 
 Route::get('/meja_vip', [MejaVipController::class, 'index'])-> name('meja_vip');
 Route::get('/meja_platinum', [MejaPlatinumController::class, 'index'])-> name('meja_platinum');
-
-
 
 
 Route::get('/resi_pemesanan', [ResiController::class, 'index'])->name('resi_pemesanan');
