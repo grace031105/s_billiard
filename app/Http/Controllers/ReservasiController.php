@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use App\Models\Reservasi;
 use App\Models\Meja;
 use App\Models\WaktuSewa;
+use App\Models\TransaksiPembayaran;
 
 class ReservasiController extends Controller
 {
@@ -54,7 +55,8 @@ class ReservasiController extends Controller
 
         // Simpan data reservasi
         Reservasi::create([
-            'id_pelanggan'      => $id_pelanggan,
+            //'id_pelanggan'      => $id_pelanggan,
+            'id_pelanggan' => Auth::guard('pelanggan')->id(),
             'id_meja'           => $meja->id_meja,
             'id_pemilik'        => $meja->id_pemilik ?? 1,
             'tanggal_reservasi' => $request->tanggal,
@@ -103,4 +105,34 @@ class ReservasiController extends Controller
 
         return redirect()->back()->with('success', 'Reservasi berhasil dibatalkan.');
     }
+
+    // Tambahkan ini di bagian paling bawah, tapi masih di dalam class
+    public function showDetails()
+    {
+        $id_pelanggan = Auth::guard('pelanggan')->id();
+
+        $reservasi = Reservasi::with(['meja', 'waktu', 'transaksi'])
+                        ->where('id_pelanggan', $id_pelanggan)
+                        ->orderBy('id_reservasi', 'desc')
+                        ->first();
+        if (!$reservasi) {
+            abort(404, 'Reservasi tidak ditemukan');
+        }
+
+        $transaksi = TransaksiPembayaran::where('id_reservasi', $reservasi->id_reservasi)->first();
+        return view('pages.details', [
+            'nama'           => $reservasi->pelanggan->nama_pengguna ?? '',
+            'email'          => $reservasi->pelanggan->email ?? '',
+            'tipe_meja'      => $reservasi->tipe_meja,
+            'meja'           => $reservasi->no_meja,
+            'tanggal_reservasi' => $reservasi->tanggal_reservasi,
+            'jam'            => $reservasi->jam,
+            'jumlah_orang'   => $reservasi->jumlah_orang,
+            'subtotal'       => $reservasi->total_harga,
+            'total_biaya'    => $reservasi->total_harga,
+            'reservasi'      => $reservasi,
+            'transaksi'      => $transaksi,
+        ]);
+    }
+
 }

@@ -3,6 +3,11 @@
 @section('title', 'Detail Penyewaan')
 
 @section('content')
+@if(session('popup'))
+    <script>
+        alert("Resi akan diberi setelah pemilik mengkonfirmasi reservasi anda.");
+    </script>
+@endif
 <h1 class="text-center text-3xl font-bold text-[#1c2f45] mb-10">Detail Penyewaan</h1>
 
 <!-- Kotak besar -->
@@ -32,7 +37,7 @@
         <hr class="my-4 border-white/50" />
         <div class="grid grid-cols-2 text-lg font-medium">
             <p>Subtotal : Rp {{ number_format($subtotal ?? 0, 0, ',', '.') }}</p>
-            <p>Total Akhir : Rp {{ number_format($total_akhir ?? 0, 0, ',', '.') }}</p>
+            <p>Total Akhir : Rp {{ number_format($total_biaya ?? 0, 0, ',', '.') }}</p>
         </div>
     </div>
 
@@ -46,10 +51,17 @@
     <!-- Form Pembayaran -->
     <div>
         @include('components.form_pembayaran', [
-            'total_akhir' => $total_akhir,
+            'total_biaya' => $reservasi->total_harga ?? 0,
             'reservasi' => $reservasi ?? null
         ])
     </div>
+    @if ($reservasi->status === 'dikonfirmasi')
+        <div class="text-center mt-6">
+            <a href="{{ route('resi_pemesanan', ['id' => $reservasi->id_reservasi]) }}" class="bg-green-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-green-700">
+                Lihat Resi
+            </a>
+    </div>
+    @endif
 
 </div>
 @endsection

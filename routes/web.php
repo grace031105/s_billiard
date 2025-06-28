@@ -88,7 +88,7 @@ Route::get('/dash', [DashboardController::class, 'index'])->middleware('auth:pel
 Route::get('/meja_reguler', [MejaRegulerController::class, 'index'])->name('meja_reguler');
 // Proses reservasi (INSERT)
 
-
+Route::get('/details', [ReservasiController::class, 'showDetails'])->name('details');
 Route::post('/details', [DetailController::class, 'store'])
     ->middleware('auth:pelanggan')
     ->name('details');

@@ -6,7 +6,7 @@
     <h2 class="text-2xl font-bold mb-6">Selesaikan Pembayaran</h2>
     <p class="text-center mb-2 text-lg">Lakukan pembayaran sebesar</p>
     <p class="text-center font-bold text-red-500 text-2xl bg-gray-100 text-black inline-block px-6 py-2 rounded mb-4">
-        Rp. {{ number_format($total_akhir ?? 0, 0, ',', '.') }}
+        Rp. {{ number_format($total_biaya ?? 0, 0, ',', '.') }}
     </p>
     
     <p class="text-center text-sm mb-2">
@@ -29,7 +29,7 @@
 
         <!-- Hidden: id_reservasi atau id_meja -->
         <input type="hidden" name="id_reservasi" value="{{ $id_reservasi }}">
-        <input type="hidden" name="total_akhir" value="{{ $total_akhir ?? 0 }}">
+        <input type="hidden" name="total_biaya" value="{{ $total_biaya ?? 0 }}">
 
         <!-- Metode Pembayaran -->
         <select name="metode" required class="w-full p-3 rounded bg-gray-300 text-black">

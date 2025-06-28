@@ -7,6 +7,7 @@ use App\Models\Reservasi;
 use App\Models\Meja;
 use App\Models\WaktuSewa;
 use Illuminate\Support\Facades\Auth;
+use App\Models\TransaksiPembayaran;
 
 class DetailController extends Controller
 {
@@ -53,6 +54,9 @@ class DetailController extends Controller
             'total_harga'       => $total_akhir,
             'status'            => 'menunggu_konfirmasi',
         ]);
+        $transaksi = TransaksiPembayaran::where('id_reservasi', $reservasi->id_reservasi)->first();
+
+
 
         return view('pages.details', [
             'nama'              => $pelanggan->nama_pengguna,
@@ -65,6 +69,7 @@ class DetailController extends Controller
             'subtotal'          => $subtotal,
             'total_akhir'       => $total_akhir,
             'reservasi'         => $reservasi,
+            'transaksi'         => $transaksi,
         ]);
     }
 }

@@ -48,7 +48,6 @@
             <th class="px-4 py-2">TIPE</th>
             <th class="px-4 py-2">NAMA</th>
             <th class="px-4 py-2">HARGA</th>
-            <th class="px-4 py-2">STATUS</th>
             <th class="px-4 py-2">FOTO</th>
             <th class="px-4 py-2">AKSI</th>
         </tr>
@@ -61,7 +60,6 @@
             <td class="px-4 py-2">{{ $meja->tipe_meja }}</td>
             <td class="px-4 py-2">{{ $meja->nama_meja }}</td>
             <td class="px-4 py-2">Rp{{ number_format($meja->harga_per_jam, 0, ',', '.') }}</td>
-            <td class="px-4 py-2">{{ $meja->status_meja }}</td>
             <td class="px-4 py-2"><img src="{{ asset('images/' . $meja->foto_meja) }}" alt="Foto Meja" width="100"></td>
             <td class="flex gap-2">
                 <button

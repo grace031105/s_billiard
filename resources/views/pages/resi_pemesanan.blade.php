@@ -12,33 +12,43 @@
 
     <div class="space-y-4 text-sm">
         <div class="border-b border-white pb-2">
-            <span class="font-bold">Kode Resi:</span> {{ $data->id_resi }}
+            <span class="font-bold">Kode Reservasi:</span> {{ $reservasi->kode_reservasi }}
         </div>
         <div class="border-b border-white pb-2">
-            <span class="font-bold">Nama Pelanggan:</span> {{ $data->nama_pelanggan }}
+            <span class="font-bold">Nama Pelanggan:</span> {{ $reservasi->pelanggan->nama_pengguna }}
         </div>
         <div class="border-b border-white pb-2">
-            <span class="font-bold">Tipe Meja:</span> {{ $data->tipe_meja }}
+            <span class="font-bold">Tipe Meja:</span> {{ $reservasi->meja->tipe_meja }}
         </div>
         <div class="border-b border-white pb-2">
-            <span class="font-bold">No Meja:</span> {{ $data->no_meja }}
+            <span class="font-bold">No Meja:</span> {{ $reservasi->meja->nama_meja }}
         </div>
         <div class="border-b border-white pb-2">
-            <span class="font-bold">Tanggal:</span> {{ \Carbon\Carbon::parse($data->tanggal)->locale('id')->translatedFormat('l, d F Y') }}
+            <span class="font-bold">Tanggal:</span> {{ \Carbon\Carbon::parse($reservasi->tanggal_reservasi)->locale('id')->translatedFormat('l, d F Y') }}
         </div>
         <div class="border-b border-white pb-2">
-            <span class="font-bold">Waktu:</span> {{ $data->waktu }}
+            <span class="font-bold">Waktu:</span> {{ $reservasi->jam }}
         </div>
         <div class="border-b border-white pb-2">
-            <span class="font-bold">Total Harga:</span> {{ $data->total_harga }}
+            <span class="font-bold">Total Harga:</span> Rp {{ number_format($reservasi->total_harga, 0, ',', '.') }}
         </div>
+
+        @if ($transaksi)
+        <div class="border-b border-white pb-2">
+            <span class="font-bold">Metode Pembayaran:</span> {{ $transaksi->metode_pembayaran }}
+        </div>
+        
+        <div class="border-b border-white pb-2">
+            <span class="font-bold">Bukti Pembayaran:</span><br>
+            <img src="{{ asset('storage/' . $transaksi->bukti_pembayaran) }}" alt="Bukti Pembayaran" class="mt-2 rounded-lg" width="200">
+        </div>
+        @endif
     </div>
 
-    <a href="{{ route('resi.pdf', ['id' => $data->id_resi]) }}" target="_blank">
+    <a href="{{ route('resi.pdf', ['id' => $reservasi->id_reservasi]) }}" target="_blank">
         <button class="w-full border-2 border-white rounded-full py-3 font-bold hover:bg-white hover:text-[#2D506D] transition-all duration-300">
             Simpan sebagai PDF
         </button>
     </a>
 </div>
-
 @endsection

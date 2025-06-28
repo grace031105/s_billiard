@@ -13,33 +13,36 @@ class PembayaranController extends Controller
     {
         $request->validate([
             'bukti_pembayaran' => 'required|image|mimes:jpg,jpeg,png|max:2048',
-            'metode' => 'required|string'
+            'metode' => 'required|string',
+            'total_biaya' => 'required|numeric',
         ]);
 
         $reservasi = Reservasi::findOrFail($id_reservasi);
 
-        // Simpan file bukti pembayaran
+        // Upload file
         $file = $request->file('bukti_pembayaran');
         $namaFile = time() . '_' . $file->getClientOriginalName();
         $path = $file->storeAs('bukti_pembayaran', $namaFile, 'public');
 
-        // Simpan data ke transaksi_pembayaran
+        // Simpan transaksi baru atau update
         $transaksi = $reservasi->transaksi;
         if (!$transaksi) {
-    $transaksi = new TransaksiPembayaran();
-    $transaksi->id_reservasi = $reservasi->id_reservasi;
-    $transaksi->id_pemilik = 1; // ✅ Tambahkan ini
-}
+            $transaksi = new TransaksiPembayaran();
+            $transaksi->id_reservasi = $reservasi->id_reservasi;
+            $transaksi->id_pemilik = 1; // bisa diganti sesuai auth
+        }
 
         $transaksi->metode_pembayaran = $request->metode;
         $transaksi->bukti_pembayaran = $path;
+        $transaksi->total_bayar = $request->total_biaya;
+        $transaksi->status = 'belum_dibayar';
         $transaksi->save();
 
         // Update status reservasi
         $reservasi->status = 'menunggu_konfirmasi';
         $reservasi->save();
 
-        // Balik ke halaman sebelumnya dengan notif
-        return redirect()->back()->with('status', 'Bukti pembayaran berhasil diunggah. Pembayaran sedang diproses.');
+        return redirect()->route('details')->with('popup', true);
     }
+
 }
