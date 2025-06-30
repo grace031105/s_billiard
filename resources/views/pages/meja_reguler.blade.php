@@ -50,6 +50,7 @@
 
 <!-- Popup Form -->
 @include('components.popup_form')
+@include('components.schedule_popup')
 @endsection
 
 
@@ -143,7 +144,46 @@
   }
 
   function tambahKeKeranjang() {
-    alert("Fitur belum tersedia.");
+  const tanggal = document.getElementById("date").value;
+  const jam = selectedTimes.join(", ");
+  const subtotal = hargaMeja[tipeMejaAktif] * selectedTimes.length;
+
+  if (!tanggal || selectedTimes.length === 0) {
+    alert("❗ Harap pilih tanggal dan minimal satu jam.");
+    return;
   }
+
+  const data = {
+    tipe_meja: tipeMejaAktif,
+    tanggal: tanggal,
+    jam: jam,
+    no_meja: noMeja,
+    jumlah_orang: jumlahOrang,
+    subtotal: subtotal,
+    _token: '{{ csrf_token() }}'
+  };
+
+  fetch("{{ route('keranjang.tambah') }}", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-CSRF-TOKEN": data._token
+    },
+    body: JSON.stringify(data)
+  })
+  .then(response => response.json())
+  .then(res => {
+    if (res.success) {
+      alert("✅ Jadwal berhasil ditambahkan ke keranjang!");
+      closePopup(); // Tutup popup
+    } else {
+      alert("❌ Gagal menambahkan ke keranjang.");
+    }
+  })
+  .catch(error => {
+    console.error("Error:", error);
+    alert("❌ Terjadi kesalahan saat mengirim data.");
+  });
+}
 </script>
 @endpush

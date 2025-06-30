@@ -11,6 +11,7 @@ use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ResiController;
 use App\Http\Controllers\MejaController;
+use App\Http\Controllers\KeranjangController;
 use App\Http\Controllers\MejaRegulerController;
 use App\Http\Controllers\MejaVipController;
 use App\Http\Controllers\MejaPlatinumController;
@@ -87,6 +88,8 @@ Route::get('/dash', [DashboardController::class, 'index'])->middleware('auth:pel
 // Tampilkan form reservasi
 Route::get('/meja_reguler', [MejaRegulerController::class, 'index'])->name('meja_reguler');
 // Proses reservasi (INSERT)
+Route::post('/keranjang/tambah', [KeranjangController::class, 'tambah'])->name('keranjang.tambah');
+Route::post('/keranjang/hapus', [KeranjangController::class, 'hapus'])->name('keranjang.hapus');
 
 Route::get('/details', [ReservasiController::class, 'showDetails'])->name('details');
 Route::post('/details', [DetailController::class, 'store'])
