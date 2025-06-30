@@ -21,7 +21,7 @@
         <tr>
           <th class="px-6 py-3">Kode Resi</th>
           <th class="px-6 py-3">Tipe Meja</th>
-          <th class="px-6 py-3">Tanggal Penyewaan</th>
+          <th class="px-6 py-3">Tanggal Cetak</th>
           <th class="px-6 py-3">Aksi</th>
         </tr>
       </thead>
@@ -30,10 +30,12 @@
           <tr class="border-b border-[#1B3554]">
            <td class="px-6 py-4">{{ $row['kode_resi'] }}</td>
            <td class="px-6 py-4">{{ $row['tipe_meja'] }}</td>
-           <td class="px-6 py-4">{{ $row['tanggal_penyewaan'] }}</td>
+           <td class="px-6 py-4">{{ $row['tanggal_cetak'] }}</td>
 
-            <td class="px-6 py-4">
-              <a href="#" class="bg-white text-[#1B3554] font-semibold px-4 py-1 rounded-md hover:bg-gray-200 transition">Detail</a>
+            <td class="text-center mt-6">
+              <a href="{{ route('resi_pemesanan', ['id' => $row->transaksi->reservasi->id_reservasi]) }}" class="bg-green-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-green-700">
+                Lihat Resi
+              </a>
             </td>
           </tr>
         @empty

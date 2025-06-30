@@ -42,13 +42,6 @@
   <button class="ml-auto px-4 py-2 bg-white text-black rounded-full font-semibold"
       onclick="openPopup('Reguler', '{{ $meja->nama_meja }}', 1)">Pilih Jadwal</button>
 
-  <!--@if($meja->status_meja == 'tersedia')
-    <button class="ml-auto px-4 py-2 bg-white text-black rounded-full font-semibold"
-      onclick="openPopup('Reguler', '{{ $meja->nama_meja }}', 1)">Pilih Jadwal</button>
-  @else
-    <button class="ml-auto px-4 py-2 bg-gray-400 text-white rounded-full font-semibold cursor-not-allowed"
-      onclick="alert('Meja ini sedang disewakan.')" title="Meja sedang disewakan">Tidak Tersedia</button>
-  @endif-->
 </div>
 @endforeach
     </div>

@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\RiwayatPenyewaan;
+use App\Models\ResiPenyewaan;
 
 class RiwayatController extends Controller
 {
     public function index()
     {
-        $riwayat = RiwayatPenyewaan::latest()->get();
+        $riwayat = ResiPenyewaan::with('transaksi.reservasi')->orderBy('id_resi', 'desc')->get();
         return view('pages.riwayat_penyewaan', compact('riwayat'));
     }
 

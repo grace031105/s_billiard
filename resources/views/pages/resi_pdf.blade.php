@@ -15,46 +15,46 @@
                 <td style="width: 35%; text-align: right; padding-right: 15px; font-weight: 600; vertical-align: top;">
                     Kode Resi:
                 </td>
-                <td style="vertical-align: top; text-align: left;">{{ $data->id_resi }}</td>
+                <td style="vertical-align: top; text-align: left;">{{ $reservasi->id_reservasi }}</td>
             </tr>
             <tr>
                 <td style="text-align: right; padding-right: 15px; font-weight: 600; vertical-align: top;">
                     Nama Pelanggan:
                 </td>
-                <td style="vertical-align: top; text-align: left;">{{ $data->nama_pelanggan }}</td>
+                <td style="vertical-align: top; text-align: left;">{{ $reservasi->pelanggan->nama_pengguna }}</td>
             </tr>
             <tr>
                 <td style="text-align: right; padding-right: 15px; font-weight: 600; vertical-align: top;">
                     Tipe Meja:
                 </td>
-                <td style="vertical-align: top; text-align: left;">{{ $data->tipe_meja }}</td>
+                <td style="vertical-align: top; text-align: left;">{{ $reservasi->meja->tipe_meja }}</td>
             </tr>
             <tr>
                 <td style="text-align: right; padding-right: 15px; font-weight: 600; vertical-align: top;">
                     No Meja:
                 </td>
-                <td style="vertical-align: top; text-align: left;">{{ $data->no_meja }}</td>
+                <td style="vertical-align: top; text-align: left;">{{ $reservasi->meja->nama_meja }}</td>
             </tr>
             <tr>
                 <td style="text-align: right; padding-right: 15px; font-weight: 600; vertical-align: top;">
                     Tanggal:
                 </td>
-<td style="vertical-align: top; text-align: left;">
-        {{ \Carbon\Carbon::parse($data->tanggal)->locale('id')->translatedFormat('l, d F Y') }}
-    </td>
+                <td style="vertical-align: top; text-align: left;">
+                    {{ \Carbon\Carbon::parse($reservasi->tanggal_reservasi)->locale('id')->translatedFormat('l, d F Y') }}
+                </td>
             </tr>
             <tr>
                 <td style="text-align: right; padding-right: 15px; font-weight: 600; vertical-align: top;">
                     Waktu:
                 </td>
-                <td style="vertical-align: top; text-align: left;">{{ $data->waktu }}</td>
+                <td style="vertical-align: top; text-align: left;">{{ $reservasi->waktu->durasi }}</td>
             </tr>
             <tr>
                 <td style="text-align: right; padding-right: 15px; font-weight: 600; vertical-align: top;">
                     Total Harga:
                 </td>
                 <td style="vertical-align: top; font-weight: 700; text-align: left;">
-                    {{ number_format($data->total_harga, 0, ',', '.') }}
+                    Rp {{ number_format($reservasi->total_harga, 0, ',', '.') }}
                 </td>
             </tr>
         </tbody>

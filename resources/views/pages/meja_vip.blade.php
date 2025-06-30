@@ -25,26 +25,12 @@
   <img src="{{ asset($meja->gambar ?? 'images/gambar5.jpeg') }}" alt="{{ $meja->nama_meja }}" class="w-24 h-24 object-cover rounded-md" />
     <div class="flex flex-col">
     <div class="font-semibold text-xl">{{ $meja->nama_meja }}</div>
-    <div class="text-sm mt-1">
-      Status:
-      @if($meja->status_meja == 'disewakan')
-        <span class="text-red-400 font-medium">Disewakan</span>
-      @elseif($meja->status_meja == 'tersedia')
-        <span class="text-green-400 font-medium">Tersedia</span>
-      @else
-        <span class="text-yellow-400 font-medium">{{ ucfirst($meja->status_meja) }}</span>
-      @endif
-    </div>
-  </div>
+    
+</div>
 
   {{-- Tombol Pilih Jadwal --}}
-  @if($meja->status_meja == 'tersedia')
     <button class="ml-auto px-4 py-2 bg-white text-black rounded-full font-semibold"
       onclick="openPopup('VIP', '{{ $meja->nama_meja }}', 1)">Pilih Jadwal</button>
-  @else
-    <button class="ml-auto px-4 py-2 bg-gray-400 text-white rounded-full font-semibold cursor-not-allowed"
-      onclick="alert('Meja ini sedang disewakan.')" title="Meja sedang disewakan">Tidak Tersedia</button>
-  @endif
 </div>
 @endforeach
     </div>

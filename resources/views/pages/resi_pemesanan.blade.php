@@ -40,8 +40,10 @@
         
         <div class="border-b border-white pb-2">
             <span class="font-bold">Bukti Pembayaran:</span><br>
-            <img src="{{ asset('storage/' . $transaksi->bukti_pembayaran) }}" alt="Bukti Pembayaran" class="mt-2 rounded-lg" width="200">
+            <img src="{{ asset('storage/' . $transaksi->bukti_pembayaran) }}" alt="Bukti Pembayaran" style="max-width: 200px;">
         </div>
+        @else
+            <p>Tidak ada bukti pembayaran.</p>
         @endif
     </div>
 
