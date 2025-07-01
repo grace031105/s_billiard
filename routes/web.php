@@ -110,6 +110,3 @@ Route::get('/resi_pemesanan/{id}', [ResiController::class, 'show'])->name('resi_
 
 
 Route::post('/reservasi/simpan', [ReservasiController::class, 'store'])->name('reservasi.store');
-
-
-
