@@ -24,7 +24,7 @@ class DetailController extends Controller
             return redirect()->back()->withErrors(['Keranjang kosong.']);
         }
 
-        $dataTerakhir = null;
+        $reservasiList = [];
 
         foreach ($keranjang as $item) {
             $meja = Meja::where('nama_meja', $item['no_meja'])->first();
@@ -39,7 +39,7 @@ class DetailController extends Controller
                             ->where('jam_selesai', $jam_selesai)
                             ->first();
 
-            $dataTerakhir = Reservasi::create([
+            $reservasi = Reservasi::create([
                 'id_pelanggan'      => $pelanggan->id_pelanggan,
                 'id_pemilik'        => $meja->id_pemilik ?? 1,
                 'id_meja'           => $meja->id_meja,
@@ -53,26 +53,27 @@ class DetailController extends Controller
                 'total_harga'       => $item['subtotal'],
                 'status'            => 'menunggu_konfirmasi',
             ]);
+            $reservasiList[] = $reservasi;
         }
 
         session()->forget('keranjang');
 
-        if (!$dataTerakhir) {
+        if (empty($reservasiList)) {
             return redirect()->back()->withErrors(['Gagal menyimpan reservasi dari keranjang.']);
         }
 
         return view('pages.details', [
             'nama'              => $pelanggan->nama_pengguna,
             'email'             => $pelanggan->email,
-            'tipe_meja'         => $dataTerakhir->tipe_meja,
-            'meja'              => $dataTerakhir->no_meja,
-            'tanggal_reservasi' => $dataTerakhir->tanggal_reservasi,
-            'jam'               => $dataTerakhir->jam,
-            'jumlah_orang'      => $dataTerakhir->jumlah_orang,
-            'subtotal'          => $dataTerakhir->total_harga,
-            'total_akhir'       => $dataTerakhir->total_harga,
-            'reservasi'         => $dataTerakhir,
-            'transaksi'         => TransaksiPembayaran::where('id_reservasi', $dataTerakhir->id_reservasi)->first(),
+            //'tipe_meja'         => $dataTerakhir->tipe_meja,
+            //'meja'              => $dataTerakhir->no_meja,
+            //'tanggal_reservasi' => $dataTerakhir->tanggal_reservasi,
+            //'jam'               => $dataTerakhir->jam,
+            //'jumlah_orang'      => $dataTerakhir->jumlah_orang,
+            //'subtotal'          => $total_akhir->total_harga,
+            $total_biaya = array_sum(array_map(fn($r) => $r->total_harga, $reservasiList)),
+            'reservasiList'     => $reservasiList,
+            //'transaksi'         => TransaksiPembayaran::where('id_reservasi', $dataTerakhir->id_reservasi)->first(),
         ]);
     }
 

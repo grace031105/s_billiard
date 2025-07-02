@@ -41,7 +41,7 @@ Route::post('/pemilik/logout', [PemilikController::class, 'logout'])->name('pemi
     Route::post('/meja/simpan', [KelolaController::class, 'simpan'])->name('meja.simpan');
     Route::delete('/kelola_meja/{id_meja}', [KelolaController::class, 'delete'])->name('mejas.delete');
     Route::get('/mejas/{id_meja}/edit', [KelolaController::class, 'edit'])->name('mejas.edit');
-    Route::put('/mejas/{id_meja}', [KelolaController::class, 'update'])->name('mejas.update');
+    Route::put('/kelola_meja/{id}', [KelolaController::class, 'update'])->name('mejas.update');
     // Data Pelanggan
     // Untuk pemilik
 Route::middleware(['auth:pelanggan'])->group(function () {
