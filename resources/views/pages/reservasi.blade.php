@@ -20,7 +20,7 @@
 <table class="w-full text-sm text-left text-gray-900 bg-white rounded-lg shadow overflow-hidden">
     <thead class="bg-blue-300 text-black">
         <tr>
-            <th class="px-4 py-2">NO</th>
+            <!--<th class="px-4 py-2">NO</th>-->
             <th class="px-4 py-2">KODE</th>
             <th class="px-4 py-2">PELANGGAN</th>
             <th class="px-4 py-2">MEJA</th>
@@ -36,7 +36,7 @@
     <tbody>
         @foreach ($reservasih as $index => $reservasi)
         <tr class="border-b">
-            <td class="px-4 py-2">{{ $index + 1 }}</td>
+            <!--<td class="px-4 py-2">{{ $index + 1 }}</td>-->
             <td class="px-4 py-2">{{ $reservasi->kode_reservasi }}</td>
             <td class="px-4 py-2">{{ $reservasi->pelanggan->nama_pengguna }}</td>
             <td class="px-4 py-2">{{ $reservasi->meja->nama_meja }}</td>
@@ -53,8 +53,8 @@
             </td>
             <td class="px-4 py-2">
                 @switch($reservasi->status)
-                    @case('sudah_bayar')
-                        <span class="text-green-600 font-bold">Sudah Bayar</span>
+                    @case('dikonfirmasi')
+                        <span class="text-green-600 font-bold">Sudah dikonfirmasi</span>
                         @break
                     @case('menunggu_konfirmasi')
                         <span class="text-yellow-500 font-semibold">Menunggu Konfirmasi</span>
@@ -81,4 +81,7 @@
         @endforeach
     </tbody>
 </table>
+<div class="mt-4">
+    {{ $reservasih->links('pagination::tailwind') }}
+</div>
 @endsection
