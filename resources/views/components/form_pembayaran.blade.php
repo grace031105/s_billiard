@@ -106,7 +106,7 @@
             *Unggah & Konfirmasi Pembayaran*
         </button>-->
           @csrf
-          <button type="submit" class="btn btn-success" onclick="return confirm('Yakin ingin konfirmasi?')">
+          <button type="submit" class="w-full bg-green-700 text-white py-3 font-bold rounded hover:bg-green-800" onclick="return confirm('Yakin ingin konfirmasi?')">
            Konfirmasi
           </button>
         </form>

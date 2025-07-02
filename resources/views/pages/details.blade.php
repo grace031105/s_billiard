@@ -5,7 +5,7 @@
 @section('content')
 @if(session('popup'))
     <script>
-        alert("Resi akan diberi setelah pemilik mengkonfirmasi reservasi anda.");
+        alert("anda akan mendapatkan resi di menu riwayat penyewaan. Resi akan diberi setelah pemilik mengkonfirmasi reservasi anda, mohon untuk dicek berkala");
     </script>
 @endif
 <h1 class="text-center text-3xl font-bold text-[#1c2f45] mb-10">Detail Penyewaan</h1>
@@ -55,13 +55,13 @@
             'reservasi' => $reservasi ?? null
         ])
     </div>
-    @if ($reservasi->status === 'dikonfirmasi')
+    <!--@if ($reservasi->status === 'dikonfirmasi')
         <div class="text-center mt-6">
             <a href="{{ route('resi_pemesanan', ['id' => $reservasi->id_reservasi]) }}" class="bg-green-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-green-700">
                 Lihat Resi
             </a>
         </div>
-    @endif
+    @endif -->
 
 </div>
 @endsection
