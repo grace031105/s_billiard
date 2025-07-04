@@ -6,24 +6,26 @@
 <header class="bg-[#1D2939] text-white py-4 px-6 flex items-center justify-between">
   <!-- Logo -->
   <div class="flex items-center gap-4">
-    <img src="{{ asset('images/gambar3.png') }}" alt="Logo Forcue" class="h-10">
+    <img src="images/gambar3.png" alt="Forcue" class="h-10">
   </div>
 
   <!-- Search Bar -->
   <div class="flex-1 max-w-md mx-6 hidden md:block">
     <form action="{{ route('cari.meja') }}" method="GET">
-      <div class="relative">
-        <input type="text" name="query" placeholder="Cari meja billiard..."
-          class="w-full rounded-full py-2 pl-4 pr-10 bg-[#3A5A75] text-white placeholder-gray-300 border border-[#9EB0C2] focus:outline-none focus:ring-2 focus:ring-blue-500"
-          value="{{ request('query') }}">
-        <i class="fas fa-search absolute right-3 top-1/2 transform -translate-y-1/2 text-white"></i>
-      </div>
-    </form>
+    <div class="relative">
+      <input type="text" name="query" placeholder="Cari meja billiard..."
+        class="w-full rounded-full py-2 pl-4 pr-10 bg-[#3A5A75] text-white placeholder-gray-300 border border-[#9EB0C2] focus:outline-none focus:ring-2 focus:ring-blue-500"
+        value="{{ request('query') }}">
+      <i class="fas fa-search absolute right-3 top-1/2 transform -translate-y-1/2 text-white"></i>
+    </div>
+</form>
   </div>
+
+
 
   <!-- Navigation Links -->
   <nav class="hidden md:flex gap-6 text-sm font-medium">
-    <a href="dash.php" class="hover:text-lime-400">Beranda</a>
+    <a href="dash" class="hover:text-lime-400">Beranda</a>
     <a href="#tentang" class="hover:text-lime-400">Tentang</a>
     <a href="#lokasi" class="hover:text-lime-400">Lokasi</a>
     <a href="#kontak" class="hover:text-lime-400">Kontak</a>
@@ -38,32 +40,35 @@
               d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 19M17 13l1.6 6M6 21h12" />
       </svg>
     </button>
-
-    @guest('pelanggan')
-      <a href="{{ route('login') }}" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-full text-sm font-semibold">
+@guest('pelanggan')
+    <!-- Tombol Masuk (hanya jika BELUM login) -->
+    <a href="{{ route('login') }}" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-full text-sm font-semibold">
         Masuk
-      </a>
-    @else
-      <div class="relative inline-block text-left">
-        <button onclick="toggleDropdown()" id="userBtn" class="text-white text-xl p-2 rounded-full hover:bg-gray-700">
-          <i class="fa fa-user"></i>
-        </button>
+    </a>
+@else
+    <!-- Profil Dropdown -->
+<div class="relative inline-block text-left">
+  <!-- Tombol ikon user Font Awesome -->
+  <button onclick="toggleDropdown()" id="userBtn" class="text-white text-xl p-2 rounded-full hover:bg-gray-700">
+    <i class="fa fa-user"></i>
+  </button>
 
-        <div id="dropdownMenu"
-             class="absolute right-0 mt-2 w-40 bg-white text-black rounded shadow-lg hidden z-50">
-          <div class="px-4 py-2 text-sm font-semibold border-b border-gray-200">
+    <div id="dropdownMenu"
+         class="absolute right-0 mt-2 w-40 bg-white text-black rounded shadow-lg hidden z-50">
+        <div class="px-4 py-2 text-sm font-semibold border-b border-gray-200">
             {{ Auth::guard('pelanggan')->user()->nama_pengguna }}
-          </div>
-          <a href="{{ route('profil.show') }}" class="block px-4 py-2 hover:bg-gray-100">Profil</a>
-          <a href="{{ route('riwayat_penyewaan') }}" class="block px-4 py-2 hover:bg-gray-100">Riwayat Penyewaan</a>
-          <form method="POST" action="{{ route('logout') }}">
+        </div>
+        <a href="{{ route('profil.show') }}" class="block px-4 py-2 hover:bg-gray-100">Profil</a>
+        <a href="{{ route('riwayat_penyewaan') }}" class="block px-4 py-2 hover:bg-gray-100">Riwayat Penyewaan</a>
+        <form method="POST" action="{{ route('logout') }}">
             @csrf
             <button type="submit" class="w-full text-left px-4 py-2 hover:bg-gray-100">Keluar</button>
-          </form>
-        </div>
-      </div>
-    @endguest
-  </div>
+        </form>
+    </div>
+</div>
+@endguest
+
+
 </header>
 
 <script>
@@ -72,33 +77,19 @@
     dropdown.classList.toggle('hidden');
   }
 
+  // Tutup jika klik di luar
   document.addEventListener('click', function (event) {
     const dropdown = document.getElementById('dropdownMenu');
     const btn = document.getElementById('userBtn');
     if (dropdown && btn && !dropdown.contains(event.target) && !btn.contains(event.target)) {
       dropdown.classList.add('hidden');
     }
-  });
-
-  // ✅ BUKA PANEL KERANJANG
-  function toggleKeranjang() {
-    const panel = document.getElementById('schedulePanel');
-    const overlay = document.getElementById('overlay');
-    if (panel && overlay) {
-      panel.classList.remove('translate-x-full');
-      overlay.classList.remove('hidden');
-    } else {
-      console.error('❌ Elemen schedulePanel atau overlay tidak ditemukan!');
-    }
+  function toggleSchedulePopup() {
+    document.getElementById('schedulePopup').classList.remove('hidden');
   }
 
-  // ✅ TUTUP PANEL KERANJANG
   function closeSchedulePopup() {
-    const panel = document.getElementById('schedulePanel');
-    const overlay = document.getElementById('overlay');
-    if (panel && overlay) {
-      panel.classList.add('translate-x-full');
-      overlay.classList.add('hidden');
-    }
+    document.getElementById('schedulePopup').classList.add('hidden');
   }
+ });
 </script>

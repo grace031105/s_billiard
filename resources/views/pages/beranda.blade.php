@@ -31,24 +31,25 @@
 
 @section('content')
 <h2 class="text-2xl font-semibold mb-6">BERANDA</h2>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<hr class="border-white mb-4">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
     <a href="#" class="bg-slate-800 p-6 rounded-lg shadow hover:bg-slate-700">
         <h3 class="text-lg font-bold flex items-center">
-            <i class="fas fa-user mr-3"></i> Meja Billiard
+            <i class="fas fa-table mr-3"></i> Meja VIP
         </h3>
+        <p class="text-3xl font-semibold">{{ $totalVIP }}</p>
     </a>
-
-    
-    
     <a href="#" class="bg-yellow-400 text-black p-6 rounded-lg shadow hover:bg-yellow-300">
         <h3 class="text-lg font-bold flex items-center">
-            <i class="fas fa-table mr-3"></i> Meja
+            <i class="fas fa-circle mr-3"></i> Meja Reguler
         </h3>
+        <p class="text-3xl font-semibold">{{ $totalReguler }}</p>
     </a>
     <a href="#" class="bg-slate-800 p-6 rounded-lg shadow hover:bg-slate-700">
         <h3 class="text-lg font-bold flex items-center">
-            <i class="fas fa-clock mr-3"></i> Reservasi
+            <i class="fas fa-crown mr-3"></i> Meja Platinum
         </h3>
+        <p class="text-3xl font-semibold">{{ $totalPlatinum }}</p>
     </a>
 </div>
 @endsection

@@ -41,7 +41,7 @@ Route::post('/pemilik/logout', [PemilikController::class, 'logout'])->name('pemi
     Route::post('/meja/simpan', [KelolaController::class, 'simpan'])->name('meja.simpan');
     Route::delete('/kelola_meja/{id_meja}', [KelolaController::class, 'delete'])->name('mejas.delete');
     Route::get('/mejas/{id_meja}/edit', [KelolaController::class, 'edit'])->name('mejas.edit');
-    Route::put('/mejas/{id_meja}', [KelolaController::class, 'update'])->name('mejas.update');
+    Route::put('/kelola_meja/{id}', [KelolaController::class, 'update'])->name('mejas.update');
     // Data Pelanggan
     // Untuk pemilik
 Route::middleware(['auth:pelanggan'])->group(function () {
@@ -90,12 +90,17 @@ Route::get('/meja_reguler', [MejaRegulerController::class, 'index'])->name('meja
 // Proses reservasi (INSERT)
 Route::post('/keranjang/tambah', [KeranjangController::class, 'tambah'])->name('keranjang.tambah');
 Route::post('/keranjang/hapus', [KeranjangController::class, 'hapus'])->name('keranjang.hapus');
+Route::get('/keranjang/data', function () {
+    return response()->json(session('keranjang', []));
+})->name('keranjang.data');
+
 
 Route::get('/details', [ReservasiController::class, 'showDetails'])->name('details');
 Route::post('/details', [DetailController::class, 'store'])
     ->middleware('auth:pelanggan')
     ->name('details');
 Route::post('/pembayaran/konfirmasi/{id_reservasi}', [PembayaranController::class, 'uploadBuktiPembayaran'])->name('pembayaran.konfirmasi');
+
 
 
 Route::get('/meja_vip', [MejaVipController::class, 'index'])-> name('meja_vip');

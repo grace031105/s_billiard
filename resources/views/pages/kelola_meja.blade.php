@@ -136,13 +136,13 @@
 
 <!-- Script: Isi Form Edit -->
 <script>
-    function isiFormEdit(id, kode, nama, tipe, harga, status) {
+    function isiFormEdit(id, kode, nama, tipe, harga, ) {
         document.getElementById('edit_kode_meja').value = kode;
         document.getElementById('edit_nama_meja').value = nama;
         document.getElementById('edit_tipe_meja').value = tipe;
         document.getElementById('edit_harga_per_jam').value = harga;
-        document.getElementById('edit_status_meja').value = status;
-        document.getElementById('formEditMeja').action = `/mejas/${id}`;
+        //document.getElementById('edit_status_meja').value = status;
+        document.getElementById('formEditMeja').action = `/kelola_meja/${id}`;
     }
 </script>
 

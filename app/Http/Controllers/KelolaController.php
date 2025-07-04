@@ -36,7 +36,7 @@ class KelolaController extends Controller
         $meja->tipe_meja = $request->input('tipe_meja');
         $meja->harga_per_jam = $request->input('harga_per_jam');
         $meja->foto_meja = $fileName;
-        $meja->status_meja = $request->input('status_meja');
+        //$meja->status_meja = $request->input('status_meja');
 
         $meja->id_pemilik = Auth::guard('pemilik')->user()->id_pemilik;
 
@@ -78,7 +78,7 @@ class KelolaController extends Controller
         $meja->nama_meja = $request->nama_meja;
         $meja->tipe_meja = $request->tipe_meja;
         $meja->harga_per_jam = $request->harga_per_jam;
-        $meja->status_meja = $request->status_meja;
+        //$meja->status_meja = $request->status_meja;
 
         if ($request->hasFile('foto_meja')) {
             $file = $request->file('foto_meja');
