@@ -1,3 +1,5 @@
-<footer class="bg-slate-800 text-center text-sm py-4 mt-10">
-    © 2025 Aplikasi Reservasi Billiard - semua hak cipta dilindungi undang-undang
+<footer>
+<div class="bg-[#1E293B] text-white px-8 py-4">
+    <p class="text-center text-sm">&copy; 2025 FORCUE. Semua Hak Dilindungi.</p>
+  </div>
 </footer>

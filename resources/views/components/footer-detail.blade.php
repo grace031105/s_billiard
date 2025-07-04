@@ -1,3 +1,5 @@
-<footer class="text-center text-xs text-white py-6 bg-[#1c2f45]">
-  &copy;2025 Forcue. semua hak cipta dilindungi undang-undang.
+<footer>
+<div class="bg-[#1E293B] text-white px-8 py-4">
+    <p class="text-center text-sm">&copy; 2025 FORCUE. Semua Hak Dilindungi.</p>
+  </div>
 </footer>
