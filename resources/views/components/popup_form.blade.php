@@ -20,7 +20,7 @@
 
         <label class="block mt-4 text-left">Waktu</label>
         <div class="grid grid-cols-3 gap-2 mt-2 time-buttons">
-          @foreach(['09:00-10:00','10:00-11:00','11:00-13:00','13:00-14:00','14:00-16:00','16:00-17:00','17:00-19:00','19:00-20:00','20:00-21:00'] as $jam)
+          @foreach(['09:00-10:00','10:00-11:00','11:00-12:00','12:00-13:00','13:00-14:00','14:00-15:00','15:00-16:00','16:00-17:00','17:00-18:00','19:00-20:00','20:00-21:00','21:00-22:00'] as $jam)
             <button type="button" data-value="{{ $jam }}" onclick="selectTime(this)"
               class="bg-white border border-gray-400 p-2 rounded cursor-pointer text-[#1c2a41] font-medium">
               {{ $jam }}

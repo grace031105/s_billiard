@@ -34,7 +34,7 @@
   <!-- Right Actions -->
   <div class="flex items-center space-x-4">
     <!-- Keranjang -->
-    <button id="openCart" onclick="toggleSchedulePopup()" class="text-white hover:text-gray-300">
+    <button id="openCart" onclick="toggleKeranjang()" class="text-white hover:text-gray-300">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 19M17 13l1.6 6M6 21h12" />
@@ -70,14 +70,6 @@
 
 
 </header>
-<!-- Popup Jadwal -->
-<div id="schedulePopup" class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
-  <div class="bg-white p-6 w-96 rounded-lg shadow-lg">
-    <h2 class="text-xl font-bold mb-4">Pilih Jadwal</h2>
-    <!-- Konten jadwal bisa ditambahkan di sini -->
-    <button onclick="closeSchedulePopup()" class="mt-4 px-6 py-2 bg-red-500 text-white rounded">Tutup</button>
-  </div>
-</div>
 
 <script>
   function toggleDropdown() {

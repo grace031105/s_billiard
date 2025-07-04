@@ -90,12 +90,17 @@ Route::get('/meja_reguler', [MejaRegulerController::class, 'index'])->name('meja
 // Proses reservasi (INSERT)
 Route::post('/keranjang/tambah', [KeranjangController::class, 'tambah'])->name('keranjang.tambah');
 Route::post('/keranjang/hapus', [KeranjangController::class, 'hapus'])->name('keranjang.hapus');
+Route::get('/keranjang/data', function () {
+    return response()->json(session('keranjang', []));
+})->name('keranjang.data');
+
 
 Route::get('/details', [ReservasiController::class, 'showDetails'])->name('details');
 Route::post('/details', [DetailController::class, 'store'])
     ->middleware('auth:pelanggan')
     ->name('details');
 Route::post('/pembayaran/konfirmasi/{id_reservasi}', [PembayaranController::class, 'uploadBuktiPembayaran'])->name('pembayaran.konfirmasi');
+
 
 
 Route::get('/meja_vip', [MejaVipController::class, 'index'])-> name('meja_vip');
