@@ -12,15 +12,10 @@
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 <body class="bg-gray-100">
-   <form action="{{ route('cari.meja') }}" method="GET" class="flex">
-    <input type="text" name="query" placeholder="Cari Meja..." 
-        class="rounded-l-full px-4 py-2 focus:outline-none" required>
-    <button type="submit" class="bg-blue-600 text-white px-4 rounded-r-full">
-        <i class="fas fa-search"></i>
-    </button>
+
 </form>
-
+@include('components.header-dashboard_public')
     @yield('content')
-
+@include('components.footer-cari')
 </body>
 </html>

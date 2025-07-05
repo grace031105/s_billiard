@@ -3,7 +3,7 @@
 @endphp
 
 <!-- Navbar -->
-<header class="bg-[#1D2939] text-white py-4 px-6 flex items-center justify-between">
+<header class="bg-[#1E293B] text-white py-4 px-6 flex items-center justify-between">
   <!-- Logo -->
   <div class="flex items-center gap-4">
     <img src="images/gambar3.png" alt="Forcue" class="h-10">
@@ -21,24 +21,20 @@
 </form>
   </div>
 
-
-
   <!-- Navigation Links -->
   <nav class="hidden md:flex gap-6 text-sm font-medium">
-    <a href="dash" class="hover:text-lime-400">Beranda</a>
-    <a href="#tentang" class="hover:text-lime-400">Tentang</a>
-    <a href="#lokasi" class="hover:text-lime-400">Lokasi</a>
-    <a href="#kontak" class="hover:text-lime-400">Kontak</a>
+    <a href="{{ route('dash-public') }}" class="font-semibold uppercase text-base hover:underline">Beranda</a>
+    <a href="{{ route('dash-public') }}#tentang" class="font-semibold uppercase text-base hover:underline">Tentang</a>
+    <a href="{{ route('dash-public') }}#lokasi" class="font-semibold uppercase text-base hover:underline">Lokasi</a>
+    <a href="{{ route('dash-public') }}#footer" class="font-semibold uppercase text-base hover:underline">Kontak Kami</a>
   </nav>
 
   <!-- Right Actions -->
   <div class="flex items-center space-x-4">
     <!-- Keranjang -->
-    <button id="openCart" onclick="toggleKeranjang()" class="text-white hover:text-gray-300">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 19M17 13l1.6 6M6 21h12" />
-      </svg>
+    <button id="openCart" onclick="toggleKeranjang()" class="text-white hover:text-gray-300"
+      class="relative flex items-center justify-center w-10 h-10 rounded-full bg-white text-blue-900 hover:bg-blue-100 transition duration-200 shadow-md">
+  <i class="fa-solid fa-cart-shopping text-lg"></i>
     </button>
 @guest('pelanggan')
     <!-- Tombol Masuk (hanya jika BELUM login) -->

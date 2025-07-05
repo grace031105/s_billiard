@@ -1,5 +1,3 @@
-@include('components.lokasi')
-
 <section id="footer" class="font-sans">
   <div class="bg-[#C6CED5] text-white px-8 py-10">
     <h1 class="w-full text-3xl font-bold mb-1 text-[#1E293B]">FORCUE</h1>
@@ -41,6 +39,7 @@
     </div>
   </div>
 </section>
+
 
   <div class="bg-[#1E293B] text-white px-8 py-4">
     <p class="text-center text-sm">&copy; 2025 FORCUE. Semua Hak Dilindungi.</p>

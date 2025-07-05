@@ -11,12 +11,12 @@
         body {
             margin: 0;
             font-family: 'Segoe UI', sans-serif;
-            background-color: #9EB0C2;
+            background-color: #C6CED5;
             color: #1a202c;
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col">
+<body class="min-h-screen bg-[#C6CED5] flex flex-col">
     @include('components.header-meja1')
 
     <main class="flex-grow">

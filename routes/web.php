@@ -68,7 +68,12 @@ Route::middleware('auth:pelanggan')->group(function () {
     Route::get('/profil', [ProfilController::class, 'show'])->name('profil.show');
     Route::get('/profil/edit', [ProfilController::class, 'edit'])->name('profil.edit');
     Route::post('/profil/update', [ProfilController::class, 'update'])->name('profil.update');
+    Route::get('/meja_reguler/{id}', [MejaController::class, 'reguler'])->name('meja_reguler.detail');
+    Route::get('/meja_vip/{id}', [MejaController::class, 'vip'])->name('meja_vip.detail');
+    Route::get('/meja_platinum/{id}', [MejaController::class, 'platinum'])->name('meja_platinum.detail');
+
 });
+
 
 // Edit password
 Route::get('/reset-password', function () {
@@ -79,7 +84,6 @@ Route::post('/reset-password', [PasswordResetController::class, 'prosesReset'])-
 
 // Pencarian
 Route::get('/cari-meja', [MejaController::class, 'cari'])->name('cari.meja');
-
 
 // Dashboard & Items
 Route::get('/dash-public', [DashboardPublicController::class, 'index'])->name('dash-public');

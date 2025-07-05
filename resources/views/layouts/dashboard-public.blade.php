@@ -28,13 +28,13 @@
     .slider-item img { width: 100%; height: 200px; object-fit: cover; }
   </style>
 </head>
-<body class="bg-slate-200 font-sans text-slate-800">
+<body class="bg-slate-200 bg-[#C6CED5] font-sans text-slate-800">
     
-    @include('components.header-dashboard')
+    @include('components.header-dashboard_public')
 
     @yield('content')
 
-    @include('components.footer-dashboard')
+    @include('components.footer-dashboard_public')
 <script>
     document.getElementById('userBtn').addEventListener('click', () => {
     document.getElementById('userDropdown').classList.toggle('hidden');

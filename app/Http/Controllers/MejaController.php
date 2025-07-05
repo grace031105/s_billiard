@@ -23,4 +23,20 @@ class MejaController extends Controller
     return view('pages.cari_meja', compact('hasil', 'keyword'));
 }
 
+public function reguler($id) {
+    $meja = Meja::findOrFail($id);
+    return view('meja_reguler', compact('meja'));
+}
+
+public function vip($id) {
+    $meja = Meja::findOrFail($id);
+    return view('meja_vip', compact('meja'));
+}
+
+public function platinum($id) {
+    $meja = Meja::findOrFail($id);
+    return view('meja_platinum', compact('meja'));
+}
+
+
 }

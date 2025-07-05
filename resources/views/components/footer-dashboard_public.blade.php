@@ -1,53 +1,46 @@
 @include('components.lokasi')
 
-<footer class="font-sans">
-  <div class="bg-[#9EB0C2] text-white px-8 py-10">
+<section id="footer" class="font-sans">
+  <div class="bg-[#C6CED5] text-white px-8 py-10">
     <h1 class="w-full text-3xl font-bold mb-1 text-[#1E293B]">FORCUE</h1>
     <div class="w-full h-[3px] bg-[#1E293B] mt-4"></div>
-    
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 text-[15px] mt-6">
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-6 text-[15px] text-[#1E293B]">
       
       <!-- Informasi Kontak -->
-      <div>
-        <h3 class="text-[#1E293B] font-semibold mb-3">INFORMASI KONTAK</h3>
-        <p class="mb-1 text-[#1E293B]">Instagram: @forcue.billiard</p>
-        <p class="mb-1 text-[#1E293B]">WhatsApp: +6282385289497</p>
-        <p class="text-[#1E293B]">
-          Lytech Home Center, Lantai Dasar Blok B1. 1 - 3, Bengkong Sadai, Kota Batam, Kepulauan Riau, Indonesia.
-        </p>
+      <div class="flex flex-col">
+        <h3 class="font-bold text-lg mb-2">INFORMASI KONTAK</h3>
+        <p class="mb-1">Instagram: @forcue.billiard</p>
+        <p class="mb-1">WhatsApp: +6282385289497</p>
+        <p>Lytech Home Center, Lantai Dasar Blok B1. 1 - 3, Bengkong Sadai, Kota Batam, Kepulauan Riau, Indonesia.</p>
       </div>
 
       <!-- Jam Operasional -->
-      <div>
-        <h3 class="text-[#1E293B] font-semibold mb-3">JAM OPERASIONAL</h3>
-        <p class="mb-1 text-[#1E293B]">Senin – Minggu</p>
-        <p class="text-[#1E293B]">11.00 – 03.00 WIB</p>
+      <div class="flex flex-col items-center text-center">
+        <h3 class="font-bold text-lg mb-2">JAM OPERASIONAL</h3>
+        <p class="mb-1">Senin – Minggu</p>
+        <p>11.00 – 03.00 WIB</p>
       </div>
 
       <!-- Media Sosial -->
-      <div>
-        <h3 class="text-[#1E293B] font-semibold mb-3">MEDIA SOSIAL</h3>
-        <div class="flex gap-4 text-xl">
-          
-          <!-- WhatsApp -->
-          <a href="https://wa.me/6282385289497" target="_blank" aria-label="WhatsApp">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hover:text-[#1E293B] cursor-pointer" viewBox="0 0 32 32" fill="currentColor">
-              <path d="M16.001 2.999c-7.452 0-13.5 6.048-13.5 13.5 0 2.375.625 4.688 1.813 6.75L2.5 29.5l6.41-1.76c1.984 1.063 4.203 1.624 6.59 1.624 7.453 0 13.5-6.048 13.5-13.5s-6.047-13.5-13.499-13.5zm0 24c-2.063 0-4.078-.562-5.828-1.625l-.414-.25-3.797 1.047 1.055-3.687-.27-.438C5.813 20.187 5.5 18.375 5.5 16.5c0-5.797 4.703-10.5 10.5-10.5S26.5 10.703 26.5 16.5c0 5.796-4.703 10.499-10.499 10.499zm5.203-7.688c-.281-.14-1.656-.812-1.914-.906-.25-.093-.437-.14-.625.14s-.719.906-.883 1.093c-.156.188-.312.21-.594.07-.281-.141-1.188-.438-2.266-1.406-.84-.75-1.406-1.688-1.57-1.97-.156-.282-.017-.437.117-.578.117-.117.281-.312.422-.469.14-.157.187-.281.281-.469.093-.188.046-.352-.024-.493-.07-.14-.625-1.507-.859-2.062-.226-.54-.457-.47-.625-.477l-.531-.01c-.14 0-.368.046-.563.234-.188.187-.75.734-.75 1.782 0 1.047.77 2.062.875 2.203.104.14 1.515 2.313 3.672 3.24 2.156.922 2.156.617 2.547.578.39-.032 1.265-.515 1.438-1.015.171-.5.171-.938.117-1.015-.046-.078-.25-.125-.53-.265z"/>
-            </svg>
+      <div class="flex flex-col items-center">
+        <h3 class="font-bold text-lg mb-4">MEDIA SOSIAL</h3>
+        <div class="flex flex-col items-center space-y-4 text-2xl text-black">
+          <a href="https://www.instagram.com/forcue.billiard" target="_blank" class="hover:text-gray-600 transition">
+            <i class="fab fa-instagram"></i>
           </a>
-
-          <!-- Instagram -->
-          <a href="https://instagram.com/hma.o24" target="_blank" aria-label="Instagram">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hover:text-[#1E293B] cursor-pointer" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.337 3.608 1.312.975.975 1.25 2.242 1.312 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.337 2.633-1.312 3.608-.975.975-2.242 1.25-3.608 1.312-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.337-3.608-1.312-.975-.975-1.25-2.242-1.312-3.608C2.175 15.747 2.163 15.367 2.163 12s.012-3.584.07-4.85c.062-1.366.337-2.633 1.312-3.608.975-.975 2.242-1.25 3.608-1.312C8.416 2.175 8.796 2.163 12 2.163zm0-2.163C8.735 0 8.332.012 7.052.07 5.773.128 4.49.397 3.365 1.523 2.24 2.649 1.971 3.931 1.913 5.21.855 6.49.843 6.893.843 10.157c0 3.264.012 3.667.07 4.947.058 1.279.327 2.562 1.453 3.687 1.125 1.125 2.408 1.395 3.687 1.453 1.28.058 1.683.07 4.947.07s3.667-.012 4.947-.07c1.279-.058 2.562-.327 3.687-1.453 1.125-1.125 1.395-2.408 1.453-3.687.058-1.28.07-1.683.07-4.947s-.012-3.667-.07-4.947c-.058-1.279-.327-2.562-1.453-3.687C20.53.397 19.247.128 17.968.07 16.688.012 16.285 0 12.999 0h-.001zM12 5.838a6.162 6.162 0 1 0 0 12.324A6.162 6.162 0 0 0 12 5.838zm0 10.162a3.999 3.999 0 1 1 0-7.998 3.999 3.999 0 0 1 0 7.998zm6.406-11.845a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"/>
-            </svg>
+          <a href="https://www.facebook.com/forcue.billiard" target="_blank" class="hover:text-gray-600 transition">
+            <i class="fab fa-facebook"></i>
           </a>
-
+          <a href="https://www.tiktok.com/@forcue.billiard" target="_blank" class="hover:text-gray-600 transition">
+            <i class="fab fa-tiktok"></i>
+          </a>
         </div>
       </div>
 
     </div>
   </div>
+</section>
 
   <div class="bg-[#1E293B] text-white px-8 py-4">
     <p class="text-center text-sm">&copy; 2025 FORCUE. Semua Hak Dilindungi.</p>
