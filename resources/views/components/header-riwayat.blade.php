@@ -6,7 +6,7 @@
 <header class="bg-[#1D2939] text-white py-4 px-6 flex items-center justify-between">
   <!-- Logo -->
   <div class="flex items-center gap-4">
-    <img src="images/gambar3.png" alt="Logo Forcue" class="h-10">
+    <img src="images/gambar3.png" alt="Forcue" class="h-10">
   </div>
 
   <!-- Search Bar -->
@@ -25,7 +25,7 @@
 
   <!-- Navigation Links -->
   <nav class="hidden md:flex gap-6 text-sm font-medium">
-    <a href="dash.php" class="hover:text-lime-400">Beranda</a>
+    <a href="dash" class="hover:text-lime-400">Beranda</a>
     <a href="#tentang" class="hover:text-lime-400">Tentang</a>
     <a href="#lokasi" class="hover:text-lime-400">Lokasi</a>
     <a href="#kontak" class="hover:text-lime-400">Kontak</a>

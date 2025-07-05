@@ -1,3 +1,5 @@
-<footer class="w-full p-4 bg-black text-white text-center mt-auto">
-  <p>&copy; {{ date('Y') }} Sistem Reservasi Billiard. semua hak cipta dilindungi undang-undang.</p>
+<footer>
+<div class="bg-[#1E293B] text-white px-8 py-4">
+    <p class="text-center text-sm">&copy; 2025 FORCUE. Semua Hak Dilindungi.</p>
+  </div>
 </footer>

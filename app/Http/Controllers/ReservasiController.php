@@ -77,8 +77,13 @@ class ReservasiController extends Controller
         $id_pemilik = Auth::guard('pemilik')->id();
 
         $reservasih = Reservasi::with(['pelanggan', 'meja', 'waktu', 'transaksi'])
-                        ->where('id_pemilik', $id_pemilik)
-                        ->get();
+                    ->where('id_pemilik', $id_pemilik)
+                    ->paginate(5);
+
+
+        //$reservasih = Reservasi::with(['pelanggan', 'meja', 'waktu', 'transaksi'])
+                       // ->where('id_pemilik', $id_pemilik)
+                       // ->get();
 
         return view('pages.reservasi', [
             'reservasih' => $reservasih,

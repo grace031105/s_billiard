@@ -96,13 +96,6 @@
                 <div><label>Nama Meja</label><input type="text" name="nama_meja" class="w-full p-2 border rounded text-gray-900 dark:text-white bg-white dark:bg-gray-800" required></div>
                 <div><label>Tipe Meja</label><input type="text" name="tipe_meja" class="w-full p-2 border rounded text-gray-900 dark:text-white bg-white dark:bg-gray-800" required></div>
                 <div><label>Harga per Jam</label><input type="number" name="harga_per_jam" class="w-full p-2 border rounded text-gray-900 dark:text-white bg-white dark:bg-gray-800" required></div>
-                <div>
-                    <label>Status</label>
-                    <select name="status_meja" class="w-full p-2 border rounded text-gray-900 dark:text-white bg-white dark:bg-gray-800">
-                        <option value="tersedia">Tersedia</option>
-                        <option value="disewakan">Disewakan</option>
-                    </select>
-                </div>
                 <div class="md:col-span-2"><label>Foto Meja</label><input type="file" name="foto_meja" accept="image/*" class="w-full p-2 border rounded" required></div>
                 <div class="md:col-span-2 flex justify-end gap-3 mt-4">
                     <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded">Simpan</button>
@@ -131,13 +124,6 @@
                 <div><label>Nama Meja</label><input type="text" id="edit_nama_meja" name="nama_meja" class="w-full p-2 border rounded text-gray-900 dark:text-white bg-white dark:bg-gray-800" required></div>
                 <div><label>Tipe Meja</label><input type="text" id="edit_tipe_meja" name="tipe_meja" class="w-full p-2 border rounded text-gray-900 dark:text-white bg-white dark:bg-gray-800" required></div>
                 <div><label>Harga per Jam</label><input type="number" id="edit_harga_per_jam" name="harga_per_jam" class="w-full p-2 border rounded text-gray-900 dark:text-white bg-white dark:bg-gray-800" required></div>
-                <div>
-                    <label>Status</label>
-                    <select id="edit_status_meja" name="status_meja" class="w-full p-2 border rounded text-gray-900 dark:text-white bg-white dark:bg-gray-800">
-                        <option value="tersedia">Tersedia</option>
-                        <option value="disewakan">Disewakan</option>
-                    </select>
-                </div>
                 <div class="md:col-span-2"><label>Ganti Foto</label><input type="file" name="foto_meja" accept="image/*" class="w-full p-2 border rounded text-gray-900 dark:text-white bg-white dark:bg-gray-800"></div>
                 <div class="md:col-span-2 flex justify-end gap-3 mt-4">
                     <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded">Update</button>
@@ -150,13 +136,13 @@
 
 <!-- Script: Isi Form Edit -->
 <script>
-    function isiFormEdit(id, kode, nama, tipe, harga, status) {
+    function isiFormEdit(id, kode, nama, tipe, harga, ) {
         document.getElementById('edit_kode_meja').value = kode;
         document.getElementById('edit_nama_meja').value = nama;
         document.getElementById('edit_tipe_meja').value = tipe;
         document.getElementById('edit_harga_per_jam').value = harga;
-        document.getElementById('edit_status_meja').value = status;
-        document.getElementById('formEditMeja').action = `/mejas/${id}`;
+        //document.getElementById('edit_status_meja').value = status;
+        document.getElementById('formEditMeja').action = `/kelola_meja/${id}`;
     }
 </script>
 
