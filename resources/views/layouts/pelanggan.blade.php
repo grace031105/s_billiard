@@ -8,17 +8,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
 </head>
-<body class="bg-slate-900 text-white">
-    @include('components.header-pelanggan')
-
-    <div class="flex pt-16">
+<body style="background-color:rgb(127, 186, 241);" class="text-white">
+    <!--<div class="flex pt-16">-->
         @yield('sidebar')
-
-        <main class="flex-1 p-6">
-            @yield('content')
-        </main>
-    </div>
-
-    @include('components.footer-pelanggan')
+        <div class="ml-64 min-h-screen">
+            <main class="p-6">
+                @yield('content')
+            </main>
+        </div>
 </body>
 </html>

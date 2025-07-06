@@ -97,9 +97,10 @@ Route::post('/keranjang/hapus', [KeranjangController::class, 'hapus'])->name('ke
 Route::get('/keranjang/data', function () {
     return response()->json(session('keranjang', []));
 })->name('keranjang.data');
+Route::get('/reservasi/detail', [ReservasiController::class, 'lanjutkan'])->name('reservasi.lanjutkan');
 
 
-Route::get('/details', [ReservasiController::class, 'showDetails'])->name('details');
+Route::get('/details', [ReservasiController::class, 'showDetails'])->name('pelanggan.details');
 Route::post('/details', [DetailController::class, 'store'])
     ->middleware('auth:pelanggan')
     ->name('details');

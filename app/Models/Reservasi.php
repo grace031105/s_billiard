@@ -25,7 +25,6 @@ class Reservasi extends Model
         'status',
         'kode_reservasi',
         'id_pemilik',
-        
     ];
 
     // Relasi ke tabel pelanggan

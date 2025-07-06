@@ -3,14 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Meja; // ✅ Ini yang benar
+use App\Models\Meja; 
 
 class MejaRegulerController extends Controller
 {
     public function index(Request $request)
     {
-        $mejaList = Meja::where('tipe_meja', 'rEGULER')->get(); // Ambil dari DB
-        $mejaTerpilih = $request->query('meja'); // ✅ Tangkap dari URL
+        $mejaList = Meja::with('kategori')
+            ->whereHas('kategori', function ($query) {
+                $query->where('nama_kategori', 'Reguler');})
+        ->get(); // Ambil dari DB
+
+        $mejaTerpilih = $request->query('meja'); 
     
     return view('pages.meja_reguler', compact('mejaList', 'mejaTerpilih'));
 

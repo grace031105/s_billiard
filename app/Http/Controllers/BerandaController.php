@@ -9,14 +9,21 @@ class BerandaController extends Controller
 {
     public function index()
     {   
-        $totalVIP = Meja::where('tipe_meja', 'vip')->count();
-        $totalReguler = Meja::where('tipe_meja', 'reguler')->count();
-        $totalPlatinum = Meja::where('tipe_meja', 'platinum')->count();
+        $totalVIP = Meja::whereHas('kategori', function ($query) {
+            $query->where('nama_kategori', 'vip');
+        })->count();
+        $totalReguler = Meja::whereHas('kategori', function ($query) {
+            $query->where('nama_kategori', 'reguler');
+        })->count();
+        $totalPlatinum = Meja::whereHas('kategori', function ($query) {
+            $query->where('nama_kategori', 'platinum');
+        })->count();
 
         return view('pages.beranda', [
             'totalVIP' => $totalVIP,
             'totalReguler' => $totalReguler,
             'totalPlatinum' => $totalPlatinum,
+            
         ]);
 
         $notifikasiReservasi = Reservasi::with('pelanggan')

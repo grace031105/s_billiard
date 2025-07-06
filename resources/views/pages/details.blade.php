@@ -31,9 +31,9 @@
 <div class="mb-4 p-4 bg-[#324764] rounded">
     <h3 class="font-bold mb-2">Reservasi #{{ $index + 1 }}</h3>
     <div class="grid grid-cols-2 gap-4">
-        <p>Tipe Meja : {{ $r->tipe_meja }}</p>
-        <p>No Meja : {{ $r->no_meja }}</p>
-        <p>Tanggal : {{ $r->tanggal_reservasi }}</p>
+        <p>Tipe Meja : {{ $reservasi->meja->kategori->nama_kategori ?? '-' }}</p>
+        <p>No Meja : {{ $reservasi->meja->nama_meja ?? $meja ?? '-' }}</p></p>
+        <p>Tanggal : {{ $reservasi->tanggal_reservasi ?? $tanggal_reservasi ?? '-' }}</p>
         <p>Jam : {{ $r->jam }}</p>
         <p>Jumlah Orang : {{ $r->jumlah_orang }}</p>
     </div>
@@ -41,9 +41,9 @@
 @endforeach
         @else
             <div class="grid grid-cols-2 gap-4 bg-[#324764] p-4 rounded">
-                <p>Tipe Meja : {{ $tipe_meja ?? '-' }}</p>
-                <p>No Meja : {{ $meja ?? '-' }}</p>
-                <p>Tanggal : {{ $tanggal_reservasi ?? '-' }}</p>
+                <p>Tipe Meja : {{ $reservasi->meja->kategori->nama_kategori ?? '-' }}</p>
+                <p>No Meja : {{ $reservasi->meja->nama_meja ?? $meja ?? '-' }}</p>
+                <p>Tanggal : {{ $reservasi->tanggal_reservasi ?? $tanggal_reservasi ?? '-' }}</p>
                 <p>Jam : {{ $jam ?? '-' }}</p>
                 <p>Jumlah Orang : {{ $jumlah_orang ?? '-' }}</p>
             </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Meja;
+use App\Models\Kategori;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,8 +18,9 @@ class KelolaController extends Controller
 
     public function show()
     {
-        $mejas = $this->meja->all();
-        return view('pages.kelola_meja', compact('mejas'));
+        $mejas = $this->meja->with('kategori')->get();
+        $kategoriList = Kategori::all();
+        return view('pages.kelola_meja', compact('mejas', 'kategoriList'));
     }
 
     public function simpan(Request $request)
@@ -30,11 +32,23 @@ class KelolaController extends Controller
             $file->move(public_path('images'), $fileName);
         }
 
+        $request->validate([
+            'nama_meja' => 'required',
+            'id_kategori' => 'required|exists:kategori,id_kategori',
+            'harga_per_jam' => 'nullable|numeric',
+        ]);
+
+        $harga = $request->input('harga_per_jam');
+        if (is_null($harga)) {
+            $kategori = Kategori::find($request->input('id_kategori'));
+            $harga = $kategori ? $kategori->harga_default : 0;
+        }
+
         $meja = $this->meja->newInstance();
         $meja->kode_meja = $request->input('kode_meja');
         $meja->nama_meja = $request->input('nama_meja');
-        $meja->tipe_meja = $request->input('tipe_meja');
-        $meja->harga_per_jam = $request->input('harga_per_jam');
+        $meja->id_kategori = $request->input('id_kategori');
+        $meja->harga_per_jam = $harga;
         $meja->foto_meja = $fileName;
         //$meja->status_meja = $request->input('status_meja');
 
@@ -68,16 +82,22 @@ class KelolaController extends Controller
         $request->validate([
             'kode_meja' => 'required',
             'nama_meja' => 'required',
-            'tipe_meja' => 'required',
-            'harga_per_jam' => 'required|numeric',
+            'id_kategori' => 'required|exists:kategori,id_kategori',
+            'harga_per_jam' => 'nullable|numeric',
         ]);
+
+        $harga = $request->input('harga_per_jam');
+        if (is_null($harga)) {
+            $kategori = Kategori::find($request->input('id_kategori'));
+            $harga = $kategori ? $kategori->harga_default : 0;
+        }
 
         $meja = $this->meja->findOrFail($id_meja);
 
         $meja->kode_meja = $request->kode_meja;
         $meja->nama_meja = $request->nama_meja;
-        $meja->tipe_meja = $request->tipe_meja;
-        $meja->harga_per_jam = $request->harga_per_jam;
+        $meja->id_kategori = $request->id_kategori;
+        $meja->harga_per_jam = $harga;
         //$meja->status_meja = $request->status_meja;
 
         if ($request->hasFile('foto_meja')) {

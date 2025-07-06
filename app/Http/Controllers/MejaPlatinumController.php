@@ -3,16 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Meja; // ✅ Ini yang benar
+use App\Models\Meja;
 
 class MejaPlatinumController extends Controller
 {
     public function index(Request $request)
     {
-        $mejaList = Meja::where('tipe_meja', 'Reguler')->get();
-    $mejaTerpilih = $request->query('meja'); // ✅ Tangkap dari URL
+        // Ambil semua meja yang kategori-nya Platinum
+        $mejaList = Meja::with('kategori')
+            ->whereHas('kategori', function ($query) {
+                $query->where('nama_kategori', 'Platinum');
+            })
+            ->get();
 
-    return view('pages.meja_platinum', compact('mejaList', 'mejaTerpilih'));
+        // Ambil meja yang dipilih dari parameter URL (?meja=...)
+        $mejaTerpilih = $request->query('meja');
 
-}
+        return view('pages.meja_platinum', compact('mejaList', 'mejaTerpilih'));
+    }
 }
