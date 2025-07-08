@@ -12,7 +12,7 @@ class Reservasi extends Model
 
     protected $table = 'reservasi';
     protected $primaryKey = 'id_reservasi';
-    public $timestamps = false;
+    public $timestamps = true;
 
     // Kolom yang boleh diisi massal (mass assignable)
     protected $fillable = [
@@ -25,6 +25,7 @@ class Reservasi extends Model
         'status',
         'kode_reservasi',
         'id_pemilik',
+        
     ];
 
     // Relasi ke tabel pelanggan

@@ -6,6 +6,7 @@
 @if(session('popup'))
     <script>
         alert("Anda akan mendapatkan resi di menu riwayat penyewaan. Resi akan diberi setelah pemilik mengkonfirmasi reservasi Anda. Mohon dicek secara berkala.");
+        window.location.href = "{{ route('riwayat_penyewaan') }}";
     </script>
 @endif
 

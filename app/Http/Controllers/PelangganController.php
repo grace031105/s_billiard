@@ -10,7 +10,7 @@ class PelangganController extends Controller
     public function show()
     {
         $pelanggans = Pelanggan::all(); 
-        return view('pages.pelanggan', compact('pelanggans')); // Kirim satu variabel array
+        return view('pages.kelola_pelanggan', compact('pelanggans')); // Kirim satu variabel array
     }
      
 }

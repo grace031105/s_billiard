@@ -3,6 +3,13 @@
 @section('title', 'Data Reservasi')
 
 @section('sidebar')
+@php
+    use App\Models\Reservasi;
+    $adaNotifBaru = Reservasi::where('status', 'menunggu_konfirmasi')
+        ->where('is_seen', false)
+        ->exists();
+@endphp
+
 <aside class="fixed top-0 left-0 w-64 h-screen bg-blue-900 text-white z-50">
     <div class="text-center py-6 border-b border-blue-600">
         <h2 class="text-2xl font-bold  tracking-wide">🎱 Billiard</h2>
@@ -19,8 +26,10 @@
             <div class="relative flex items-center gap-3">
                 <i class="fas fa-calendar-alt mr-3"></i>
                 <span>Data Reservasi</span>
-                <span class="absolute top-1.5 left-[200px] w-2.5 h-2.5 bg-red-500 rounded-full ring-2 ring-white "></span>
-                <span class="absolute top-1.5 left-[200px] w-2.5 h-2.5 bg-red-500 rounded-full ring-2 ring-white animate-ping"></span>
+                @if($adaNotifBaru)
+                    <span class="absolute top-1.5 left-[200px] w-2.5 h-2.5 bg-red-500 rounded-full ring-2 ring-white "></span>
+                    <span class="absolute top-1.5 left-[200px] w-2.5 h-2.5 bg-red-500 rounded-full ring-2 ring-white animate-ping"></span>
+                @endif
             </div>
         </a>
         <a href="{{ url('kelola_meja') }}" class="flex items-center p-3 rounded-lg hover:bg-slate-700 transition">
@@ -29,7 +38,13 @@
                 <span>Kelola Meja</span>
             </div>
         </a>
-        <a href="{{ url('pelanggan') }}" class="flex items-center p-3 rounded-lg hover:bg-slate-700 transition">
+        <a href="{{ route('kategori.index') }}" class="flex items-center p-3 rounded-lg hover:bg-slate-700 transition">
+            <div class="relative flex items-center gap-3">
+                <i class="fas fa-table mr-3"></i>
+                <span>Kelola Kategori</span>
+            </div>
+        </a>
+        <a href="{{ route('pemilik.pelanggan') }}" class="flex items-center p-3 rounded-lg hover:bg-slate-700 transition">
             <div class="relative flex items-center gap-3">
                 <i class="fas fa-users mr-3"></i>
                 <span>Pelanggan</span>

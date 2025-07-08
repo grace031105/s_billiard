@@ -95,7 +95,7 @@
   });
 
   function startCountdown() {
-    let duration = 15 * 60;
+    let duration = 2 * 60;
     const countdownEl = document.getElementById('countdown');
     const deadlineText = document.getElementById('deadline-text');
     const deadline = new Date(Date.now() + duration * 1000);

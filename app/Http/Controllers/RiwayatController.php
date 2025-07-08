@@ -2,14 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\ResiPenyewaan;
 
 class RiwayatController extends Controller
 {
     public function index()
-    {
-        $riwayat = ResiPenyewaan::with('transaksi.reservasi')->orderBy('id_resi', 'desc')->get();
+    {   
+        $idPelanggan = Auth::guard('pelanggan')->id();
+        $riwayat = ResiPenyewaan::whereHas('transaksi.reservasi', function ($query) use ($idPelanggan) {
+            $query->where('id_pelanggan', $idPelanggan)
+                ->where('status', '!=', 'kadaluarsa');
+        })->with('transaksi.reservasi')
+            ->orderBy('id_resi', 'desc')
+            ->get();
         return view('pages.riwayat_penyewaan', compact('riwayat'));
     }
 

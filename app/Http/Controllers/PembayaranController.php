@@ -50,7 +50,10 @@ class PembayaranController extends Controller
             'tanggal_cetak' => now(),
         ]);
 
-        // Update status reservasi
+        // Update status dan atur waktu kadaluarsa
+        if (!$reservasi->expired_at) {
+            $reservasi->expired_at = now()->addMinutes(2); // atau bebas: 10, 15, dst
+        }
         $reservasi->status = 'menunggu_konfirmasi';
         $reservasi->save();
 

@@ -26,6 +26,9 @@ class PemilikController extends Controller
 
         if (Auth::guard('pemilik')->attempt($credentials)) {
             $request->session()->regenerate();
+
+            logger('Login sebagai: ' . Auth::guard('pemilik')->user()->email);
+            
             return redirect()->route('beranda'); // ganti sesuai halaman utama pemilik
         }
 

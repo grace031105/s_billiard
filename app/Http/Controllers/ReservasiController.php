@@ -75,6 +75,10 @@ class ReservasiController extends Controller
     {
         $id_pemilik = Auth::guard('pemilik')->id();
 
+        Reservasi::where('status', 'menunggu_konfirmasi')
+            ->where('is_seen', false)
+            ->update(['is_seen' => true]);
+
         $reservasih = Reservasi::with(['pelanggan', 'meja.kategori', 'waktu', 'transaksi'])
                     ->where('id_pemilik', $id_pemilik)
                     ->paginate(5);
@@ -120,9 +124,15 @@ class ReservasiController extends Controller
                         ->where('status', 'menunggu_konfirmasi')
                         ->orderBy('id_reservasi', 'desc')
                         ->get();
-        if (!$reservasi) {
+
+        //$reservasi = $reservasiList->first();
+        if ($reservasiList->isEmpty()) {
             abort(404, 'Reservasi tidak ditemukan');
         }
+
+        return view('pages.details', [
+            'reservasiList' => $reservasiList
+        ]);
 
         $transaksi = TransaksiPembayaran::where('id_reservasi', $reservasi->id_reservasi)->first();
         return view('pages.details', [

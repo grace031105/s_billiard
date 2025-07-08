@@ -8,6 +8,8 @@ use App\Models\Meja;
 use App\Models\WaktuSewa;
 use Illuminate\Support\Facades\Auth;
 use App\Models\TransaksiPembayaran;
+use Carbon\Carbon;
+
 
 class DetailController extends Controller
 {
@@ -53,6 +55,7 @@ class DetailController extends Controller
                 'durasi_sewa'       => count($jam_array),
                 'total_harga'       => $item['subtotal'],
                 'status'            => 'menunggu_konfirmasi',
+                'expired_at'        => \Carbon\Carbon::now()->addMinutes(2),
             ]);
 
             session()->forget('keranjang');
@@ -104,8 +107,8 @@ class DetailController extends Controller
             'durasi_sewa'       => $durasi,
             'total_harga'       => $total_akhir,
             'status'            => 'menunggu_konfirmasi',
+            'expired_at'        => \Carbon\Carbon::now()->addMinutes(2),
         ]);
-
         return view('pages.details', [
             'nama'              => $pelanggan->nama_pengguna,
             'email'             => $pelanggan->email,
