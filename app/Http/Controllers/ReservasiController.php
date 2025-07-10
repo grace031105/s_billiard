@@ -59,7 +59,7 @@ class ReservasiController extends Controller
             'id_meja'           => $meja->id_meja,
             'id_pemilik'        => $meja->id_pemilik ?? 1,
             'tanggal_reservasi' => $request->tanggal,
-            'jam'               => $request->jam,
+           // 'jam'               => $request->jam,
             'id_waktu'          => $waktu ? $waktu->id_waktu : null,
             'durasi_sewa'       => count($jam_array),
             'total_harga'       => $request->subtotal,
@@ -150,5 +150,24 @@ class ReservasiController extends Controller
         ]);
         
     }
+        public function cekJamTerpakai(Request $request)
+        {
+            $tanggal = $request->tanggal;
+            $no_meja = $request->no_meja;
 
+            $meja = Meja::where('nama_meja', $no_meja)->first();
+            if (!$meja) {
+                return response()->json([]);
+            }
+
+            $idMeja = $meja->id_meja;
+
+            $jamTerpakai = Reservasi::where('id_meja', $idMeja)
+                ->where('tanggal_reservasi', $tanggal)
+                ->whereNotIn('status', ['selesai', 'dibatalkan'])
+                ->pluck('id_waktu')
+                ->toArray();
+
+            return response()->json($jamTerpakai);
+     }
 }

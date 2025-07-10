@@ -21,14 +21,36 @@
 </form>
   </div>
 
-
-
   <!-- Navigation Links -->
   <nav class="hidden md:flex gap-6 text-sm font-medium">
-    <a href="{{ route('dash-public') }}" class="font-semibold uppercase text-base hover:underline">Beranda</a>
-    <a href="{{ route('dash-public') }}#tentang" class="font-semibold uppercase text-base hover:underline">Tentang</a>
-    <a href="{{ route('dash-public') }}#lokasi" class="font-semibold uppercase text-base hover:underline">Lokasi</a>
-    <a href="{{ route('dash-public') }}#footer" class="font-semibold uppercase text-base hover:underline">Kontak Kami</a>
+    <a href="{{ route('dash') }}"
+   class="relative font-semibold uppercase text-base px-2 py-1 text-white
+          before:absolute before:bottom-0 before:left-0 before:h-0.5 before:w-0
+          before:bg-blue-500 before:transition-all before:duration-300
+          hover:before:w-full">
+   Beranda
+</a>
+<a href="{{ route('dash') }}#tentang"
+   class="relative font-semibold uppercase text-base px-2 py-1 text-white
+          before:absolute before:bottom-0 before:left-0 before:h-0.5 before:w-0
+          before:bg-blue-500 before:transition-all before:duration-300
+          hover:before:w-full">
+   Tentang
+</a>
+<a href="{{ route('dash') }}#lokasi"
+   class="relative font-semibold uppercase text-base px-2 py-1 text-white
+          before:absolute before:bottom-0 before:left-0 before:h-0.5 before:w-0
+          before:bg-blue-500 before:transition-all before:duration-300
+          hover:before:w-full">
+   Lokasi
+</a>
+<a href="{{ route('dash') }}#footer"
+   class="relative font-semibold uppercase text-base px-2 py-1 text-white
+          before:absolute before:bottom-0 before:left-0 before:h-0.5 before:w-0
+          before:bg-blue-500 before:transition-all before:duration-300
+          hover:before:w-full">
+   Kontak Kami
+</a>
   </nav>
 
   <!-- Right Actions -->
@@ -50,32 +72,37 @@
   <button onclick="toggleDropdown()" id="userBtn" class="text-white text-xl p-2 rounded-full hover:bg-gray-700">
     <i class="fa fa-user"></i>
   </button>
-
 <div id="dropdownMenu"
-         class="absolute right-0 mt-2 w-40 bg-white text-black rounded shadow-lg hidden z-50">
-        <div class="px-4 py-2 text-sm font-semibold border-b border-gray-200">
-            {{ Auth::guard('pelanggan')->user()->nama_pengguna }}
-        </div>
-        <a href="{{ route('profil.show') }}" class="block px-4 py-2 hover:bg-gray-100">Profil</a>
-        <a href="{{ route('riwayat_penyewaan') }}" class="block px-4 py-2 hover:bg-gray-100">Riwayat Penyewaan</a>
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button type="submit" class="w-full text-left px-4 py-2 hover:bg-gray-100">Keluar</button>
-        </form>
+     class="absolute right-0 mt-2 w-60 bg-[#1E3A5F] text-white rounded shadow-lg hidden z-50 overflow-hidden">
+
+    <!-- Header: Selamat Datang -->
+    <div class="px-4 py-2 text-sm font-bold bg-[#325D88] text-white text-center">
+        Selamat datang di Forcue, <span class="uppercase">{{ Auth::guard('pelanggan')->user()->nama_pengguna }}</span>! 
     </div>
+
+    <!-- Menu: Profil -->
+    <a href="{{ route('profil.show') }}" class="flex items-center px-4 py-2 hover:bg-[#27496D] text-sm transition">
+        <i class="fa fa-user mr-2 text-white"></i> Profil
+    </a>
+
+    <!-- Menu: Riwayat Penyewaan -->
+    <a href="{{ route('riwayat_penyewaan') }}" class="flex items-center px-4 py-2 hover:bg-[#27496D] text-sm transition">
+        <i class="fa fa-history mr-2 text-white"></i> Riwayat Penyewaan
+    </a>
+
+    <!-- Menu: Logout -->
+    <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <button type="submit"
+                class="flex items-center w-full px-4 py-2 hover:bg-[#27496D] text-sm text-left transition text-white">
+            <i class="fa fa-sign-out-alt mr-2 text-red-400"></i> Keluar
+        </button>
+    </form>
 </div>
 @endguest
 
 
 </header>
-<!-- Popup Jadwal -->
-<div id="schedulePopup" class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
-  <div class="bg-white p-6 w-96 rounded-lg shadow-lg">
-    <h2 class="text-xl font-bold mb-4">Pilih Jadwal</h2>
-    <!-- Konten jadwal bisa ditambahkan di sini -->
-    <button onclick="closeSchedulePopup()" class="mt-4 px-6 py-2 bg-red-500 text-white rounded">Tutup</button>
-  </div>
-</div>
 
 <script>
   function toggleDropdown() {

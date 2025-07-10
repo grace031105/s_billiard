@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PemilikController;
 use App\Http\Controllers\AuthController;
@@ -114,11 +115,34 @@ Route::middleware(['auth:pelanggan'])->group(function () {
     Route::post('/keranjang/tambah', [KeranjangController::class, 'tambah'])->name('keranjang.tambah');
     Route::post('/keranjang/hapus', [KeranjangController::class, 'hapus'])->name('keranjang.hapus');
     Route::get('/keranjang/data', fn() => response()->json(session('keranjang', [])))->name('keranjang.data');
+    
 
     // Reservasi
     Route::get('/reservasi/detail', [ReservasiController::class, 'lanjutkan'])->name('reservasi.lanjutkan');
     Route::post('/details', [DetailController::class, 'store'])->name('details');
     Route::get('/details', [ReservasiController::class, 'showDetails'])->name('pelanggan.details');
+    Route::get('/cek-jadwal', [DetailController::class, 'cekJadwal'])->name('cek.jadwal');
+    Route::get('/get-waktu', function () {
+    return WaktuSewa::all();
+    });
+    Route::post('/reservasi/batalkan/{id}', [DetailController::class, 'batalkan'])->name('reservasi.batal');
+
+    //jadwal
+    Route::get('/cek-jadwal', function (Request $request) {
+    $tanggal = $request->query('tanggal');
+    $noMeja = $request->query('no_meja');
+
+    $meja = \App\Models\Meja::where('nama_meja', $noMeja)->first();
+    if (!$meja) return response()->json(['booked' => []]);
+
+    $reservasi = \App\Models\Reservasi::where('id_meja', $meja->id_meja)
+        ->where('tanggal_reservasi', $tanggal)
+        ->whereIn('status', ['menunggu_konfirmasi', 'dikonfirmasi'])
+        ->pluck('id_waktu');
+
+    return response()->json(['booked' => $reservasi->toArray()]);
+});
+
 
     // Pembayaran
     Route::post('/pembayaran/konfirmasi/{id_reservasi}', [PembayaranController::class, 'uploadBuktiPembayaran'])->name('pembayaran.konfirmasi');

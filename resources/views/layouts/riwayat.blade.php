@@ -8,7 +8,7 @@
   <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
-<body class="bg-gray-200 min-h-screen flex flex-col font-sans">
+<body class="min-h-screen bg-[#D7E6F4] flex flex-col">
 
   @include('components.header-riwayat')
 
@@ -17,6 +17,7 @@
   </main>
 
   @include('components.footer-riwayat')
+  @stack('scripts')
 
 </body>
 </html>

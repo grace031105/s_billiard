@@ -1,5 +1,5 @@
 
-  @extends('layouts.meja1')
+@extends('layouts.meja1')
 
 @section('title', 'Meja Reguler- Forcue')
 
@@ -30,16 +30,6 @@
   <img src="{{ asset($meja->gambar ?? 'images/gambar4.jpeg') }}" alt="{{ $meja->nama_meja }}" class="w-24 h-24 object-cover rounded-md" />
     <div class="flex flex-col">
     <div class="font-semibold text-xl">{{ $meja->nama_meja }}</div>
-    <!--<div class="text-sm mt-1">
-      Status:
-      @if($meja->status_meja == 'disewakan')
-        <span class="text-red-400 font-medium">Disewakan</span>
-      @elseif($meja->status_meja == 'tersedia')
-        <span class="text-green-400 font-medium">Tersedia</span>
-      @else
-        <span class="text-yellow-400 font-medium">{{ ucfirst($meja->status_meja) }}</span>
-      @endif
-    </div>-->
   </div>
 
   {{-- Tombol Pilih Jadwal --}}
@@ -52,26 +42,43 @@
     </div>
   </div>
 </div>
-
 <!-- Aturan Venue -->
- <div class="mt-10 grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-  <div class="bg-[#C6CED5] p-6 rounded-xl text-[#1E293B]">
-    <h3 class="text-xl font-bold mb-4">Aturan Venue</h3>
+<div class="container mx-auto px-4 mt-10">
+  <div class="bg-[#D7E6F4] p-6 rounded-xl text-[#1E293B] text-lg"> {{-- tambah text-lg di sini --}}
+    <h3 class="text-2xl font-bold mb-4">Aturan Venue</h3>
     <p class="mb-2">Buka setiap hari dari jam <strong>11:00 - 03:00 WIB</strong></p>
     <p class="mb-4">Dilarang Merokok di dalam ruangan</p>
 
-    <h4 class="font-bold mb-2">Fasilitas</h4>
-    <ul class="list-disc list-inside space-y-1">
-      <li>Jual Makanan Ringan</li>
-      <li>Jual Minuman</li>
-      <li>Parkir Motor</li>
-      <li>Parkir Mobil</li>
-      <li>Toilet</li>
-    </ul>
+    <h4 class="text-xl font-bold mb-2">Fasilitas</h4>
+    <ul class="list-none space-y-2">
+  <li class="flex items-center gap-2">
+    <i class="fa-solid fa-cookie-bite text-[#1E3A5F]"></i>
+    Jual Makanan Ringan
+  </li>
+  <li class="flex items-center gap-2">
+    <i class="fa-solid fa-mug-hot text-[#1E3A5F]"></i>
+    Jual Minuman
+  </li>
+  <li class="flex items-center gap-2">
+    <i class="fa-solid fa-motorcycle text-[#1E3A5F]"></i>
+    Parkir Motor
+  </li>
+  <li class="flex items-center gap-2">
+    <i class="fa-solid fa-car text-[#1E3A5F]"></i>
+    Parkir Mobil
+  </li>
+  <li class="flex items-center gap-2">
+    <i class="fa-solid fa-toilet text-[#1E3A5F]"></i>
+    Toilet
+  </li>
+</ul>
+
   </div>
 </div>
-
-@if ($mejaTerpilih)
+@if ($mejaTerpilihId)
+<script>
+  window.waktuList = @json($waktuList); // inject data jam ke JS global
+</script>
 <script>
   window.onload = function() {
     openPopup("Reguler", "{{ $mejaTerpilih }}", 1);
@@ -84,137 +91,3 @@
 @include('components.schedule_popup')
 @endsection
 
-
-@push('scripts')
-<script>
-  let selectedTimes = [];
-  let tipeMejaAktif = "Reguler";
-  let noMeja = "Meja 1";
-  let jumlahOrang = 1;
-
-  const hargaMeja = {
-    "Reguler": 30000,
-    "VIP": 60000,
-    "Platinum": 90000
-  };
-
-  function openPopup(tipe, meja, orang = 1) {
-    tipeMejaAktif = tipe;
-    noMeja = meja;
-    jumlahOrang = orang;
-
-    document.getElementById("tipeMejaTampil").innerText = tipe;
-    document.getElementById("noMeja").innerText = meja;
-    document.getElementById("jumlahOrangInput").value = jumlahOrang;
-    document.getElementById("hargaPerJamTampil").innerText = "-";
-    document.getElementById("subtotalTampil").innerText = "-";
-
-    // Reset jam
-    selectedTimes = [];
-    document.querySelectorAll('.time-buttons button').forEach(btn => {
-      btn.classList.remove("bg-blue-500", "text-white");
-      btn.classList.add("bg-white", "text-[#1c2a41]");
-    });
-
-    document.getElementById("popup").classList.remove("hidden");
-    document.getElementById("popup").classList.add("flex");
-
-    // 🧠 Penting! Update harga langsung!
-    updateSubtotal();
-  }
-
-  function closePopup() {
-    document.getElementById("popup").classList.add("hidden");
-    document.getElementById("popup").classList.remove("flex");
-  }
-
-  function selectTime(button) {
-    const time = button.getAttribute('data-value');
-
-    if (selectedTimes.includes(time)) {
-      selectedTimes = selectedTimes.filter(t => t !== time);
-      button.classList.remove("bg-blue-500", "text-white");
-      button.classList.add("bg-white", "text-[#1c2a41]");
-    } else {
-      selectedTimes.push(time);
-      button.classList.remove("bg-white", "text-[#1c2a41]");
-      button.classList.add("bg-blue-500", "text-white");
-    }
-
-    updateSubtotal();
-  }
-
-  function updateSubtotal() {
-    const harga = hargaMeja[tipeMejaAktif] ?? 0;
-    const total = harga * selectedTimes.length;
-
-    document.getElementById("hargaPerJamTampil").innerText = selectedTimes.length > 0 ? "Rp " + harga.toLocaleString("id-ID") : "-";
-    document.getElementById("subtotalTampil").innerText = total > 0 ? "Rp " + total.toLocaleString("id-ID") : "-";
-    document.getElementById("formSubtotal").value = total;
-  }
-
-  function updateJumlahOrang() {
-    jumlahOrang = parseInt(document.getElementById("jumlahOrangInput").value) || 1;
-  }
-
-  function lanjutKeDetailDanKirim() {
-    const tanggal = document.getElementById("date").value;
-
-    if (!tanggal || selectedTimes.length === 0) {
-      alert("Harap pilih tanggal dan minimal satu jam.");
-      return;
-    }
-
-    document.getElementById("formTipeMeja").value = tipeMejaAktif;
-    document.getElementById("formTanggal").value = tanggal;
-    document.getElementById("formJam").value = selectedTimes.join(", ");
-    document.getElementById("formNoMeja").value = noMeja;
-    document.getElementById("formJumlahOrang").value = jumlahOrang;
-
-    document.getElementById("formReservasi").submit();
-  }
-
-  function tambahKeKeranjang() {
-  const tanggal = document.getElementById("date").value;
-  const jam = selectedTimes.join(", ");
-  const subtotal = hargaMeja[tipeMejaAktif] * selectedTimes.length;
-
-  if (!tanggal || selectedTimes.length === 0) {
-    alert("❗ Harap pilih tanggal dan minimal satu jam.");
-    return;
-  }
-
-  const data = {
-    tipe_meja: tipeMejaAktif,
-    tanggal: tanggal,
-    jam: jam,
-    no_meja: noMeja,
-    jumlah_orang: jumlahOrang,
-    subtotal: subtotal,
-    _token: '{{ csrf_token() }}'
-  };
-
-  fetch("{{ route('keranjang.tambah') }}", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "X-CSRF-TOKEN": data._token
-    },
-    body: JSON.stringify(data)
-  })
-  .then(response => response.json())
-  .then(res => {
-    if (res.success) {
-      alert("✅ Jadwal berhasil ditambahkan ke keranjang!");
-      closePopup(); // Tutup popup
-    } else {
-      alert("❌ Gagal menambahkan ke keranjang.");
-    }
-  })
-  .catch(error => {
-    console.error("Error:", error);
-    alert("❌ Terjadi kesalahan saat mengirim data.");
-  });
-}
-</script>
-@endpush

@@ -16,7 +16,7 @@
         }
     </style>
 </head>
-<body class="bg-gray-300 font-sans">
+<body class="min-h-screen bg-[#D7E6F4] flex flex-col">
     @include('components.header-detail')
 
     <main class="p-10 max-w-5xl mx-auto">
@@ -24,6 +24,7 @@
     </main>
 
     @include('components.footer-detail')
+    @stack('scripts')
     <script>
            document.addEventListener('DOMContentLoaded', () => {
     const openCart = document.getElementById('openCart');

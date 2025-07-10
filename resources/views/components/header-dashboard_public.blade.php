@@ -21,13 +21,38 @@
 </form>
   </div>
 
-  <!-- Navigation Links -->
+   <!-- Navigation Links -->
   <nav class="hidden md:flex gap-6 text-sm font-medium">
-    <a href="{{ route('dash-public') }}" class="font-semibold uppercase text-base hover:underline">Beranda</a>
-    <a href="{{ route('dash-public') }}#tentang" class="font-semibold uppercase text-base hover:underline">Tentang</a>
-    <a href="{{ route('dash-public') }}#lokasi" class="font-semibold uppercase text-base hover:underline">Lokasi</a>
-    <a href="{{ route('dash-public') }}#footer" class="font-semibold uppercase text-base hover:underline">Kontak Kami</a>
+    <a href="{{ route('dash-public') }}"
+   class="relative font-semibold uppercase text-base px-2 py-1 text-white
+          before:absolute before:bottom-0 before:left-0 before:h-0.5 before:w-0
+          before:bg-blue-500 before:transition-all before:duration-300
+          hover:before:w-full">
+   Beranda
+</a>
+<a href="{{ route('dash-public') }}#tentang"
+   class="relative font-semibold uppercase text-base px-2 py-1 text-white
+          before:absolute before:bottom-0 before:left-0 before:h-0.5 before:w-0
+          before:bg-blue-500 before:transition-all before:duration-300
+          hover:before:w-full">
+   Tentang
+</a>
+<a href="{{ route('dash-public') }}#lokasi"
+   class="relative font-semibold uppercase text-base px-2 py-1 text-white
+          before:absolute before:bottom-0 before:left-0 before:h-0.5 before:w-0
+          before:bg-blue-500 before:transition-all before:duration-300
+          hover:before:w-full">
+   Lokasi
+</a>
+<a href="{{ route('dash-public') }}#footer"
+   class="relative font-semibold uppercase text-base px-2 py-1 text-white
+          before:absolute before:bottom-0 before:left-0 before:h-0.5 before:w-0
+          before:bg-blue-500 before:transition-all before:duration-300
+          hover:before:w-full">
+   Kontak Kami
+</a>
   </nav>
+
 
   <!-- Right Actions -->
   <div class="flex items-center space-x-4">

@@ -16,7 +16,7 @@
         }
     </style>
 </head>
-<body class="min-h-screen bg-[#C6CED5] flex flex-col">
+<body class="min-h-screen bg-[#D7E6F4] flex flex-col">
     @include('components.header-meja2')
 
     <main class="flex-grow">

@@ -18,16 +18,16 @@
             <span class="font-bold">Nama Pelanggan:</span> {{ $reservasi->pelanggan->nama_pengguna }}
         </div>
         <div class="border-b border-white pb-2">
-            <span class="font-bold">Tipe Meja:</span> {{ $reservasi->meja->tipe_meja }}
+            <span class="font-bold">Tipe Meja:</span> {{ $reservasi->meja->kategori->nama_kategori ?? '-' }}
         </div>
         <div class="border-b border-white pb-2">
-            <span class="font-bold">No Meja:</span> {{ $reservasi->meja->nama_meja }}
+            <span class="font-bold">Nama Meja:</span> {{ $reservasi->meja->nama_meja }} 
         </div>
         <div class="border-b border-white pb-2">
             <span class="font-bold">Tanggal:</span> {{ \Carbon\Carbon::parse($reservasi->tanggal_reservasi)->locale('id')->translatedFormat('l, d F Y') }}
         </div>
         <div class="border-b border-white pb-2">
-            <span class="font-bold">Waktu:</span> {{ $reservasi->jam }}
+            <span class="font-bold">Waktu:</span> {{ $reservasi->waktu ? \Carbon\Carbon::createFromFormat('H:i:s', $reservasi->waktu->jam_mulai)->format('H:i') . ' - ' . \Carbon\Carbon::createFromFormat('H:i:s', $reservasi->waktu->jam_selesai)->format('H:i') : '-' }}
         </div>
         <div class="border-b border-white pb-2">
             <span class="font-bold">Total Harga:</span> Rp {{ number_format($reservasi->total_harga, 0, ',', '.') }}
@@ -53,4 +53,5 @@
         </button>
     </a>
 </div>
+@include('components.schedule_popup')
 @endsection

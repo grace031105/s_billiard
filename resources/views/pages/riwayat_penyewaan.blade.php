@@ -46,4 +46,5 @@
       </tbody>
     </table>
   </div>
+  @include('components.schedule_popup')
 @endsection

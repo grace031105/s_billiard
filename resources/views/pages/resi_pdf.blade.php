@@ -15,7 +15,7 @@
                 <td style="width: 35%; text-align: right; padding-right: 15px; font-weight: 600; vertical-align: top;">
                     Kode Resi:
                 </td>
-                <td style="vertical-align: top; text-align: left;">{{ $reservasi->id_reservasi }}</td>
+                <td style="vertical-align: top; text-align: left;">{{ $reservasi->kode_reservasi }}</td>
             </tr>
             <tr>
                 <td style="text-align: right; padding-right: 15px; font-weight: 600; vertical-align: top;">
@@ -27,7 +27,7 @@
                 <td style="text-align: right; padding-right: 15px; font-weight: 600; vertical-align: top;">
                     Tipe Meja:
                 </td>
-                <td style="vertical-align: top; text-align: left;">{{ $reservasi->meja->tipe_meja }}</td>
+                <td style="vertical-align: top; text-align: left;"> {{ $reservasi->meja->kategori->nama_kategori ?? '-' }}</td>
             </tr>
             <tr>
                 <td style="text-align: right; padding-right: 15px; font-weight: 600; vertical-align: top;">
@@ -47,7 +47,7 @@
                 <td style="text-align: right; padding-right: 15px; font-weight: 600; vertical-align: top;">
                     Waktu:
                 </td>
-                <td style="vertical-align: top; text-align: left;">{{ $reservasi->waktu->durasi }}</td>
+                <td style="vertical-align: top; text-align: left;">{{ $reservasi->waktu ? \Carbon\Carbon::createFromFormat('H:i:s', $reservasi->waktu->jam_mulai)->format('H:i') . ' - ' . \Carbon\Carbon::createFromFormat('H:i:s', $reservasi->waktu->jam_selesai)->format('H:i') : '-' }}</td>
             </tr>
             <tr>
                 <td style="text-align: right; padding-right: 15px; font-weight: 600; vertical-align: top;">

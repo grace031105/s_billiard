@@ -110,9 +110,22 @@
       const seconds = duration % 60;
       countdownEl.textContent = `00 : ${String(minutes).padStart(2, '0')} : ${String(seconds).padStart(2, '0')}`;
       if (--duration < 0) {
-        clearInterval(timer);
-        countdownEl.textContent = '00 : 00 : 00';
-      }
+  clearInterval(timer);
+  countdownEl.textContent = '00 : 00 : 00';
+
+  // Panggil server untuk batalkan reservasi
+  fetch('/reservasi/batalkan/{{ $id_reservasi }}', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRF-TOKEN': '{{ csrf_token() }}'
+    }
+  }).then(res => res.json())
+    .then(data => {
+      alert("⏰ Waktu anda habis, pesanan dibatalkan! silahkan memesan ulang");
+      window.location.href = "/dash"; // Redirect ke dashboard atau halaman lain
+    });
+}
     }, 1000);
   }
 </script>

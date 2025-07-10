@@ -16,7 +16,7 @@
         }
     </style>
 </head>
-<body class="min-h-screen bg-[#C6CED5] flex flex-col">
+<body class="min-h-screen bg-[#D7E6F4] flex flex-col">
     @include('components.header-meja1')
 
     <main class="flex-grow">
@@ -27,3 +27,37 @@
     @stack('scripts')
 </body>
 </html>
+ <!-- Dropdown & Keranjang Logic -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const userBtn = document.getElementById('userBtn');
+      const userDropdown = document.getElementById('userDropdown');
+      const openCart = document.getElementById('openCart');
+      const closeCart = document.getElementById('closeCart');
+      const schedulePanel = document.getElementById('schedulePanel');
+      const overlay = document.getElementById('overlay');
+
+      userBtn?.addEventListener('click', () => {
+        userDropdown?.classList.toggle('hidden');
+      });
+
+      openCart?.addEventListener('click', () => {
+        schedulePanel?.classList.remove('translate-x-full');
+        overlay?.classList.remove('hidden');
+      });
+
+      closeCart?.addEventListener('click', () => {
+        schedulePanel?.classList.add('translate-x-full');
+        overlay?.classList.add('hidden');
+      });
+
+      overlay?.addEventListener('click', () => {
+        schedulePanel?.classList.add('translate-x-full');
+        overlay?.classList.add('hidden');
+      });
+    });
+  </script>
+
+</body>
+</html>
+

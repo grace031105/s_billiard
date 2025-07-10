@@ -76,6 +76,20 @@ class DetailController extends Controller
         }
 
         // ==== MODE FORM POPUP ====
+        if (!$request->jam || !str_contains($request->jam, '-')) {
+    return redirect()->back()->withErrors(['Jam belum dipilih atau format tidak valid.']);
+}
+
+$jam_array = preg_split('/,\s*/', $request->jam);
+
+// Validasi jam format benar
+$rentang = explode('-', trim($jam_array[0]));
+if (count($rentang) < 2) {
+    return redirect()->back()->withErrors(['Format jam tidak valid.']);
+}
+
+$jam_mulai = date('H:i:s', strtotime(trim($rentang[0])));
+$jam_selesai = date('H:i:s', strtotime(trim($rentang[1])));
         $subtotal = intval($request->subtotal);
         $total_akhir = $subtotal;
         $durasi = count(explode(',', $request->jam));
@@ -93,6 +107,32 @@ class DetailController extends Controller
         $waktu = WaktuSewa::where('jam_mulai', $jam_mulai)
             ->where('jam_selesai', $jam_selesai)
             ->first();
+
+        foreach ($jam_array as $jam) {
+            $rentang = explode('-', trim($jam));
+            if (count($rentang) < 2) continue;
+
+            $jamMulai = date('H:i:s', strtotime(trim($rentang[0])));
+            $jamSelesai = date('H:i:s', strtotime(trim($rentang[1])));
+
+            $waktuSewa = WaktuSewa::where('jam_mulai', $jamMulai)
+                ->where('jam_selesai', $jamSelesai)
+                ->first();
+
+            if (!$waktuSewa) continue;
+
+            $cek = Reservasi::where('id_meja', $meja->id_meja)
+                ->where('tanggal_reservasi', $request->tanggal)
+                ->where('id_waktu', $waktuSewa->id_waktu)
+                ->exists();
+
+            if ($cek) {
+                return redirect()->back()->withErrors([
+                    "Meja {$meja->nama_meja} sudah dipesan pada jam $jam."
+                ]);
+            }       
+}
+
 
         $reservasi = Reservasi::create([
             'id_pelanggan'      => $pelanggan->id_pelanggan,
@@ -123,4 +163,40 @@ class DetailController extends Controller
             'transaksi'         => TransaksiPembayaran::where('id_reservasi', $reservasi->id_reservasi)->first(),
         ]);
     }
+            public function cekJadwal(Request $request)
+            {
+                $tanggal = $request->query('tanggal');
+                $no_meja = $request->query('no_meja');
+
+                $meja = Meja::where('nama_meja', $no_meja)->first();
+                if (!$meja) {
+                    return response()->json(['booked' => []]);
+                }
+
+                $booked = Reservasi::where('id_meja', $meja->id_meja)
+                    ->where('tanggal_reservasi', $tanggal)
+                    ->whereIn('status', ['menunggu_konfirmasi', 'dikonfirmasi'])
+                    ->pluck('id_waktu')
+                    ->toArray();
+
+                return response()->json(['booked' => $booked]);
+            }
+            public function batalkan($id)
+{
+    $reservasi = \App\Models\Reservasi::find($id);
+
+    if (!$reservasi) {
+        return response()->json(['message' => 'Reservasi tidak ditemukan'], 404);
+    }
+
+    // Kalau belum ada bukti pembayaran, batalkan
+    if (!$reservasi->bukti_pembayaran && in_array($reservasi->status, ['menunggu_konfirmasi'])) {
+        $reservasi->status = 'kadaluarsa';
+        $reservasi->save();
+
+        return response()->json(['message' => 'Reservasi kadaluarsa']);
+    }
+
+    return response()->json(['message' => 'Reservasi tidak dibatalkan']);
+}
 }

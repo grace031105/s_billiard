@@ -35,6 +35,7 @@
     @yield('content')
 
     @include('components.footer-dashboard_public')
+    @stack('scripts')
 <script>
     document.getElementById('userBtn').addEventListener('click', () => {
     document.getElementById('userDropdown').classList.toggle('hidden');

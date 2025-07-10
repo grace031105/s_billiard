@@ -10,7 +10,7 @@ class ResiController extends Controller
     public function index(Request $request)
     {
         $id = $request->get('id'); // Ambil ID dari query string
-        $reservasi = \App\Models\Reservasi::with(['pelanggan', 'meja', 'transaksi'])
+        $reservasi = \App\Models\Reservasi::with(['pelanggan', 'meja.kategori', 'transaksi'])
             ->where('id_reservasi', $id)
             ->first();
 
@@ -27,7 +27,7 @@ class ResiController extends Controller
         // Menampilkan halaman resi
         public function show($id)
         {
-            $reservasi = Reservasi::with(['pelanggan', 'meja', 'waktu', 'transaksi'])->findOrFail($id);
+            $reservasi = Reservasi::with(['pelanggan', 'meja.kategori', 'waktu', 'transaksi'])->findOrFail($id);
 
             if ($reservasi->status !== 'dikonfirmasi') {
                 return abort(403, 'Reservasi belum dikonfirmasi.');

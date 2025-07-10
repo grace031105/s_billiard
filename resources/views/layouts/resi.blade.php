@@ -11,8 +11,7 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-[#C3CCD5] font-sans text-[#1F3C5A]">
-
+<body class="bg-[#D7E6F4] font-sans text-[#1F3C5A]">
   @include('components.header-resi')
 
   <main class="max-w-xl mx-auto py-10">
@@ -20,6 +19,7 @@
   </main>
 
   @include('components.footer-resi')
+  @stack('scripts')
 
 </body>
 </html>
