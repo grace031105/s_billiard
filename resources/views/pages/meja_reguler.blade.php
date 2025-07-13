@@ -75,16 +75,29 @@
 
   </div>
 </div>
+
 @if ($mejaTerpilihId)
 <script>
-  window.waktuList = @json($waktuList); // inject data jam ke JS global
-</script>
-<script>
-  window.onload = function() {
-    openPopup("Reguler", "{{ $mejaTerpilih }}", 1);
-  };
+    window.onload = function() {
+        window.waktuList = @json($waktuList);
+        openPopup("Reguler", "{{ $mejaTerpilih }}", {{ $mejaTerpilihId }});
+    };
 </script>
 @endif
+
+<script>
+function openPopup(tipe, nama, id) {
+    const popup = document.getElementById('popup'); // GANTI KE 'popup'
+    if (popup) {
+        popup.classList.remove('hidden');
+        console.log("Popup dibuka:", tipe, nama, id);
+    } else {
+        console.error("Elemen popup tidak ditemukan");
+    }
+}
+</script>
+
+
 
 <!-- Popup Form -->
 @include('components.popup_form')

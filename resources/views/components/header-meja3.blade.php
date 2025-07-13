@@ -6,7 +6,7 @@
 <header class="bg-[#1E293B] text-white py-4 px-6 flex items-center justify-between">
   <!-- Logo -->
   <div class="flex items-center gap-4">
-    <img src="images/gambar3.png" alt="Forcue" class="h-10">
+    <img src="{{ asset('images/gambar3.png') }}" alt="Logo Forcue" class="h-10" />
   </div>
 
   <!-- Search Bar -->

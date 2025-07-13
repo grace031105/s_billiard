@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Meja; 
+use App\Models\WaktuSewa;
 
 class MejaController extends Controller
 {
@@ -16,26 +17,71 @@ class MejaController extends Controller
         return redirect()->back()->with('error', 'Kata kunci pencarian tidak boleh kosong.');
     }
 
-    $hasil = Meja::where('nama_meja', 'like', "%$keyword%")
-        ->orWhere('tipe_meja', 'like', "%$keyword%")
-        ->get();
+// Cari berdasarkan nama_meja atau nama_kategori
+$hasil = Meja::with('kategori')
+    ->where(function ($query) use ($keyword) {
+        $query->where('nama_meja', 'like', "%$keyword%")
+              ->orWhereHas('kategori', function ($q) use ($keyword) {
+                  // Cocokkan nama_kategori secara persis (case-insensitive)
+                  $q->whereRaw('LOWER(nama_kategori) = ?', [strtolower($keyword)]);
+              });
+    })
+    ->get();
 
-    return view('pages.cari_meja', compact('hasil', 'keyword'));
+
+        $waktuList = WaktuSewa::all();
+
+        
+
+    return view('pages.cari_meja', compact('hasil', 'keyword', 'waktuList'));
 }
 
-public function reguler($id) {
-    $meja = Meja::findOrFail($id);
-    return view('meja_reguler', compact('meja'));
+public function reguler($id, Request $request)
+{
+    $mejaList = Meja::whereHas('kategori', function($query) {
+        $query->where('nama_kategori', 'reguler');
+    })->get();
+
+    $mejaTerpilihId = $id;
+    $mejaTerpilih = Meja::find($id)?->nama_meja;
+
+    $waktuList = WaktuSewa::all();
+
+    return view('pages.meja_reguler', compact(
+        'mejaList', 'mejaTerpilihId', 'mejaTerpilih', 'waktuList'
+    ));
 }
 
-public function vip($id) {
-    $meja = Meja::findOrFail($id);
-    return view('meja_vip', compact('meja'));
+public function vip($id, Request $request)
+{
+    $mejaList = Meja::whereHas('kategori', function($query) {
+        $query->where('nama_kategori', 'vip');
+    })->get();
+
+    $mejaTerpilihId = $id;
+    $mejaTerpilih = Meja::find($id)?->nama_meja;
+
+    $waktuList = WaktuSewa::all();
+
+    return view('pages.meja_vip', compact(
+        'mejaList', 'mejaTerpilihId', 'mejaTerpilih', 'waktuList'
+    ));
 }
 
-public function platinum($id) {
-    $meja = Meja::findOrFail($id);
-    return view('meja_platinum', compact('meja'));
+public function platinum($id, Request $request)
+{
+    $mejaList = Meja::whereHas('kategori', function($query) {
+        $query->where('nama_kategori', 'platinum');
+    })->get();
+
+    $mejaTerpilihId = $id;
+    $mejaTerpilih = Meja::find($id)?->nama_meja;
+
+    $waktuList = WaktuSewa::all();
+
+    return view('pages.meja_platinum', compact(
+        'mejaList', 'mejaTerpilihId', 'mejaTerpilih', 'waktuList'
+    ));
 }
 
 

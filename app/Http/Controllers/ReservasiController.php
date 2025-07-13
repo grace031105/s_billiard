@@ -70,6 +70,16 @@ class ReservasiController extends Controller
         return redirect()->route('pelanggan.riwayat')->with('success', 'Reservasi berhasil dibuat.');
     }
 
+    public function form()
+    {
+        $waktuList = WaktuSewa::all(); // Ambil semua waktu
+        $reservasiList = Reservasi::select('id_meja', 'tanggal_reservasi', 'id_waktu')
+            ->whereIn('status', ['menunggu_konfirmasi', 'dikonfirmasi'])
+            ->get();
+
+        return view('pages.reservasi', compact('waktuList', 'reservasiList'));
+    }
+
     // Fungsi menampilkan reservasi untuk pemilik
     public function show()
     {
