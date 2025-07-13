@@ -18,7 +18,7 @@
       <div class="flex flex-col items-center text-center" data-aos="fade-up" data-aos-delay="200">
         <h3 class="font-semibold text-lg mb-2 uppercase tracking-wide">Jam Operasional</h3>
         <p class="mb-1">Senin – Minggu</p>
-        <p>11.00 – 03.00 WIB</p>
+        <p>11.00 – 00.00 WIB</p>
       </div>
 
       <!-- Media Sosial -->

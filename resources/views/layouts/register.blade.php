@@ -18,16 +18,13 @@
 
 <body class="min-h-screen flex flex-col bg-cover bg-center" style="background-image: url('{{ asset('images/gambar1.jpg') }}');">
   
-  {{-- Header --}}
-  @include('components.header-register')
 
   {{-- Konten Utama --}}
   <main class="flex-grow flex items-center justify-center py-12">
     @yield('content')
   </main>
 
-  {{-- Footer --}}
-  @include('components.footer-register')
+
 
   {{-- Script tambahan dari halaman --}}
   @yield('scripts')

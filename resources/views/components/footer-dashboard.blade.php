@@ -18,20 +18,20 @@
       <div class="flex flex-col items-center text-center" data-aos="fade-up" data-aos-delay="200">
         <h3 class="font-semibold text-lg mb-2 uppercase tracking-wide">Jam Operasional</h3>
         <p class="mb-1">Senin – Minggu</p>
-        <p>11.00 – 03.00 WIB</p>
+        <p>11.00 – 00.00 WIB</p>
       </div>
 
       <!-- Media Sosial -->
       <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="300">
         <h3 class="font-semibold text-lg mb-4 uppercase tracking-wide">Media Sosial</h3>
         <div class="flex flex-col items-center space-y-4 text-2xl text-[#1E293B]">
-          <a href="https://www.instagram.com/forcue.billiard" target="_blank" class="hover:text-[#27496D] transition">
+          <a href="https://www.instagram.com/zahh._na" target="_blank" class="hover:text-[#27496D] transition">
             <i class="fab fa-instagram"></i>
           </a>
           <a href="https://www.facebook.com/forcue.billiard" target="_blank" class="hover:text-[#27496D] transition">
             <i class="fab fa-facebook"></i>
           </a>
-          <a href="https://www.tiktok.com/@forcue.billiard" target="_blank" class="hover:text-[#27496D] transition">
+          <a href="https://www.tiktok.com/@onlyhma.24" target="_blank" class="hover:text-[#27496D] transition">
             <i class="fab fa-tiktok"></i>
           </a>
         </div>
