@@ -27,51 +27,47 @@ class DetailController extends Controller
             }
 
             // Ambil hanya item pertama dari keranjang
-            $item = $keranjang[0];
-            $meja = Meja::where('nama_meja', $item['no_meja'])->first();
-            if (!$meja) {
-                return redirect()->back()->withErrors(['Meja tidak ditemukan.']);
+            $reservasiList = [];
+            foreach ($keranjang as $item) {
+                $meja = Meja::where('nama_meja', $item['no_meja'])->first();
+                if (!$meja) {
+                    return redirect()->back()->withErrors(['Meja tidak ditemukan.']);
+                }
+
+                $jam_array = preg_split('/,\s*/', $item['jam']);
+                $rentang = explode('-', trim($jam_array[0]));
+                $jam_mulai = date('H:i:s', strtotime(trim($rentang[0])));
+                $jam_selesai = date('H:i:s', strtotime(trim($rentang[1])));
+
+                $waktu = WaktuSewa::where('jam_mulai', $jam_mulai)
+                    ->where('jam_selesai', $jam_selesai)
+                    ->first();
+
+                $reservasi = Reservasi::create([
+                    'id_pelanggan'      => $pelanggan->id_pelanggan,
+                    'id_pemilik'        => $meja->id_pemilik ?? 1,
+                    'id_meja'           => $meja->id_meja,
+                    'id_waktu'          => $waktu->id_waktu ?? null,
+                    'tipe_meja'         => $meja->tipe_meja,
+                    'no_meja'           => $meja->nama_meja,
+                    'tanggal_reservasi' => $item['tanggal'],
+                    'jam'               => $item['jam'],
+                    'jumlah_orang'      => $item['jumlah_orang'],
+                    'durasi_sewa'       => count($jam_array),
+                    'total_harga'       => $item['subtotal'],
+                    'status'            => 'menunggu_konfirmasi',
+                    'expired_at'        => \Carbon\Carbon::now()->addMinutes(2),
+                ]);
+                $reservasiList[] = $reservasi;
             }
 
-            $jam_array = preg_split('/,\s*/', $item['jam']);
-            $rentang = explode('-', trim($jam_array[0]));
-            $jam_mulai = date('H:i:s', strtotime(trim($rentang[0])));
-            $jam_selesai = date('H:i:s', strtotime(trim($rentang[1])));
-
-            $waktu = WaktuSewa::where('jam_mulai', $jam_mulai)
-                ->where('jam_selesai', $jam_selesai)
-                ->first();
-
-            $reservasi = Reservasi::create([
-                'id_pelanggan'      => $pelanggan->id_pelanggan,
-                'id_pemilik'        => $meja->id_pemilik ?? 1,
-                'id_meja'           => $meja->id_meja,
-                'id_waktu'          => $waktu->id_waktu ?? null,
-                'tipe_meja'         => $meja->tipe_meja,
-                'no_meja'           => $meja->nama_meja,
-                'tanggal_reservasi' => $item['tanggal'],
-                'jam'               => $item['jam'],
-                'jumlah_orang'      => $item['jumlah_orang'],
-                'durasi_sewa'       => count($jam_array),
-                'total_harga'       => $item['subtotal'],
-                'status'            => 'menunggu_konfirmasi',
-                'expired_at'        => \Carbon\Carbon::now()->addMinutes(2),
-            ]);
-
             session()->forget('keranjang');
-
+            $total_biaya = array_sum(array_map(fn($r) => $r->total_harga, $reservasiList));
             return view('pages.details', [
                 'nama'              => $pelanggan->nama_pengguna,
                 'email'             => $pelanggan->email,
-                'tipe_meja'         => $meja->tipe_meja,
-                'meja'              => $meja->nama_meja,
-                'tanggal_reservasi' => $item['tanggal'],
-                'jam'               => $item['jam'],
-                'jumlah_orang'      => $item['jumlah_orang'],
-                'subtotal'          => $item['subtotal'],
-                'total_akhir'       => $item['subtotal'],
-                'reservasi'         => $reservasi,
-                'transaksi'         => TransaksiPembayaran::where('id_reservasi', $reservasi->id_reservasi)->first(),
+                'reservasiList'     => $reservasiList,
+                'total_biaya'       => $total_biaya,
             ]);
         }
 
@@ -145,7 +141,7 @@ $jam_selesai = date('H:i:s', strtotime(trim($rentang[1])));
             'jam'               => $request->jam,
             'jumlah_orang'      => $request->jumlah_orang,
             'durasi_sewa'       => $durasi,
-            'total_harga'       => $total_akhir,
+            'total_biaya'       => $total_akhir,
             'status'            => 'menunggu_konfirmasi',
             'expired_at'        => \Carbon\Carbon::now()->addMinutes(2),
         ]);

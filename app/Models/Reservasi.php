@@ -51,4 +51,9 @@ class Reservasi extends Model
     {
         return $this->hasOne(TransaksiPembayaran::class, 'id_reservasi', 'id_reservasi');
     }
+    public function kategori()
+    {
+        return $this->belongsTo(\App\Models\Kategori::class, 'id_kategori', 'id_kategori');
+    }
+
 }

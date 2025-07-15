@@ -14,11 +14,9 @@ class Meja extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'kode_meja',
         'nama_meja',
         'foto_meja',
-        'status_meja',
-        'id_kategori' // ini foreign key ke tabel kategori
+        'id_kategori' 
     ];
 
     public function kategori()

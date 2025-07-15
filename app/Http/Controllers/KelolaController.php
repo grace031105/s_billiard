@@ -50,8 +50,6 @@ class KelolaController extends Controller
         $meja->id_kategori = $request->input('id_kategori');
         $meja->harga_per_jam = $harga;
         $meja->foto_meja = $fileName;
-        //$meja->status_meja = $request->input('status_meja');
-
         $meja->id_pemilik = Auth::guard('pemilik')->user()->id_pemilik;
 
         $meja->save();

@@ -27,19 +27,20 @@
     <div>
         <h2 class="text-2xl font-bold my-4">Data Penyewaan</h2>
 
-        @if(!empty($reservasiList) && is_iterable($reservasiList))
+        @if(count($reservasiList ?? []) > 0)
             @foreach($reservasiList as $index => $r)
 <div class="mb-4 p-4 bg-[#324764] rounded">
     <h3 class="font-bold mb-2">Reservasi #{{ $index + 1 }}</h3>
     <div class="grid grid-cols-2 gap-4">
-        <p>Tipe Meja : {{ $reservasi->meja->kategori->nama_kategori ?? '-' }}</p>
-        <p>No Meja : {{ $reservasi->meja->nama_meja ?? $meja ?? '-' }}</p></p>
-        <p>Tanggal : {{ $reservasi->tanggal_reservasi ?? $tanggal_reservasi ?? '-' }}</p>
-        <p>Jam : {{ $r->jam }}</p>
-        <p>Jumlah Orang : {{ $r->jumlah_orang }}</p>
+        <p>Tipe Meja :  {{ $r->meja->kategori->nama_kategori ?? '-' }}</p>
+        <p>No Meja :  {{ $r->meja->nama_meja ?? '-' }}</p>
+        <p>Jam : {{ $r->jam ?? '-' }}</p>
+        <p>Jumlah Orang : {{ $r->jumlah_orang ?? '-' }}</p>
+        <p>Subtotal: Rp {{ number_format($r->total_harga, 0, ',', '.') }}</p>
     </div>
 </div>
 @endforeach
+<p><strong>Total Bayar:</strong> Rp {{ number_format($total_biaya, 0, ',', '.') }}</p>
         @else
             <div class="grid grid-cols-2 gap-4 bg-[#324764] p-4 rounded">
                 <p>Tipe Meja : {{ $reservasi->meja->kategori->nama_kategori ?? '-' }}</p>

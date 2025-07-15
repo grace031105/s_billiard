@@ -20,7 +20,6 @@
       <thead class="bg-[#1B3554] text-center">
         <tr>
           <th class="px-6 py-3">Kode Resi</th>
-          <th class="px-6 py-3">Tipe Meja</th>
           <th class="px-6 py-3">Tanggal Cetak</th>
           <th class="px-6 py-3">Aksi</th>
         </tr>
@@ -29,7 +28,6 @@
         @forelse ($riwayat as $row)
           <tr class="border-b border-[#1B3554]">
            <td class="px-6 py-4">{{ $row['kode_resi'] }}</td>
-           <td class="px-6 py-4">{{ $row['tipe_meja'] }}</td>
            <td class="px-6 py-4">{{ $row['tanggal_cetak'] }}</td>
 
             <td class="text-center mt-6">
