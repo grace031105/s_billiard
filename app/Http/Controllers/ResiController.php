@@ -25,30 +25,58 @@ class ResiController extends Controller
     }
 
         // Menampilkan halaman resi
-        public function show($id)
-        {
-            $reservasi = Reservasi::with(['pelanggan', 'meja.kategori', 'waktu', 'transaksi'])->findOrFail($id);
+    public function show($id_transaksi)
+    {
+        
+        $reservasiPertama = Reservasi::with(['pelanggan', 'meja.kategori', 'waktu', 'transaksi'])
+            ->where('id_transaksi', $id_transaksi)->firstOrFail();
 
-            if ($reservasi->status !== 'dikonfirmasi') {
+       
+
+        $transaksi = $reservasiPertama->transaksi;
+        if (!$transaksi) {
+            dd("Transaksi tidak ditemukan untuk reservasi ID: $id");
+        }
+
+        // Ambil semua reservasi lain dalam 1 transaksi
+        $reservasiList = Reservasi::with(['pelanggan', 'meja.kategori', 'waktu'])
+            ->where('id_transaksi', $id_transaksi)
+            ->get();
+        if ($reservasiList->isEmpty()) {
+            dd("Tidak ada reservasi dengan ID transaksi: " . $transaksi->id_transaksi);
+        }
+        $transaksi = $reservasiList->first()->transaksi;
+        
+        if ($reservasiPertama->status !== 'dikonfirmasi') {
+            return abort(403, 'Reservasi belum dikonfirmasi.');
+        }
+        return view('pages.resi_pemesanan', [
+            'reservasiList' => $reservasiList,
+            'transaksi' => $transaksi,
+        ]);
+    }
+
+
+       public function downloadPDF($id)
+        {
+            $reservasiPertama = Reservasi::with(['pelanggan', 'meja.kategori', 'waktu', 'transaksi'])
+                ->findOrFail($id);
+
+            if ($reservasiPertama->status !== 'dikonfirmasi') {
                 return abort(403, 'Reservasi belum dikonfirmasi.');
             }
 
-            return view('pages.resi_pemesanan', [
-                'reservasi' => $reservasi,
-                'transaksi' => $reservasi->transaksi,
-            ]);
-        }
+            $transaksi = $reservasiPertama->transaksi;
 
-        // Download PDF dari halaman resi
-        public function downloadPDF($id)
-        {
-            $reservasi = Reservasi::with(['pelanggan', 'meja', 'waktu', 'transaksi'])->findOrFail($id);
+            $reservasiList = Reservasi::with(['pelanggan', 'meja.kategori', 'waktu'])
+                ->where('id_transaksi', $transaksi->id_transaksi)
+                ->get();
 
             $pdf = Pdf::loadView('pages.resi_pdf', [
-                'reservasi' => $reservasi,
-                'transaksi' => $reservasi->transaksi,
+                'reservasiList' => $reservasiList,
+                'transaksi' => $transaksi,
             ]);
 
-            return $pdf->download('resi-pemesanan-' . $reservasi->id_reservasi . '.pdf');
+            return $pdf->download('resi-pemesanan-' . $reservasiPertama->id_reservasi . '.pdf');
         }
 }

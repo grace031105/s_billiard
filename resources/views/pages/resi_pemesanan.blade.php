@@ -10,12 +10,24 @@
         <img src="/images/gambar3.png" alt="Logo" class="h-16">
     </div>
 
+    @php
+        $reservasi = $reservasiList->first();
+        $pelanggan = $reservasi? $reservasi->pelanggan : null;
+        $transaksi = $transaksi ?? null;
+    @endphp
     <div class="space-y-4 text-sm">
+        @if($pelanggan)
+            <div class="border-b border-white pb-2">
+                <span class="font-bold">Nama Pelanggan:</span> {{ $pelanggan->nama_pengguna }}
+            </div>
+        @else
+            <div class="border-b border-white pb-2">
+                <span class="font-bold">Nama Pelanggan:</span>Tidak ditemukan
+            </div>
+        @endif
+        @foreach ($reservasiList as $reservasi)
         <div class="border-b border-white pb-2">
             <span class="font-bold">Kode Reservasi:</span> {{ $reservasi->kode_reservasi }}
-        </div>
-        <div class="border-b border-white pb-2">
-            <span class="font-bold">Nama Pelanggan:</span> {{ $reservasi->pelanggan->nama_pengguna }}
         </div>
         <div class="border-b border-white pb-2">
             <span class="font-bold">Tipe Meja:</span> {{ $reservasi->meja->kategori->nama_kategori ?? '-' }}
@@ -32,6 +44,7 @@
         <div class="border-b border-white pb-2">
             <span class="font-bold">Total Harga:</span> Rp {{ number_format($reservasi->total_harga, 0, ',', '.') }}
         </div>
+        @endforeach
 
         @if ($transaksi)
         <div class="border-b border-white pb-2">
@@ -47,11 +60,21 @@
         @endif
     </div>
 
-    <a href="{{ route('resi.pdf', ['id' => $reservasi->id_reservasi]) }}" target="_blank">
-        <button class="w-full border-2 border-white rounded-full py-3 font-bold hover:bg-white hover:text-[#2D506D] transition-all duration-300">
-            Simpan sebagai PDF
-        </button>
-    </a>
+    @php
+        $firstReservasi = $reservasiList->first();
+    @endphp
+
+    @if ($firstReservasi)
+        <a href="{{ route('resi.pdf', ['id' => $firstReservasi->id_reservasi]) }}" target="_blank">
+            <button class="w-full border-2 border-white rounded-full py-3 font-bold hover:bg-white hover:text-[#2D506D] transition-all duration-300">
+                Simpan sebagai PDF
+            </button>
+        </a>
+    @else
+        <p class="text-red-500 text-sm text-center mt-4">
+            Tidak dapat membuat PDF karena data reservasi tidak ditemukan.
+        </p>
+    @endif
+
 </div>
-@include('components.schedule_popup')
 @endsection

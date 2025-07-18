@@ -1,5 +1,11 @@
 @php
-  $id_reservasi = $reservasi->id_reservasi ?? null;
+  if (isset($reservasiList)) {
+    $id_reservasi = $reservasiList[0]->id_reservasi ?? null;
+  } elseif (isset($reservasi)) {
+    $id_reservasi = $reservasi->id_reservasi ?? null;
+  } else {
+    $id_reservasi = null;
+  }
 @endphp
 
 <section class="bg-[#1c2f45] text-white p-6 rounded-lg mb-12">
@@ -7,7 +13,7 @@
   
   <p class="text-center mb-2 text-lg">Lakukan pembayaran sebesar</p>
   <p class="text-center font-bold text-red-500 text-2xl bg-gray-100 text-black inline-block px-6 py-2 rounded mb-4">
-    Rp. {{ number_format($total_biaya ?? 0, 0, ',', '.') }}
+    Rp. {{ number_format($subtotal ?? ($total_biaya ?? 0), 0, ',', '.') }}
   </p>
 
   <p class="text-center text-sm mb-2">
@@ -66,6 +72,12 @@
       <label for="file" class="font-bold">Pilih File</label>
       <input type="file" name="bukti_pembayaran" id="file" class="text-sm text-white" required />
     </div>
+    {{-- Hidden input untuk jam[] --}}
+    @foreach ($reservasiList ?? [] as $r)
+      @foreach (explode(',', $r->jam) as $jam)
+        <input type="hidden" name="jam[]" value="{{ trim($jam) }}">
+      @endforeach
+    @endforeach
 
     {{-- Submit --}}
     <button type="submit" class="w-full bg-green-700 text-white py-3 font-bold rounded hover:bg-green-800" onclick="return confirm('Yakin ingin konfirmasi?')">

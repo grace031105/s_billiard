@@ -7,6 +7,7 @@
     Resi Pemesanan
 </h1>
 
+@foreach ($reservasiList as $reservasi)
 <div style="background-color: #2D506D; color: white; border-radius: 16px; padding: 40px 35px; max-width: 600px; margin: 0 auto; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
     
     <table style="width: 100%; color: white; border-collapse: separate; border-spacing: 0 12px; font-size: 16px;">

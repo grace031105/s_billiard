@@ -27,36 +27,44 @@
     <div>
         <h2 class="text-2xl font-bold my-4">Data Penyewaan</h2>
 
-        @if(count($reservasiList ?? []) > 0)
+        @if(!empty($reservasiList) && is_iterable($reservasiList))
             @foreach($reservasiList as $index => $r)
 <div class="mb-4 p-4 bg-[#324764] rounded">
     <h3 class="font-bold mb-2">Reservasi #{{ $index + 1 }}</h3>
     <div class="grid grid-cols-2 gap-4">
-        <p>Tipe Meja :  {{ $r->meja->kategori->nama_kategori ?? '-' }}</p>
-        <p>No Meja :  {{ $r->meja->nama_meja ?? '-' }}</p>
+        <p>Tipe Meja : {{ $r->meja->kategori->nama_kategori ?? $r->tipe_meja ?? '-' }}</p>
+        <p>No Meja : {{ $r->meja->nama_meja ?? $r->no_meja ?? '-' }}</p>
+        <p>Tanggal : {{ $r->tanggal_reservasi ?? '-' }}</p>
         <p>Jam : {{ $r->jam ?? '-' }}</p>
         <p>Jumlah Orang : {{ $r->jumlah_orang ?? '-' }}</p>
-        <p>Subtotal: Rp {{ number_format($r->total_harga, 0, ',', '.') }}</p>
     </div>
 </div>
 @endforeach
-<p><strong>Total Bayar:</strong> Rp {{ number_format($total_biaya, 0, ',', '.') }}</p>
         @else
             <div class="grid grid-cols-2 gap-4 bg-[#324764] p-4 rounded">
                 <p>Tipe Meja : {{ $reservasi->meja->kategori->nama_kategori ?? '-' }}</p>
                 <p>No Meja : {{ $reservasi->meja->nama_meja ?? $meja ?? '-' }}</p>
                 <p>Tanggal : {{ $reservasi->tanggal_reservasi ?? $tanggal_reservasi ?? '-' }}</p>
-                <p>Jam : {{ $jam ?? '-' }}</p>
+                <p>Jam : {{ $reservasi->jam ?? '-' }}</p>
                 <p>Jumlah Orang : {{ $jumlah_orang ?? '-' }}</p>
             </div>
         @endif
-
-        <hr class="my-4 border-white/50" />
-        <div class="grid grid-cols-2 text-lg font-medium">
-            <p>Subtotal : Rp {{ number_format($subtotal ?? ($total_biaya ?? 0), 0, ',', '.') }}</p>
-            <p>Total Akhir : Rp {{ number_format($total_biaya ?? ($subtotal ?? 0), 0, ',', '.') }}</p>
+        @if(isset($reservasiList))
+            @php
+                $totalSemua = collect($reservasiList)->sum('total_harga');
+            @endphp
+            <hr class="my-4 border-white/50" />
+            <div class="grid grid-cols-2 text-lg font-medium">
+                <p>Subtotal : Rp {{ number_format($totalSemua, 0, ',', '.') }}</p>
+                <p>Total Akhir : Rp {{ number_format($totalSemua, 0, ',', '.') }}</p>
+            </div>
+        @else
+            <div class="grid grid-cols-2 text-lg font-medium">
+                <p>Subtotal : Rp {{ number_format($subtotal ?? 0, 0, ',', '.') }}</p>
+                <p>Total Akhir : Rp {{ number_format($subtotal ?? 0, 0, ',', '.') }}</p>
+            </div>
+        @endif
         </div>
-    </div>
 
     {{-- Tombol Pembayaran --}}
     <div class="text-center">
@@ -67,22 +75,22 @@
 
     {{-- Form Pembayaran --}}
     <div>
-            @if(isset($reservasiList))
-        @include('components.form_pembayaran', [
-            'total_biaya' => $total_biaya ?? 0,
-            'reservasiList' => $reservasiList
-        ])
-    @elseif(isset($reservasi))
-        @include('components.form_pembayaran', [
-            'total_biaya' => $reservasi->total_harga ?? 0,
-            'reservasi' => $reservasi
-        ])
-    @else
-    <div class="bg-red-100 text-red-800 px-4 py-3 mt-4 rounded">
-        <strong>✘ Gagal menyiapkan form pembayaran.</strong><br>
-        ID Reservasi tidak tersedia.
-    </div>
-@endif
+        @if(isset($reservasiList))
+            @include('components.form_pembayaran', [
+                'total_biaya' => $totalSemua ?? 0,
+                'reservasiList' => $reservasiList
+            ])
+        @elseif(isset($reservasi))
+            @include('components.form_pembayaran', [
+                'total_biaya' => $reservasi->total_harga ?? 0,
+                'reservasi' => $reservasi
+            ])
+        @else
+            <div class="bg-red-100 text-red-800 px-4 py-3 mt-4 rounded">
+                <strong>✘ Gagal menyiapkan form pembayaran.</strong><br>
+                ID Reservasi tidak tersedia.
+            </div>
+        @endif
 
     </div>
 

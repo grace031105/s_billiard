@@ -14,15 +14,19 @@ class TransaksiPembayaran extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'id_reservasi',
-        'bukti_pembayaran',
         'metode_pembayaran',
-        'id_pemilik',
+        'id_reservasi',
+        'tanggal_transaksi',
         'total_bayar',
+        'bukti_pembayaran',
+        'status',
+        'id_pemilik',
+        'kode_transaksi'
     ];
 
-    public function reservasi()
+   public function reservasi()
     {
-        return $this->belongsTo(Reservasi::class, 'id_reservasi', 'id_reservasi');
+        return $this->hasMany(Reservasi::class, 'id_transaksi', 'id_transaksi');
     }
+
 }

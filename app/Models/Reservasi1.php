@@ -16,16 +16,19 @@ class Reservasi extends Model
 
     // Kolom yang boleh diisi massal (mass assignable)
     protected $fillable = [
-        'id_pelanggan',
-        'id_meja',
-        'tanggal_reservasi',
-        'id_waktu',
-        'durasi_sewa',
-        'total_harga',
-        'status',
-        'id_pemilik',
-        'expired_at',
-        'jam',
+    'id_pelanggan' ,
+    'id_pemilik' ,
+    'id_meja' ,
+   'id_waktu',
+    //'tipe_meja'         => $tipeMeja,
+    //'no_meja'           => $meja->nama_meja,
+    //'id_transaksi'      => $transaksi->id_transaksi,
+    'tanggal_reservasi',
+    'jam' ,
+   'durasi_sewa',
+    'total_harga',
+    'status',
+    'expired_at',
     ];
 
     // Relasi ke tabel pelanggan
@@ -43,12 +46,17 @@ class Reservasi extends Model
     // Relasi ke tabel waktu_sewa
     public function waktu()
     {
-        return $this->belongsTo(WaktuSewa::class, 'id_waktu');
+        return $this->belongsTo(\App\Models\WaktuSewa::class, 'id_waktu', 'id_waktu');
     }
 
     // Relasi ke tabel transaksi pembayaran
     public function transaksi()
     {
-        return $this->hasOne(TransaksiPembayaran::class, 'id_reservasi', 'id_reservasi');
+        return $this->belongsTo(TransaksiPembayaran::class, 'id_transaksi', 'id_transaksi');
     }
+    public function kategori()
+    {
+        return $this->belongsTo(\App\Models\Kategori::class, 'id_kategori', 'id_kategori');
+    }
+
 }

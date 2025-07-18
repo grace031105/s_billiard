@@ -126,6 +126,8 @@ Route::middleware(['auth:pelanggan'])->group(function () {
     return WaktuSewa::all();
     });
     Route::post('/reservasi/batalkan/{id}', [DetailController::class, 'batalkan'])->name('reservasi.batal');
+    Route::get('/riwayat', [App\Http\Controllers\PelangganController::class, 'riwayat'])
+        ->name('pelanggan.riwayat');
 
     //jadwal
     Route::get('/cek-jadwal', function (Request $request) {
@@ -150,7 +152,7 @@ Route::middleware(['auth:pelanggan'])->group(function () {
     // Riwayat & Resi
     Route::get('/riwayat_penyewaan', [RiwayatController::class, 'index'])->name('riwayat_penyewaan');
     Route::get('/resi_pemesanan', [ResiController::class, 'index'])->name('resi_pemesanan');
-    Route::get('/resi_pemesanan/{id}', [ResiController::class, 'show'])->name('resi_pemesanan');
+    Route::get('/resi_pemesanan/transaksi/{id_transaksi}', [ResiController::class, 'show'])->name('resi.dari_transaksi');
     Route::get('/resi-pdf/{id}', [ResiController::class, 'downloadPDF'])->name('resi.pdf');
 
     // Akses detail meja

@@ -27,13 +27,21 @@
       <tbody class="text-center bg-[#26476a]">
         @forelse ($riwayat as $row)
           <tr class="border-b border-[#1B3554]">
-           <td class="px-6 py-4">{{ $row['kode_resi'] }}</td>
-           <td class="px-6 py-4">{{ $row['tanggal_cetak'] }}</td>
+            <td class="px-6 py-4">{{ $row['kode_resi'] }}</td>
+            <td class="px-6 py-4">{{ $row['tanggal_cetak'] }}</td>
+            <td>
+              @php
+                $reservasi = $row->transaksi->reservasi->first();
+              @endphp
 
-            <td class="text-center mt-6">
-              <a href="{{ route('resi_pemesanan', ['id' => $row->transaksi->reservasi->id_reservasi]) }}" class="bg-green-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-green-700">
-                Lihat Resi
-              </a>
+              @if ($row->id_transaksi)
+                <a href="{{ route('resi.dari_transaksi', ['id_transaksi' => $row->id_transaksi])  }}"
+                  class="bg-green-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-green-700">
+                  Lihat Resi
+                </a>
+              @else
+                <span class="text-red-400">Reservasi tidak ditemukan</span>
+              @endif
             </td>
           </tr>
         @empty

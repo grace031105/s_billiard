@@ -4,60 +4,77 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Reservasi;
 use App\Models\TransaksiPembayaran;
 use App\Models\ResiPenyewaan;
 
-
 class PembayaranController extends Controller
 {
     public function uploadBuktiPembayaran(Request $request, $id_reservasi)
-    {
+    {   
+     
+
         $request->validate([
             'bukti_pembayaran' => 'required|image|mimes:jpg,jpeg,png|max:2048',
             'metode' => 'required|string',
             'total_biaya' => 'required|numeric',
         ]);
 
-        $reservasi = Reservasi::findOrFail($id_reservasi);
-
         // Upload file
         $file = $request->file('bukti_pembayaran');
         $namaFile = time() . '_' . $file->getClientOriginalName();
         $path = $file->storeAs('bukti_pembayaran', $namaFile, 'public');
 
-        // Simpan transaksi baru atau update
-        $transaksi = $reservasi->transaksi;
+        $reservasi = Reservasi::find($id_reservasi);
+        if (!$reservasi) {
+            return back()->with('error', 'Data reservasi tidak ditemukan.');
+        }
+        // Buat transaksi hanya satu kali
+        $transaksi = TransaksiPembayaran::where('id_transaksi', $reservasi->id_transaksi)->first();
         if (!$transaksi) {
-            $transaksi = new TransaksiPembayaran();
-            $transaksi->id_reservasi = $reservasi->id_reservasi;
-            $transaksi->id_pemilik = 1; // bisa diganti sesuai auth
+            $transaksi = TransaksiPembayaran::create([
+                'id_pelanggan' => Auth::guard('pelanggan')->id(),
+                 'id_reservasi' => $reservasi->id_reservasi,
+                'metode_pembayaran' => $request->metode,
+                'bukti_pembayaran' => $path,
+                'total_bayar' => $request->total_biaya,
+                'status' => 'belum_dibayar',
+                'id_pemilik' =>$reservasi->id_pemilik,
+            ]);
+
+            $reservasi->id_transaksi = $transaksi->id_transaksi;
+            $reservasi->save();
+        } else {
+             $transaksi->update([
+                'metode_pembayaran' => $request->metode,
+                'bukti_pembayaran' => $path,
+                'total_bayar' => $request->total_biaya,
+                'status' => 'belum_dibayar',
+            ]);
         }
+        // Ambil semua reservasi milik pelanggan yang belum punya transaksi
+        $reservasiList = Reservasi::with('meja.kategori')
+            ->where('id_pelanggan', Auth::guard('pelanggan')->id())
+            ->whereNull('id_transaksi')
+            ->where('status', 'menunggu_konfirmasi')
+            ->get();
 
-        $transaksi->metode_pembayaran = $request->metode;
-        $transaksi->bukti_pembayaran = $path;
-        $transaksi->total_bayar = $request->total_biaya;
-        $transaksi->status = 'belum_dibayar';
-        $transaksi->save();
+        foreach ($reservasiList as $reservasi) {
+            $reservasi->id_transaksi = $transaksi->id_transaksi;
+            $reservasi->expired_at = $reservasi->expired_at ?? now()->addMinutes(2);
+            $reservasi->status = 'menunggu_konfirmasi';
+            $reservasi->save();
 
-        $kodeResi = 'RP' . str_pad($transaksi->id_transaksi, 3, '0', STR_PAD_LEFT);
-        $tipeMeja = $reservasi->meja->tipe_meja ?? 'tidak_diketahui';
+            // Buat resi per reservasi
+            $tipeMeja = $reservasi->meja->kategori->nama_kategori ?? 'tidak_diketahui';
 
+            
+        }
         ResiPenyewaan::create([
-            'kode_resi' => $kodeResi,
-            'id_transaksi' => $transaksi->id_transaksi,
-            'tipe_meja' => $tipeMeja,
-            'tanggal_cetak' => now(),
-        ]);
-
-        // Update status dan atur waktu kadaluarsa
-        if (!$reservasi->expired_at) {
-            $reservasi->expired_at = now()->addMinutes(2); // atau bebas: 10, 15, dst
-        }
-        $reservasi->status = 'menunggu_konfirmasi';
-        $reservasi->save();
-
+                        'id_transaksi' => $transaksi->id_transaksi,
+                        'tanggal_cetak' => now(),
+                    ]);
         return redirect()->route('details')->with('popup', true);
     }
-
 }
