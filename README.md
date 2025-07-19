@@ -44,9 +44,11 @@ Start the server
 
 http://localhost:8000/dash-public
 
-## YouTube Channel
+## Link 
 
-- [Lihat di YouTube](https://youtu.be/iaSmGD0ZnLg?si=aEFQYLz60RahhPAf)
+- [Video Demo Aplikasi](https://youtu.be/iaSmGD0ZnLg?si=7BH9pzQ95goZ0yBy)
+- [Video Presentasi](https://youtu.be/8FyJ-mjiCM0?si=RFNZ1BscbwU38Ga2)
+- [Laporan AAS](https://drive.google.com/drive/folders/1AFfDGY4TZaRuMKOZNW6SSCXrHgNz5SU5?usp=sharing )
 
 ## Credits
 

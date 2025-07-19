@@ -51,7 +51,6 @@ Route::post('/pemilik/logout', [PemilikController::class, 'logout'])->name('pemi
 
 Route::middleware(['auth:pemilik'])->group(function () {
     Route::get('/beranda', [BerandaController::class, 'index'])->name('beranda');
-    // Kelola Meja
     Route::get('/kelola_meja', [KelolaController::class, 'show'])->name('kelola_meja');
     Route::post('/meja/simpan', [KelolaController::class, 'simpan'])->name('meja.simpan');
     Route::delete('/kelola_meja/{id_meja}', [KelolaController::class, 'delete'])->name('mejas.delete');
@@ -66,7 +65,6 @@ Route::middleware(['auth:pemilik'])->group(function () {
     Route::get('/reservasi', [ReservasiController::class, 'show'])->name('reservasi.index');
     Route::post('/reservasi/{id}/konfirmasi', [ReservasiController::class, 'konfirmasi'])->name('reservasi.konfirmasi');
     Route::post('/reservasi/{id}/batal', [ReservasiController::class, 'batal'])->name('reservasi.batal');
-
     Route::get('/kelola-pelanggan', [PelangganController::class, 'show'])->name('pemilik.pelanggan');
 });
     // Data Pelanggan

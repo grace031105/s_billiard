@@ -1,5 +1,3 @@
-<!-- Edit Profil Page -->
-
 @extends('layouts.app')
 
 @section('title', 'Edit Profil')
@@ -13,31 +11,24 @@
       @csrf
 
       <div class="space-y-4">
-        <!-- Nama Pengguna -->
         <div>
           <label class="block text-[#1E293B] font-semibold mb-1">Nama Pengguna</label>
           <input type="text" name="nama_pengguna" value="{{ old('nama_pengguna', $user->nama_pengguna) }}"
             class="w-full bg-[#1D3C5C] text-white px-5 py-3 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-300"
             placeholder="Masukkan Nama Pengguna Baru">
         </div>
-
-        <!-- Nomor Telepon -->
         <div>
           <label class="block text-[#1E293B] font-semibold mb-1">Nomor Telepon</label>
           <input type="text" name="nomor_hp" value="{{ old('nomor_hp', $user->nomor_hp) }}"
             class="w-full bg-[#1D3C5C] text-white px-5 py-3 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-300"
             placeholder="Masukkan Nomor Telepon Baru">
         </div>
-
-        <!-- Email -->
         <div>
           <label class="block text-[#1E293B] font-semibold mb-1">Email</label>
           <input type="email" name="email" value="{{ old('email', $user->email) }}"
             class="w-full bg-[#1D3C5C] text-white px-5 py-3 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-300"
             placeholder="Masukkan Email Baru">
         </div>
-
-        <!-- Kata Sandi -->
         <div>
           <label class="block text-[#1E293B] font-semibold mb-1">Kata Sandi</label>
           <input type="password" name="password"
@@ -45,15 +36,11 @@
             placeholder="Masukkan Kata Sandi Baru">
         </div>
       </div>
-
-      <!-- Tombol Simpan -->
       <div class="mt-8 space-y-4">
         <button type="submit"
                 class="w-full bg-[#1D3C5C] hover:bg-[#162c44] text-white py-3 rounded-md font-semibold shadow-md">
           Simpan Perubahan
         </button>
-
-        <!-- Tombol Batal -->
         <a href="{{ route('profil.show') }}"
            class="block w-full border border-[#1D3C5C] text-[#1D3C5C] text-center py-3 rounded-md font-semibold shadow-sm hover:bg-[#e5e7eb]">
           Batal

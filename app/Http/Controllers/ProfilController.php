@@ -11,7 +11,6 @@ class ProfilController extends Controller
 {
     public function show()
     {
-        // Ambil pengguna dari guard 'pelanggan'
         $user = Auth::guard('pelanggan')->user();
 
         return view('pages.profil', compact('user'));
@@ -35,7 +34,6 @@ class ProfilController extends Controller
 
         $user = Auth::guard('pelanggan')->user();
 
-        // Update data
         $user->nama_pengguna = $request->nama_pengguna;
         $user->email = $request->email;
         $user->nomor_hp = $request->nomor_hp;

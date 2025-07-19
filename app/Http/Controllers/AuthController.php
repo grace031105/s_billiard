@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    // Menampilkan halaman login
     public function showLoginForm()
     {
         if (Auth::guard('pelanggan')->check()) {
@@ -18,7 +17,7 @@ class AuthController extends Controller
         return view('pages.login');
     }
 
-    // Proses login
+
     public function login(Request $request)
     {
         $request->validate([
@@ -43,13 +42,11 @@ class AuthController extends Controller
         return redirect()->route('dash')->with('success', 'Login berhasil!');
     }
 
-    // Menampilkan halaman register
     public function showRegisterForm()
     {
         return view('pages.register');
     }
 
-    // Proses register
     public function register(Request $request)
     {
         $validated = $request->validate([
@@ -69,7 +66,7 @@ class AuthController extends Controller
         return redirect()->route('login')->with('success', 'Registrasi berhasil! Silakan login.');
     }
 
-    // Logout
+
    public function logout(Request $request)
 {
     Auth::guard('pelanggan')->logout(); // Guard pelanggan!

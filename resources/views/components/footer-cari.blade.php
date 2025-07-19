@@ -5,7 +5,6 @@
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-6 text-[15px] text-[#1E293B]">
       
-      <!-- Informasi Kontak -->
       <div class="flex flex-col">
         <h3 class="font-bold text-lg mb-2">INFORMASI KONTAK</h3>
         <p class="mb-1">Instagram: @forcue.billiard</p>
@@ -13,14 +12,12 @@
         <p>Lytech Home Center, Lantai Dasar Blok B1. 1 - 3, Bengkong Sadai, Kota Batam, Kepulauan Riau, Indonesia.</p>
       </div>
 
-      <!-- Jam Operasional -->
       <div class="flex flex-col items-center text-center">
         <h3 class="font-bold text-lg mb-2">JAM OPERASIONAL</h3>
         <p class="mb-1">Senin – Minggu</p>
         <p>11.00 – 03.00 WIB</p>
       </div>
 
-      <!-- Media Sosial -->
       <div class="flex flex-col items-center">
         <h3 class="font-bold text-lg mb-4">MEDIA SOSIAL</h3>
         <div class="flex flex-col items-center space-y-4 text-2xl text-black">

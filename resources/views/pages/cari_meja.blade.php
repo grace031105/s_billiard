@@ -46,9 +46,6 @@
 @include('components.schedule_popup')
 
 @push('scripts')
-<script>
-  // paste semua JS openPopup, closePopup, etc
-</script>
 @endpush
         </div>
     @endif

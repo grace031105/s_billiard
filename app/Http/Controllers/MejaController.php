@@ -17,12 +17,10 @@ class MejaController extends Controller
         return redirect()->back()->with('error', 'Kata kunci pencarian tidak boleh kosong.');
     }
 
-// Cari berdasarkan nama_meja atau nama_kategori
 $hasil = Meja::with('kategori')
     ->where(function ($query) use ($keyword) {
         $query->where('nama_meja', 'like', "%$keyword%")
               ->orWhereHas('kategori', function ($q) use ($keyword) {
-                  // Cocokkan nama_kategori secara persis (case-insensitive)
                   $q->whereRaw('LOWER(nama_kategori) = ?', [strtolower($keyword)]);
               });
     })
