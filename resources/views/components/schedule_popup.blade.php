@@ -10,7 +10,7 @@
     <p class="text-gray-600">Memuat keranjang...</p>
   </div>
 
- <form method="POST" action="{{ route('details') }}" id="formSchedule">
+  <form method="POST" action="{{ route('details') }}" id="formSchedule">
     @csrf
     <button type="submit" class="mt-6 w-full bg-slate-900 text-white font-bold py-3 rounded">
       Selanjutnya
@@ -55,7 +55,7 @@ function ambilDanTampilkanKeranjang() {
               <div class="text-sm">
                 ${item.tipe_meja} - Meja ${item.no_meja}<br />
                 ${item.tanggal}, ${item.jam}<br />
-                Orang: ${item.jumlah_orang} | Rp ${parseInt(item.subtotal).toLocaleString()}
+                Rp ${parseInt(item.subtotal).toLocaleString()}
               </div>
               <button type="button" onclick="hapusItem(${index})" class="text-red-600 text-sm hover:underline">Hapus</button>
             </div>

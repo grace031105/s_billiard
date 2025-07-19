@@ -6,7 +6,6 @@
     <input type="hidden" name="jam" id="formJam">
     <input type="hidden" name="kode_meja" id="formKodeMeja">
     <input type="hidden" name="no_meja" id="formNoMeja">
-    <input type="hidden" name="jumlah_orang" id="formJumlahOrang">
     <input type="hidden" name="subtotal" id="formSubtotal">
 
     <button type="button" onclick="closePopup()" class="absolute top-2 right-4 text-xl font-bold text-[#1c2a41] hover:text-red-600">×</button>
@@ -32,7 +31,6 @@
               onclick="selectTime(this)">
               {{ $jamWaktu }}
           </button>
-
           @endforeach
         </div>
       </div>
@@ -43,9 +41,6 @@
           <div class="space-y-2 text-left text-[#1c2a41] font-semibold">
             <div><strong>Tipe Meja:</strong> <span id="tipeMejaTampil">-</span></div>
             <div><strong>No Meja:</strong> <span id="noMeja">-</span></div>
-            <div><strong>Jumlah Orang:</strong> 
-              <input type="number" id="jumlahOrangInput" min="1" max="10" value="1" onchange="updateJumlahOrang()" class="border rounded p-1 w-16 ml-2" />
-            </div>
             <div><strong>Harga per Jam:</strong> <span id="hargaPerJamTampil">-</span></div>
             <div><strong>Subtotal:</strong> <span id="subtotalTampil">-</span></div>
           </div>
@@ -71,10 +66,6 @@ if (typeof tipeMejaAktif === 'undefined') {
 if (typeof noMeja === 'undefined') {
   var noMeja = "";
 }
-if (typeof jumlahOrang === 'undefined') {
-  var jumlahOrang = 1;
-}
-
 
 const hargaMeja = {
   "Reguler": 30000,
@@ -82,22 +73,20 @@ const hargaMeja = {
   "Platinum": 90000
 };
 
-function openPopup(tipe, meja, orang = 1) {
+function openPopup(tipe, meja) {
   tipeMejaAktif = tipe;
   noMeja = meja;
-  jumlahOrang = orang;
   hargaPerJam = hargaMeja[tipe] || 0;
 
   document.getElementById("popup").classList.remove("hidden");
   document.getElementById("popup").classList.add("flex");
   document.getElementById("tipeMejaTampil").innerText = tipe;
   document.getElementById("noMeja").innerText = meja;
-  document.getElementById("jumlahOrangInput").value = orang;
   document.getElementById("hargaPerJamTampil").innerText = "Rp " + hargaPerJam.toLocaleString("id-ID");
   document.getElementById("formJam").value = "";
-  document.getElementById("date").value = ""; // reset tanggal
-  cekJadwalTerpesan(); // jalankan AJAX cek tanggal
+  document.getElementById("date").value = "";
 
+  cekJadwalTerpesan();
 
   selectedTimes = [];
   document.querySelectorAll('.time-buttons button').forEach(btn => {
@@ -106,8 +95,6 @@ function openPopup(tipe, meja, orang = 1) {
   });
 
   updateSubtotal();
-  document.getElementById("popup").classList.remove("hidden");
-  document.getElementById("popup").classList.add("flex");
 }
 
 function selectTime(button) {
@@ -137,10 +124,6 @@ function updateSubtotal() {
   document.getElementById("subtotalTampil").innerText = total > 0 ? "Rp " + total.toLocaleString("id-ID") : "-";
 }
 
-function updateJumlahOrang() {
-  jumlahOrang = parseInt(document.getElementById("jumlahOrangInput").value) || 1;
-}
-
 function closePopup() {
   document.getElementById("popup").classList.add("hidden");
   document.getElementById("popup").classList.remove("flex");
@@ -157,7 +140,6 @@ function lanjutKeDetailDanKirim() {
   document.getElementById("formTanggal").value = tanggal;
   document.getElementById("formJam").value = selectedTimes.join(", ");
   document.getElementById("formNoMeja").value = noMeja;
-  document.getElementById("formJumlahOrang").value = jumlahOrang;
 
   document.getElementById("formReservasi").submit();
 }
@@ -177,7 +159,6 @@ function tambahKeKeranjang() {
     tanggal: tanggal,
     jam: jam,
     no_meja: noMeja,
-    jumlah_orang: jumlahOrang,
     subtotal: subtotal,
     _token: '{{ csrf_token() }}'
   };
@@ -231,4 +212,4 @@ function cekJadwalTerpesan() {
       console.error("❌ Gagal cek jadwal:", err);
     });
 }
-</script> 
+</script>

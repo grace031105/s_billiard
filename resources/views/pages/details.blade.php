@@ -29,26 +29,25 @@
 
         @if(!empty($reservasiList) && is_iterable($reservasiList))
             @foreach($reservasiList as $index => $r)
-<div class="mb-4 p-4 bg-[#324764] rounded">
-    <h3 class="font-bold mb-2">Reservasi #{{ $index + 1 }}</h3>
-    <div class="grid grid-cols-2 gap-4">
-        <p>Tipe Meja : {{ $r->meja->kategori->nama_kategori ?? $r->tipe_meja ?? '-' }}</p>
-        <p>No Meja : {{ $r->meja->nama_meja ?? $r->no_meja ?? '-' }}</p>
-        <p>Tanggal : {{ $r->tanggal_reservasi ?? '-' }}</p>
-        <p>Jam : {{ $r->jam ?? '-' }}</p>
-        <p>Jumlah Orang : {{ $r->jumlah_orang ?? '-' }}</p>
-    </div>
-</div>
-@endforeach
+                <div class="mb-4 p-4 bg-[#324764] rounded">
+                    <h3 class="font-bold mb-2">Reservasi #{{ $index + 1 }}</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <p>Tipe Meja : {{ $r->meja->kategori->nama_kategori ?? $r->tipe_meja ?? '-' }}</p>
+                        <p>No Meja : {{ $r->meja->nama_meja ?? $r->no_meja ?? '-' }}</p>
+                        <p>Tanggal : {{ $r->tanggal_reservasi ?? '-' }}</p>
+                        <p>Jam : {{ $r->jam ?? '-' }}</p>
+                    </div>
+                </div>
+            @endforeach
         @else
             <div class="grid grid-cols-2 gap-4 bg-[#324764] p-4 rounded">
                 <p>Tipe Meja : {{ $reservasi->meja->kategori->nama_kategori ?? '-' }}</p>
                 <p>No Meja : {{ $reservasi->meja->nama_meja ?? $meja ?? '-' }}</p>
                 <p>Tanggal : {{ $reservasi->tanggal_reservasi ?? $tanggal_reservasi ?? '-' }}</p>
                 <p>Jam : {{ $reservasi->jam ?? '-' }}</p>
-                <p>Jumlah Orang : {{ $jumlah_orang ?? '-' }}</p>
             </div>
         @endif
+
         @if(isset($reservasiList))
             @php
                 $totalSemua = collect($reservasiList)->sum('total_harga');
@@ -64,7 +63,7 @@
                 <p>Total Akhir : Rp {{ number_format($subtotal ?? 0, 0, ',', '.') }}</p>
             </div>
         @endif
-        </div>
+    </div>
 
     {{-- Tombol Pembayaran --}}
     <div class="text-center">
@@ -91,7 +90,6 @@
                 ID Reservasi tidak tersedia.
             </div>
         @endif
-
     </div>
 
     {{-- Tombol Resi jika sudah dikonfirmasi --}}
