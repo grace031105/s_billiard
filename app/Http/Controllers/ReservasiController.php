@@ -9,12 +9,14 @@ use App\Models\Reservasi;
 use App\Models\Meja;
 use App\Models\WaktuSewa;
 use App\Models\TransaksiPembayaran;
+use Carbon\Carbon;
+
 
 class ReservasiController extends Controller
 {
     
     // Fungsi menampilkan reservasi untuk pemilik
-    public function show()
+    public function show(Request $request)
     {
         $id_pemilik = Auth::guard('pemilik')->id();
 
@@ -23,8 +25,17 @@ class ReservasiController extends Controller
             ->update(['is_seen' => true]);
 
         $reservasih = Reservasi::with(['pelanggan', 'meja.kategori', 'waktu', 'transaksi'])
-                    ->where('id_pemilik', $id_pemilik)
-                    ->paginate(5);
+                    ->where('id_pemilik', $id_pemilik);
+                    
+        if ($request->filter == 'today') {
+            $reservasih->whereDate('tanggal_reservasi', Carbon::today());
+        } elseif ($request->filter == 'week') {
+            $reservasih->whereBetween('tanggal_reservasi', [Carbon::today(), Carbon::today()->addDays(7)]);
+        } elseif ($request->filter == 'month') {
+            $reservasih->whereMonth('tanggal_reservasi', Carbon::now()->month);
+        }
+
+        $reservasih = $reservasih->paginate(5);
 
         return view('pages.reservasi', [
             'reservasih' => $reservasih,

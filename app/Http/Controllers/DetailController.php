@@ -136,6 +136,7 @@ $jam_selesai = date('H:i:s', strtotime(trim($rentang[1])));
             $cek = Reservasi::where('id_meja', $meja->id_meja)
                 ->where('tanggal_reservasi', $request->tanggal)
                 ->where('id_waktu', $waktuSewa->id_waktu)
+                 ->whereIn('status', ['menunggu_konfirmasi', 'dikonfirmasi']) 
                 ->exists();
 
             if ($cek) {

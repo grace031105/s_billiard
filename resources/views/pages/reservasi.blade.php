@@ -83,26 +83,35 @@
         </button>
 
         <div id="dropdownRadio" class="z-10 hidden w-48 mt-1 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600">
-            <ul class="p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200">
-                <li>
-                    <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                        <input id="filter-radio-1" type="radio" name="filter-radio" class="w-4 h-4 text-blue-600" />
-                        <label for="filter-radio-1" class="ml-2 text-sm font-medium">Hari ini</label>
-                    </div>
-                </li>
-                <li>
-                    <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                        <input id="filter-radio-2" type="radio" name="filter-radio" class="w-4 h-4 text-blue-600" checked />
-                        <label for="filter-radio-2" class="ml-2 text-sm font-medium">7 hari terakhir</label>
-                    </div>
-                </li>
-                <li>
-                    <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                        <input id="filter-radio-3" type="radio" name="filter-radio" class="w-4 h-4 text-blue-600" />
-                        <label for="filter-radio-3" class="ml-2 text-sm font-medium">30 hari terakhir</label>
-                    </div>
-                </li>
-            </ul>
+            <form method="GET" action="{{ route('reservasi.index') }}" id="filterForm">
+                <ul class="p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200">
+                    <li>
+                        <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                            <input id="filter-radio-1" type="radio" name="filter" value="today"
+                                class="w-4 h-4 text-blue-600"                                    onchange="document.getElementById('filterForm').submit();"
+                                    {{ request('filter') == 'today' ? 'checked' : '' }} />
+                                <label for="filter-radio-1" class="ml-2 text-sm font-medium">Hari ini</label>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                            <input id="filter-radio-2" type="radio" name="filter" value="week"
+                                class="w-4 h-4 text-blue-600"
+                                onchange="document.getElementById('filterForm').submit();"                                    {{ request('filter') == 'week' ? 'checked' : '' }} />
+                                <label for="filter-radio-2" class="ml-2 text-sm font-medium">7 hari terakhir</label>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                            <input id="filter-radio-3" type="radio" name="filter" value="month"
+                                class="w-4 h-4 text-blue-600"
+                                onchange="document.getElementById('filterForm').submit();"
+                                {{ request('filter') == 'month' ? 'checked' : '' }} />
+                            <label for="filter-radio-3" class="ml-2 text-sm font-medium">30 hari terakhir</label>
+                        </div>
+                    </li>
+                </ul>
+            </form>
         </div>
     </div>
 </div>
@@ -110,7 +119,6 @@
 <table class="w-full text-sm text-left text-gray-900 bg-white rounded-lg shadow overflow-hidden">
     <thead class="bg-blue-300 text-black">
         <tr>
-            <!--<th class="px-4 py-2">NO</th>-->
             <th class="px-4 py-2">KODE</th>
             <th class="px-4 py-2">PELANGGAN</th>
             <th class="px-4 py-2">MEJA</th>

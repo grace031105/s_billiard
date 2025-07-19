@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Reservasi;
+use App\Models\TransaksiPembayaran;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 class ResiController extends Controller
@@ -30,25 +31,31 @@ class ResiController extends Controller
         
         $reservasiPertama = Reservasi::with(['pelanggan', 'meja.kategori', 'waktu', 'transaksi'])
             ->where('id_transaksi', $id_transaksi)->firstOrFail();
-
+        $transaksi = TransaksiPembayaran::where('id_transaksi', $id_transaksi)->first();
+        if (!$transaksi) {
+            dd("Transaksi tidak ditemukan untuk ID transaksi: " . $id_transaksi);
+        }
        
 
         $transaksi = $reservasiPertama->transaksi;
         if (!$transaksi) {
-            dd("Transaksi tidak ditemukan untuk reservasi ID: $id");
+            dd("Transaksi tidak ditemukan untuk reservasi ID: " . $reservasiPertama->id_reservasi);
         }
 
         // Ambil semua reservasi lain dalam 1 transaksi
         $reservasiList = Reservasi::with(['pelanggan', 'meja.kategori', 'waktu'])
             ->where('id_transaksi', $id_transaksi)
+            ->where('id_pelanggan', $reservasiPertama->id_pelanggan)
             ->get();
         if ($reservasiList->isEmpty()) {
             dd("Tidak ada reservasi dengan ID transaksi: " . $transaksi->id_transaksi);
         }
         $transaksi = $reservasiList->first()->transaksi;
         
-        if ($reservasiPertama->status !== 'dikonfirmasi') {
-            return abort(403, 'Reservasi belum dikonfirmasi.');
+        foreach ($reservasiList as $reservasi) {
+            if ($reservasi->status !== 'dikonfirmasi') {
+                abort(403, 'Salah satu reservasi belum dikonfirmasi.');
+            }
         }
         return view('pages.resi_pemesanan', [
             'reservasiList' => $reservasiList,

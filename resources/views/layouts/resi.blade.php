@@ -1,25 +1,22 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>@yield('title')</title>
-   <!-- Flowbite CSS -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@yield('title')</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
+    @stack('styles')
 </head>
-<body class="bg-[#D7E6F4] font-sans text-[#1F3C5A]">
-  @include('components.header-resi')
-
-  <main class="max-w-xl mx-auto py-10">
-    @yield('content')
-  </main>
-
-  @include('components.footer-resi')
-  @stack('scripts')
-
+<body style="background-color:rgb(127, 186, 241);" class="text-white">
+    <!--<div class="flex pt-16">-->
+        @yield('sidebar')
+        <div class="ml-64 min-h-screen">
+            <main class="p-6">
+                @yield('content')
+            </main>
+        </div>
+        @stack('scripts')
 </body>
 </html>

@@ -17,13 +17,13 @@
     </style>
 </head>
 <body class="min-h-screen bg-[#D7E6F4] flex flex-col">
-    @include('components.header-meja3')
+    @include('components.header-dashboard')
 
     <main class="flex-grow">
         @yield('content')
     </main>
 
-    @include('components.footer-meja3')
+    @include('components.footer-dashboard')
     @stack('scripts')
 </body>
 </html>

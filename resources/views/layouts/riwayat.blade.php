@@ -16,7 +16,7 @@
     @yield('content')
   </main>
 
-  @include('components.footer-riwayat')
+  @include('components.footer-dashboard')
   @stack('scripts')
 
 </body>

@@ -17,13 +17,13 @@
     </style>
 </head>
 <body class="min-h-screen bg-[#D7E6F4] flex flex-col">
-    @include('components.header-detail')
+    @include('components.header-dashboard')
 
     <main class="p-10 max-w-5xl mx-auto">
         @yield('content')
     </main>
 
-    @include('components.footer-detail')
+    @include('components.footer-dashboard')
     @stack('scripts')
     <script>
            document.addEventListener('DOMContentLoaded', () => {

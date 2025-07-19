@@ -14,7 +14,7 @@
         <tbody>
             <tr>
                 <td style="width: 35%; text-align: right; padding-right: 15px; font-weight: 600; vertical-align: top;">
-                    Kode Resi:
+                    Kode Reservasi:
                 </td>
                 <td style="vertical-align: top; text-align: left;">{{ $reservasi->kode_reservasi }}</td>
             </tr>
@@ -28,7 +28,7 @@
                 <td style="text-align: right; padding-right: 15px; font-weight: 600; vertical-align: top;">
                     Tipe Meja:
                 </td>
-                <td style="vertical-align: top; text-align: left;"> {{ $reservasi->meja->kategori->nama_kategori ?? '-' }}</td>
+                <td style="vertical-align: top; text-align: left;">{{ $reservasi->meja->kategori->nama_kategori ?? '-' }}</td>
             </tr>
             <tr>
                 <td style="text-align: right; padding-right: 15px; font-weight: 600; vertical-align: top;">
@@ -41,7 +41,7 @@
                     Tanggal:
                 </td>
                 <td style="vertical-align: top; text-align: left;">
-                    {{ \Carbon\Carbon::parse($reservasi->tanggal_reservasi)->locale('id')->translatedFormat('l, d F Y') }}
+                     {{ \Carbon\Carbon::parse($reservasi->tanggal_reservasi)->locale('id')->translatedFormat('l, d F Y') }}
                 </td>
             </tr>
             <tr>
@@ -55,15 +55,14 @@
                     Total Harga:
                 </td>
                 <td style="vertical-align: top; font-weight: 700; text-align: left;">
-                    Rp {{ number_format($reservasi->total_harga, 0, ',', '.') }}
+                     Rp {{ number_format($reservasi->total_harga, 0, ',', '.') }}
                 </td>
             </tr>
         </tbody>
     </table>
 
 </div>
-
+@endforeach
 <p style="text-align: center; margin-top: 40px; font-size: 12px; color: #ccc; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
     &copy; 2025 Forcue. All rights reserved.
 </p>
-@endsection

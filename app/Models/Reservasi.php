@@ -49,6 +49,10 @@ class Reservasi extends Model
     // Relasi ke tabel transaksi pembayaran
     public function transaksi()
     {
-        return $this->hasOne(TransaksiPembayaran::class, 'id_reservasi', 'id_reservasi');
+        return $this->hasOne(TransaksiPembayaran::class, 'id_transaksi', 'id_transaksi');
+    }
+      public function kategori()
+    {
+        return $this->belongsTo(\App\Models\Kategori::class, 'id_kategori', 'id_kategori');
     }
 }
