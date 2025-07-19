@@ -16,7 +16,7 @@
     @yield('content')
   </main>
 
-  @include('components.footer-dashboard')
+  @include('components.footer-reservasi')
   @stack('scripts')
 
 </body>

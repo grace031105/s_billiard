@@ -53,8 +53,6 @@
 </a>
   </nav>
 
-
-  <!-- Right Actions -->
   <div class="flex items-center space-x-4">
     <!-- Keranjang -->
     <button id="openCart" onclick="toggleSchedulePopup()" class="text-white hover:text-gray-300">

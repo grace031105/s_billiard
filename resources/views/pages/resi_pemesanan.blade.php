@@ -10,57 +10,73 @@
         <img src="/images/gambar3.png" alt="Logo" class="h-16">
     </div>
 
-    @php
-        $reservasi = $reservasiList->first();
-        $pelanggan = $reservasi? $reservasi->pelanggan : null;
-        $transaksi = $transaksi ?? null;
-    @endphp
-    <div class="space-y-4 text-sm">
-        @if($pelanggan)
-            <div class="border-b border-white pb-2">
-                <span class="font-bold">Nama Pelanggan:</span> {{ $pelanggan->nama_pengguna }}
-            </div>
-        @else
-            <div class="border-b border-white pb-2">
-                <span class="font-bold">Nama Pelanggan:</span>Tidak ditemukan
-            </div>
-        @endif
+    <div class="space-y-10 text-sm"> {{-- ditambah space-y-10 untuk jarak antar reservasi --}}
         @foreach ($reservasiList as $reservasi)
-        <div style="border-top: 3px solid white; padding-top: 20px; margin-top: 20px;">
+            <div class="space-y-4"> {{-- pembungkus satu reservasi --}}
+                @php
+                    $pelanggan = $reservasi->pelanggan ?? null;
+                @endphp
 
-            <div class="border-b border-white pb-2">
-                <span class="font-bold">Kode Reservasi:</span> {{ $reservasi->kode_reservasi }}
-            </div>
-            <div class="border-b border-white pb-2">
-                <span class="font-bold">Tipe Meja:</span> {{ $reservasi->meja->kategori->nama_kategori ?? '-' }}
-            </div>
-            <div class="border-b border-white pb-2">
-                <span class="font-bold">Nama Meja:</span> {{ $reservasi->meja->nama_meja }} 
-            </div>
-            <div class="border-b border-white pb-2">
-                <span class="font-bold">Tanggal:</span> {{ \Carbon\Carbon::parse($reservasi->tanggal_reservasi)->locale('id')->translatedFormat('l, d F Y') }}
-            </div>
-            <div class="border-b border-white pb-2">
-                <span class="font-bold">Waktu:</span> {{ $reservasi->waktu ? \Carbon\Carbon::createFromFormat('H:i:s', $reservasi->waktu->jam_mulai)->format('H:i') . ' - ' . \Carbon\Carbon::createFromFormat('H:i:s', $reservasi->waktu->jam_selesai)->format('H:i') : '-' }}
-            </div>
-            <div class="border-b border-white pb-2">
-                <span class="font-bold">Total Harga:</span> Rp {{ number_format($reservasi->total_harga, 0, ',', '.') }}
-            </div>
-            @endforeach
+                @if($pelanggan)
+                    <div class="border-b border-white pb-2">
+                        <span class="font-bold">Nama Pelanggan:</span>
+                        <span>{{ $pelanggan->nama_pengguna }}</span>
+                    </div>
+                @else
+                    <div class="border-b border-white pb-2">
+                        <span class="font-bold">Nama Pelanggan:</span>
+                        <span>Tidak ditemukan</span>
+                    </div>
+                @endif
 
-            @if ($transaksi)
-            <div class="border-b border-white pb-2">
-                <span class="font-bold">Metode Pembayaran:</span> {{ $transaksi->metode_pembayaran }}
+                <div class="border-b border-white pb-2">
+                    <span class="font-bold">Kode Reservasi:</span>
+                    <span>{{ $reservasi->kode_reservasi }}</span>
+                </div>
+
+                <div class="border-b border-white pb-2">
+                    <span class="font-bold">Tipe Meja:</span>
+                    <span>{{ $reservasi->meja->kategori->nama_kategori ?? '-' }}</span>
+                </div>
+
+                <div class="border-b border-white pb-2">
+                    <span class="font-bold">Nama Meja:</span>
+                    <span>{{ $reservasi->meja->nama_meja }}</span>
+                </div>
+
+                <div class="border-b border-white pb-2">
+                    <span class="font-bold">Tanggal:</span>
+                    <span>{{ \Carbon\Carbon::parse($reservasi->tanggal_reservasi)->locale('id')->translatedFormat('l, d F Y') }}</span>
+                </div>
+
+                <div class="border-b border-white pb-2">
+                    <span class="font-bold">Waktu:</span>
+                    <span>
+                        {{ $reservasi->waktu ? \Carbon\Carbon::createFromFormat('H:i:s', $reservasi->waktu->jam_mulai)->format('H:i') . ' - ' . \Carbon\Carbon::createFromFormat('H:i:s', $reservasi->waktu->jam_selesai)->format('H:i') : '-' }}
+                    </span>
+                </div>
+
+                <div class="border-b border-white pb-2">
+                    <span class="font-bold">Total Harga:</span>
+                    <span>Rp {{ number_format($reservasi->total_harga, 0, ',', '.') }}</span>
+                </div>
             </div>
-            
+        @endforeach
+
+        @if ($transaksi)
+            <div class="border-b border-white pb-2">
+                <span class="font-bold">Metode Pembayaran:</span>
+                <span>{{ $transaksi->metode_pembayaran }}</span>
+            </div>
+
             <div class="border-b border-white pb-2">
                 <span class="font-bold">Bukti Pembayaran:</span><br>
                 <img src="{{ asset('storage/' . $transaksi->bukti_pembayaran) }}" alt="Bukti Pembayaran" style="max-width: 200px;">
             </div>
-            @else
-                <p>Tidak ada bukti pembayaran.</p>
-            @endif
-        </div>
+        @else
+            <p>Tidak ada bukti pembayaran.</p>
+        @endif
+    </div>
 
     @php
         $firstReservasi = $reservasiList->first();
@@ -77,6 +93,5 @@
             Tidak dapat membuat PDF karena data reservasi tidak ditemukan.
         </p>
     @endif
-
 </div>
 @endsection

@@ -50,22 +50,16 @@
 
       {{-- Info Rekening --}}
       <div class="flex justify-between items-center bg-[#1c2f45] px-4 py-3 rounded-lg text-sm font-medium">
-        <div>No. Rekening: <span class="font-bold text-yellow-400">123456</span></div>
-        <div>Nama: <span class="font-bold text-yellow-400">acejezah</span></div>
+        <div>No. Rekening: <span class="font-bold text-cyan-300">123456</span></div>
+        <div>Nama: <span class="font-bold 	text-cyan-300">acejezah</span></div>
       </div>
 
       {{-- Countdown Timer --}}
       <div class="bg-[#3e4c68] p-4 rounded-lg text-center space-y-2 shadow-inner">
         <p class="text-sm text-gray-300">Selesaikan pembayaran sebelum</p>
-        <div id="countdown" class="text-2xl font-bold text-yellow-300 tracking-wide">00 : 15 : 00</div>
+        <div id="countdown" class="text-2xl font-bold text-cyan-300 tracking-wide">00 : 2 : 00</div>
         <p class="text-sm text-gray-400">Batas Waktu: <span id="deadline-text" class="italic">--</span></p>
       </div>
-
-      {{-- Tombol Selanjutnya --}}
-      <button type="button" class="w-full bg-yellow-400 text-[#1c2f45] font-bold py-2 rounded hover:bg-yellow-300 transition">
-        Selanjutnya
-      </button>
-    </div>
 
     {{-- Upload Bukti --}}
     <div class="flex items-center justify-between bg-gray-400 text-white rounded px-4 py-3">

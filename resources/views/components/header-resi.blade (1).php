@@ -4,7 +4,6 @@
 
 <!-- Navbar -->
 <header class="bg-[#1E293B] text-white py-4 px-6 flex items-center justify-between">
-  <!-- Logo -->
   <div class="flex items-center gap-4">
     <img src="images/gambar3.png" alt="Forcue" class="h-10">
   </div>
@@ -53,7 +52,6 @@
 </a>
   </nav>
 
-  <!-- Right Actions -->
   <div class="flex items-center space-x-4">
     <!-- Keranjang -->
     <button id="openCart" onclick="toggleKeranjang()" class="text-white hover:text-gray-300"
