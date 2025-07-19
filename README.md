@@ -20,15 +20,33 @@ Go to the project directory
 Install dependencies
 
 ```bash
-  npm install
+  composer install
 ```
 
 Start the server
 
 ```bash
-  npm run start
+  php artisan server
 ```
 
+Create Storage symlink
+
+```bash
+  php artisan storage:link
+```
+
+Import the Database
+
+```bash
+  Make sure you have MySQL and phpMyAdmin installed. then:
+    1. open http://localhost/phpmyadmin 
+    2. Create a new database named billiard
+    3. Go to the import tab
+    4. Upload the file billiard.sql (provided in this project)
+    5. Click Go
+
+  The billiard.sql file located in a folder named /database.
+```
 ##  Usage
 
 - Open the homepage in your browser.
